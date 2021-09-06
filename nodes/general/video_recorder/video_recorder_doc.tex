@@ -1,0 +1,528 @@
+% Document type and package imports.
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{charter}
+\usepackage[top = 2cm, bottom = 2cm, left = 1cm, right = 1cm]{geometry}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{tocloft}
+
+% Preanblue.
+\onehalfspacing
+\definecolor{gray}{rgb}{0.4, 0.4, 0.4}
+\definecolor{silver}{rgb}{0.95, 0.95, 0.95}
+\renewcommand{\thesection}{\Roman{section} --}
+\definecolor{darkgreen}{HTML}{1E8C15}
+\cftsetindents{section}{1em}{2.5em}
+\hypersetup {colorlinks=true, linkcolor=blue, urlcolor=blue, pdftitle={VideoRecorder module doc}}
+
+% The start of the article.
+\begin{document}
+	% Change document background to silver color.
+	\pagecolor{silver}
+	% VideoRecorder module description.
+	\huge{\hspace{13cm}\textit{\textbf{\textcolor{darkgreen}{VideoRecorderFx}}}}\large{} \tableofcontents 
+	\newpage
+	% VideoRecorder module definition.
+	\section{Définition}
+	\textcolor{darkgreen}{\textbf{VideoRecorderFx}} est un module conçut pour la gestion des enregistrements 
+	des captures d'écran dans un jeu vidéo.\\
+	\textcolor{red}{\textbf{NB}:} Ce module est de nature indestructible, est compatible à un jeu 2D, 3D et
+	est sauvegardable.
+
+	% VideoRecorder properties definition.
+	\section{Les propriétés disponibles}
+	% Mode property.
+	\textbf{+ \textcolor{red}{int} Mode = \textcolor{blue}{0}:} Contient les différents modes possibles que
+	supporte ce module. Les valeurs possibles sont:
+	\begin{itemize}
+		\item[-> \textbf{\textcolor{gray}{VideoRecorderFx.Model.RECORDER} ou \textcolor{blue}{0}}:] Mode
+		diasporama.
+		\item[-> \textbf{\textcolor{gray}{VideoRecorderFx.Model.READER} ou \textcolor{blue}{1}}:] Mode
+		lecture de séquence.\\
+	\end{itemize}
+	% BufferOptimization property.
+	\textbf{+ \textcolor{red}{bool} BufferOptimization = \textcolor{red}{false}:} Souhaitez-vous supprimer 
+	les données de toutes les séquences précédements lues avant la lecture d'une nouvelle séquence ?
+	N'utilisez cette propriété que si le module est utilisé en tant que lecteur de séquence(s).\\\\
+	% Sync property.
+	\textbf{+ \textcolor{red}{bool} Sync = \textcolor{red}{false}:} La lecture des séquences s'éffectuera
+	t-elle de façon synchrône ? N'utilisez cette propriété que si le module est utilisé comme un lecteur.\\
+	\\
+	% Count property.
+	\textbf{+ \textcolor{red}{int} Count = \textcolor{blue}{1}:} Combien de fois la liste des séquences sera 
+	lue ? N'utilisez cette propriété que si le module est utilisé comme un lecteur.\\\\
+	% Direction property.
+	\textbf{+ \textcolor{red}{int} \hypertarget{direction}{Direction} = \textcolor{blue}{0}:} Contient les 
+	différents sens possibles de lecture ou d'écriture que supporte ce module. Les valeurs possibles sont:
+	\begin{itemize}
+		\item[-> \textbf{\textcolor{gray}{MegaAssets.Orientation.NORMAL} ou \textcolor{blue}{0}}:] Sens
+		normal de lecture ou d'enregistrement des \\séquences.
+		\item[-> \textbf{\textcolor{gray}{MegaAssets.Orientation.REVERSED} ou \textcolor{blue}{1}}:] Sens
+		inverse de lecture ou d'enregistrement des \\séquences.
+		\item[-> \textbf{\textcolor{gray}{MegaAssets.Orientation.RANDOM} ou \textcolor{blue}{2}}:] Choix
+		aléatoire de lecture ou d'enregistrement.\\
+	\end{itemize}
+	% Action property.
+	\textbf{+ \textcolor{red}{int} Action = \textcolor{blue}{0}:} Contient les différentes actions possibles
+	qu'on peut éffectuées sur les séquences d'images. Les valeurs possibles sont:
+	\begin{itemize}
+		\item[-> \textbf{\textcolor{gray}{MegaAssets.MediaState.NONE} ou \textcolor{blue}{0}}:] Aucune
+		action ne sera éffectuée.
+		\item[-> \textbf{\textcolor{gray}{MegaAssets.MediaState.PLAY} ou \textcolor{blue}{1}}:] Joue toutes
+		les séquences disponibles sur le module.
+		\item[-> \textbf{\textcolor{gray}{MegaAssets.MediaState.PAUSE} ou \textcolor{blue}{2}}:] Suspend
+		toutes les séquences en cours de lecture.
+		\item[-> \textbf{\textcolor{gray}{MegaAssets.MediaState.STOP} ou \textcolor{blue}{3}}:] Stop toutes
+		les séquences en cours de lecture.\\
+	\end{itemize}
+	% Sequences property.
+	\textbf{+ \textcolor{darkgreen}{Array} Sequences}: Tableau de dictionnaires contenant les différentes
+	configurations de chaque \\séquence d'images prises en charge par le développeur. Les clés que
+	supportent les dictionnaires sont:
+	\begin{itemize}
+		\item[>> \textbf{\textcolor{red}{int} path = \textcolor{blue}{0}}:] Contient les différents chemins 
+		que prend en charge ce module. Ces chemins \\représentent les endroits possibles où l'on peut déposé 
+		le(s) séquence(s) d'images du jeu. Les valeurs possibles sont:
+		\begin{itemize}
+			\item[-> \textbf{\textcolor{gray}{MegaAssets.Path.GAME\_LOCATION} ou \textcolor{blue}{0}}:] 
+			Cible le dossier racine du jeu.
+			\item[-> \textbf{\textcolor{gray}{MegaAssets.Path.OS\_ROOT} ou \textcolor{blue}{1}}:] Cible le 
+			dossier racine du système d'exploitation installé.
+			\item[-> \textbf{\textcolor{gray}{MegaAssets.Path.USER\_DATA} ou \textcolor{blue}{2}}:] Cible le 
+			dossier racine des données de l'utilisateur.
+			\item[-> \textbf{\textcolor{gray}{MegaAssets.Path.USER\_ROOT} ou \textcolor{blue}{3}}:] Cible le 
+			dossier racine de l'utilisateur.
+			\item[-> \textbf{\textcolor{gray}{MegaAssets.Path.USER\_DESKTOP} ou \textcolor{blue}{4}}:] Cible 
+			le bureau du système d'exploitation.
+			\item[-> \textbf{\textcolor{gray}{MegaAssets.Path.USER\_PICTURES} ou \textcolor{blue}{5}}:] 
+			Cible le dossier \textcolor{gray}{\textit{Images}} du système d'exploitation.
+			\item[-> \textbf{\textcolor{gray}{MegaAssets.Path.USER\_MUSIC} ou \textcolor{blue}{6}}:] Cible 
+			le dossier \textcolor{gray}{\textit{Musiques}} du système d'exploitation.
+			\item[-> \textbf{\textcolor{gray}{MegaAssets.Path.USER\_VIDEOS} ou \textcolor{blue}{7}}:] Cible 
+			le dossier \textcolor{gray}{\textit{Vidéos}} du système d'exploitation.
+			\item[-> \textbf{\textcolor{gray}{MegaAssets.Path.USER\_DOCUMENTS} ou \textcolor{blue}{8}}:] 
+			Cible le dossier \textcolor{gray}{\textit{Documents}} du système \\d'exploitation.
+			\item[-> \textbf{\textcolor{gray}{MegaAssets.Path.USER\_DOWNLOADS} ou \textcolor{blue}{9}}:] 
+			Cible le dossier \textcolor{gray}{\textit{Téléchargements}} du système \\d'exploitation.\\
+		\end{itemize}
+		\item[>> \textbf{\textcolor{darkgreen}{String} source}:] Contient le chemin pointant vers un fichier 
+		ou un dossier se trouvant sur le disque dure. Evitez les répétitions, car cela n'est pas tolérées.
+		Notez que si vous cryptez le(s) séquence(s), vous devez préciser le(s) fichier(s) qui contiendra/ont 
+		les différentes données enregistrez au cours des séances de capture d'écran. Dans le cas contraire,
+		on considéra que la source référée pointe toujours vers un dossier. L'utilisation de cette clé est
+		obligatoire.\\
+		\item[>> \textbf{\textcolor{red}{int} timeout = \textcolor{blue}{0.0}}:] Quel est le temps mort
+		avant le démarrage de la séquence en question ?\\
+		\item[>> \textbf{\textcolor{darkgreen}{Vector2} resolution = \textcolor{darkgreen}{Vector2}
+		(\textcolor{blue}{-1}, \textcolor{blue}{-1})}:] Contrôle la taille des différentes images de la
+		séquence en question.\\
+		\item[>> \textbf{\textcolor{red}{int} quality = \textcolor{blue}{2}}:] Contrôle la qualité des 
+		différentes images de la séquence en question. Les valeurs possibles sont celles définient au sein
+		de la classe \href{https://docs.godotengine.org/en/stable/classes/class_image.html}
+		{\textit{\textcolor{darkgreen}{Image}}} de Godot.\\
+		\item[>> \textbf{\textcolor{red}{bool} encrypted = \textcolor{red}{false}}:] Devons nous crypter la
+		séquence ? N'utilisez cette option que si vous \\voulez éffectuer un enregistrement.\\
+		\item[>> \textbf{\textcolor{red}{bool} audio = \textcolor{red}{false}}:] Devons nous enregister tous 
+		les sons à notre portés. Dans ce cas, la séquence sera enregistrer avec son propre fichier audio.
+		Assurez-vous de la présence du module \textit{\textcolor{darkgreen}{\\AudioRecorderFx}} avant 
+		d'activer cette option. Notez que si le module est utilisé comme un lecteur, cette option aura pour
+		éffet d'activer et de désactiver tout simplement le son en cours de lecture.\\
+		\item[>> \textbf{\textcolor{red}{int | float} fps = 60}:] Combien d'images seront enregistrées ou 
+		lue en une second ?\\
+	 	\item[>> \textbf{\textcolor{red}{int} repeat = 1}:] Combien de fois la même séquence sera lue ?
+	 	N'utilisez cette clé que si le module utilisé comme un lecteur.\\
+		\item[>> \textbf{\textcolor{red}{float} duration = \textcolor{blue}{0.0}}:] Quelle est la durée
+		de l'enregistrement ou de la lecture de la séquence ?\\
+		\newpage \item[>> \textbf{\textcolor{red}{int} save = \textcolor{blue}{0}}:] Souhaitez-vous définir
+		un mode de sauvegarde au cours de l'enregistrement d'une séquence ? N'utilisez cette propriété que
+		si le module est employé comme un enregistreur. Les valeurs possibles sont:
+		\begin{itemize}
+			\item[-> \textbf{\textcolor{gray}{VideoRecorderFx.SaveMode.NONE} ou \textcolor{blue}{0}}:]
+			Aucune sauvegarde ne sera éffectuer (ni en \\mémoire, ni dans un fichier).
+			\item[-> \textbf{\textcolor{gray}{VideoRecorderFx.SaveMode.MEMORY} ou \textcolor{blue}{1}}:] La 
+			séquence sera sauvegarder en mémoire \\uniquement.
+			\item[-> \textbf{\textcolor{gray}{VideoRecorderFx.SaveMode.FILE} ou \textcolor{blue}{2}}:] La 
+			séquence sera sauvegarder dans un fichier ou \\ensemble de fichiers.\\
+		\end{itemize}
+		\item[>> \textbf{\textcolor{red}{int} load = \textcolor{blue}{0}}:] Souhaitez-vous définir un mode
+		de sauvegarde au cours de l'enregistrement d'une séquence ? N'utilisez cette propriété que si le
+		module est employé comme un lecteur. Les valeurs possibles sont:
+		\begin{itemize}
+			\item[-> \textbf{\textcolor{gray}{VideoRecorderFx.SaveMode.NONE} ou \textcolor{blue}{0}}:]
+			Aucun chargement ne sera éffectuer (ni dans la mémoire, ni à partir d'un fichier).
+			\item[-> \textbf{\textcolor{gray}{VideoRecorderFx.SaveMode.MEMORY} ou \textcolor{blue}{1}}:] La 
+			séquence sera charger en mémoire avant d'être lue.
+			\item[-> \textbf{\textcolor{gray}{VideoRecorderFx.SaveMode.FILE} ou \textcolor{blue}{2}}:] La 
+			séquence sera directement lue à partir d'un \\fichier ou ensemble de fichiers.\\
+		\end{itemize}
+		\item[>> \textbf{\textcolor{darkgreen}{Array | Dictionary} started}:] Signal déclenché à chaque fois 
+		qu'on démarre immédiatement la \\séquence. Cette clé exécute les différentes actions données à son 
+		déclenchement. Pour soumettre les actions à exécutées référez vous à la méthode utilisée au niveau
+		de la clé \textit{\textcolor{gray}{actions}} de la propriété \textit{\textcolor{gray}
+		{EventsBindings}} dans les bases du framework.\\
+		\item[>> \textbf{\textcolor{darkgreen}{Array | Dictionary} finished}:] Signal déclenché à chaque 
+		fois que la séquence a terminée son \\exécution. Cette clé exécute les différentes actions données à 
+		son déclenchement. Pour soumettre les actions à exécutées référez vous à la méthode utilisée au
+		niveau de la clé \textit{\textcolor{gray}{actions}} de la propriété \textit{\textcolor{gray}
+		{EventsBindings}} dans les bases du framework.\\
+		\item[>> \textbf{\textcolor{darkgreen}{Array | Dictionary} playing}:] Signal déclenché pendant que
+		la séquence est en cours d'exécution. Cette clé exécute les différentes actions données à son
+		déclenchement. Pour soumettre les actions à exécutées référez vous à la méthode utilisée au niveau
+		de la clé \textit{\textcolor{gray}{actions}} de la propriété \textit{\textcolor{gray}
+		{\\EventsBindings}} dans les bases du framework.\\
+	\end{itemize}
+	\textcolor{red}{\textbf{NB}:} Gardez à l'esprit que ce module se sert d'un curseur pour sélectionner les
+	séquences définient par le développeur. Ce curseur n'est rien d'autre que l'index de position de chaque 
+	configuration de séquence. Par défaut, sa valeur est \textbf{\textcolor{blue}{0}} lorsqu'il y a une ou
+	plusieurs séquence(s) configurée(s) sur le module et \textbf{\textcolor{blue}{-1}} si aucune séquence 
+	n'est disponible sur ce dernier.
+
+	% VideoRecorder methods definition.
+	\section{Les méthodes disponibles}
+	% ImageTexture get_current_frame () method description.
+	\begin{description}
+		\item [+ \textcolor{darkgreen}{ImageTexture} \textcolor{blue}{get\_current\_frame} (id = null):]
+		Renvoie l'image de la frame actuelle de la \\séquence en cours d'enregistrement ou de lecture. Si
+		aucun identifiant n'a été référé, la valeur du curseur sera utilisée pour éffectuer le traitement
+		demandé.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{int} | \textcolor{darkgreen}{String} id}:] Quel est
+			l'identifiant de la séquence à ciblée ?\\
+		\end{itemize}
+	\end{description}
+	% Int get_current_frame_index () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} \textcolor{blue}{get\_current\_frame\_index} (id = null):] Renvoie la
+		position de la frame actuelle de la \\séquence en cours d'enregistrement ou de lecture. Si aucun
+		identifiant n'a été référé, la valeur du curseur sera utiliser pour éffectuer le traitement demandé.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{int} | \textcolor{darkgreen}{String} id}:] Quel est
+			l'identifiant de la séquence à ciblée ?\\
+		\end{itemize}
+	\end{description}
+	% Int get_sequence_progress () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} \textcolor{blue}{get\_sequence\_progress} (id = null):] Renvoie la
+		progression actuelle d'une séquence (lecture ou enregistrement). Si aucun identifiant n'a été
+		référé, celle de l'ensemble des séquences sera renvoyer. La valeur de la progression est dans 
+		l'intervalle [\textcolor{blue}{0}; \textcolor{blue}{100}].
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{int} | \textcolor{darkgreen}{String} id}:] Quel est
+			l'identifiant de la séquence à ciblée ?\\
+		\end{itemize}
+	\end{description}
+	% Float get_normalized_sequence () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} \textcolor{blue}{get\_normalized\_sequence} (id = null):] Renvoie la
+		version normalisée de la progression \\actuelle d'une séquence (lecture ou enregistrement). Si aucun 
+		identifiant n'a été référé, celle de l'ensemble des séquences sera renvoyer. La valeur de la
+		progression est dans l'intervalle [\textcolor{blue}{0.0}; \textcolor{blue}{1.0}].
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{int} | \textcolor{darkgreen}{String} id}:] Quel est
+			l'identifiant de la séquence à ciblée ?\\
+		\end{itemize}
+	\end{description}
+	% Void play () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{play} (id = null, config = \{\}, interval = 0.0):]
+		Exécute les configurations d'une ou de \\plusieurs séquence(s). Si aucun identifiant n'a été référé,
+		la valeur du curseur sera utiliser pour éffectuer le traitement demandé.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{int} | \textcolor{darkgreen}{PoolIntArray | String |
+			PoolStringArray} id}:] Quel(s) est/sont le(s) identifiant(s) de(s) séquence(s) à enregistrée(s) 
+			ou à lire ?
+			\item [>> \textbf{\textcolor{darkgreen}{Dictionary | Array} config}:] Voulez-vous changer la 
+			valeur de certaines clés de(s) sequence(s) avant son/leur exécution ? Si vous donnez un tableau, 
+			alors il ne devra que contenir des \\dictionaires.
+			\item [>> \textbf{\textcolor{red}{float} interval}:] Quel est le temps mort avant l'exécution de 
+			chaque séquence ?\\
+		\end{itemize}
+	\end{description}
+	% Void pause () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{pause} (id = null, interval = 0.0):] Suspend
+		l'exécution d'une ou de plusieurs séquence(s). Si aucun identifiant n'a été référé, la valeur du
+		curseur sera utiliser pour éffectuer le traitement demandé.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{int} | \textcolor{darkgreen}{PoolIntArray | String |
+			PoolStringArray} id}:] Quel(s) est/sont le(s) identifiant(s) de(s) séquence(s) à suspendre ?
+			\item [>> \textbf{\textcolor{red}{float} interval}:] Quel est le temps mort avant la suspension 
+			de chaque séquence ?\\
+		\end{itemize}
+	\end{description}
+	% Void stop () method description.
+	\newpage \begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{stop} (id = null, interval = 0.0):] Arrète
+		l'exécution d'une ou de plusieurs séquence(s). Si aucun identifiant n'a été référé, la valeur du
+		curseur sera utiliser pour cibler la séquence à arrètée.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{int} | \textcolor{darkgreen}{PoolIntArray | String |
+			PoolStringArray} id}:] Quel(s) est/sont le(s) identifiant(s) de(s) séquence(s) à arrètée(s) ?
+			\item [>> \textbf{\textcolor{red}{float} interval}:] Quel est le temps mort avant l'arrèt de 
+			chaque séquence ?\\
+		\end{itemize}
+	\end{description}
+	% Float get_eleapsed_time () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{float} \textcolor{blue}{get\_eleapsed\_time} (id = null):] Retourne le 
+		temps écoulé depuis l'enregistrement ou la lecture d'une séquence. Si aucun identifiant n'a été 
+		précisé, celui de l'ensemble des séquences sera renvoyer.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{int} | \textcolor{darkgreen}{String} id}:] Quel est
+			l'identifiant de l'animation à ciblée ?\\
+		\end{itemize}
+	\end{description}
+	% Int get_state () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} \textcolor{blue}{get\_state} (id = null):] Renvoie l'état 
+		d'utilisation d'une séquence donnée. Si aucun identifiant n'a été précisé, le traitement sera 
+		éffectué sur l'ensemble des séquences du module. Les valeurs possibles de retour sont:
+		\begin{itemize}
+			\item[-> \textbf{\textcolor{gray}{MegaAssets.MediaState.NONE} ou \textcolor{blue}{0}}:] Aucun
+			traitement ou séquence arrètée.
+			\item[-> \textbf{\textcolor{gray}{MegaAssets.MediaState.PLAY} ou \textcolor{blue}{1}}:] Séquence 
+			en cours d'exécution.
+			\item[-> \textbf{\textcolor{gray}{MegaAssets.MediaState.PAUSE} ou \textcolor{blue}{2}}:]
+			Séquence suspendu.
+			\item[-> \textbf{\textcolor{gray}{MegaAssets.MediaState.LOOP} ou \textcolor{blue}{4}}:] Séquence 
+			en exécution infinie.
+		\end{itemize}
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{int} | \textcolor{darkgreen}{String} id}:] Quel est
+			l'identifiant de la séquence à ciblée ?\\
+		\end{itemize}
+	\end{description}
+	% Int get_current_repeatition () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} \textcolor{blue}{get\_current\_repeatition} (id = null):] Renvoie le 
+		nombre actuelle de répétitions éffectuées \\auprès d'une séquence donnée. Si aucun identifiant n'a 
+		été renseigné, celui de l'ensemble des séquences sera renvoyer.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{int} id}:] Quel est l'identifiant de la séquence à ciblée ?\\
+		\end{itemize}
+	\end{description}
+	% Int get_cursor () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} \textcolor{blue}{get\_cursor} ():] Renvoie la valeur actuelle du 
+		curseur du module.\\
+	\end{description}
+	% Void set_cursor () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{set\_cursor} (new\_value):] Change la valeur 
+		actuelle du curseur du module.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{int} new\_value}:] Quel est la nouvelle valeur du curseur ?\\
+		\end{itemize}
+	\end{description}
+	% Int | PoolIntArray get_active_seq_index () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} | \textcolor{darkgreen}{PoolIntArray} \textcolor{blue}
+		{get\_active\_seq\_index} ():] Renvoie le(s) position(s) de la ou des séquence(s) en cours 
+		d'exécution.\\
+	\end{description}
+	% Int get_prev_seq_index () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} \textcolor{blue}{get\_prev\_seq\_index} ():] Renvoie la position de 
+		la séquence précédement exécutée ou \\générée.\\
+	\end{description}
+	% Int get_next_seq_index () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} \textcolor{blue}{get\_next\_seq\_index} ():] Renvoie la position du
+		future séquence à exécutée. N'appelée cette méthode que si la valeur du champ
+		\textit{\hyperlink{direction}{Direction}} est sur \textit{\textcolor{gray}{RANDOM}}.\\
+	\end{description}
+	% Int get_big_seq_index () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} \textcolor{blue}{get\_big\_seq\_index} ():] Renvoie la position de
+		la séquence ayant la plus grande durée \\parmit celles définient par le développeur.\\
+	\end{description}
+	% Int get_small_seq_index () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} \textcolor{blue}{get\_small\_seq\_index} ():] Renvoie la position de 
+		la séquence ayant la plus petite durée \\parmit celles définient par le développeur.\\
+	\end{description}
+	% Float get_total_duration () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{float} \textcolor{blue}{get\_total\_duration} ():] Renvoie le temps total
+		des séquences disponibles sur le module (sans les délai).\\
+	\end{description}
+	% Float get_total_timeout () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{float} \textcolor{blue}{get\_total\_timeout} ():] Renvoie la somme des 
+		délai définient sur les séquences du module.\\
+	\end{description}
+	% Float get_total_time () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{float} \textcolor{blue}{get\_total\_time} ():] Renvoie le temps total
+		des séquences disponibles sur le module (avec les délai).\\
+	\end{description}
+	% Void save_sequences () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{save\_sequences} (id = null):] Sauvegarde dans un 
+		fichier ou ensemble de fichiers, une ou plusieurs séquence(s) déjà enregistrée(s) en mémoire. 
+		N'utilisez cette méthode que si le module est utilisé comme en enregistreur.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{int} | \textcolor{darkgreen}{String | String | 
+			PoolStringArray} id}:] Quel est l'identifiant de(s) séquence(s) à ciblée(s) ?\\
+		\end{itemize}
+	\end{description}
+	% Void load_sequences () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{load\_sequences} (id = null):] Charge une ou
+		plusieurs séquence(s) déjà enregistrée(s) sur le disque dure. N'utilisez cette méthode que si le
+		module est utilisé comme en lecteur.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{int} | \textcolor{darkgreen}{String | String | 
+			PoolStringArray} id}:] Quel est l'identifiant de(s) séquence(s) à ciblée(s) ?\\
+		\end{itemize}
+	\end{description}
+	% Dictionary get_sequences_data () method description.
+	\begin{description}
+		\item [+ \textcolor{darkgreen}{Dictionary} \textcolor{blue}{get\_sequences\_data} (json = false):] 
+		Renvoie toutes les données sur les séquences disponibles au sein du module.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{bool} json}:] Voulez-vous renvoyer les données au format json 
+			?
+		\end{itemize}
+	\end{description}
+
+	% VideoRecorder signals definition.
+	\section{Les événements disponibles}
+	% sequence_changed event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{sequence\_changed} (data):] Signal déclenché lorsque la séquence en cours 
+		d'enregistrement ou de lecture a changée. Notez que cet événement ne s'appel que lorsque le mode 
+		de lecture des séquences du module est synchrône. Il renvoie un dictionaire contenant les clés 
+		suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{int} preview}:] Contient la position de la séquence 
+			précédement exécutée.
+			\item [>> \textbf{\textcolor{red}{int} current}:] Contient l'index de position de la séquence
+			actuellement en cours d'exécution.\\
+		\end{itemize}
+	\end{description}
+	% sequence_started event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{sequence\_started} (data):] Signal déclenché à chaque fois qu'on démarre 
+		immédiatement une séquence. Cet événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{int} index}:] Contient la position de la séquence en question.
+			\\
+		\end{itemize}
+	\end{description}
+	% sequence_finished event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{sequence\_finished} (data):] Signal déclenché à chaque fois qu'une 
+		séquence a terminée son \\exécution (enregistrement ou lecture). Cet événement renvoie un 
+		dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{int} index}:] Contient la position de la séquence en question.
+			\\
+		\end{itemize}
+	\end{description}
+	% sequence_running event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{sequence\_running} (data):] Signal déclenché pendant qu'une séquence est 
+		en cours \\d'enregistrement ou de lecture. Cet événement renvoie un dictionaire contenant les clés 
+		\\suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{float} time}:] Contient le temps écoulé depuis l'exécution de
+			la séquence.
+			\item [>> \textbf{\textcolor{red}{int} progress}:] Contient la progression actuelle de la
+			séquence.
+			\item [>> \textbf{\textcolor{red}{float} normalized}:] Contient la progression normalisée de la
+			séquence.
+			\item [>> \textbf{\textcolor{red}{int} count}:] Contient le nombre total de répétitions 
+			éffectuées depuis la première exécution. Cependant, si la séquence est exécutée à l'infinie, 
+			vous aurez une valeur négative.
+			\item [>> \textbf{\textcolor{red}{int} index}:] Contient la position de la séquence en question.
+			\item [>> \textbf{\textcolor{darkgreen}{ImageTexture} frame}:] Contient la frame actuelle de la.
+			séquence.
+			\item [>> \textbf{\textcolor{red}{int} frame\_index}:] Contient la position de la frame de la
+			séquence.\\
+		\end{itemize}
+	\end{description}
+	% list_started event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{list\_started} ():] Signal déclenché à chaque fois qu'une ou plusieurs 
+		séquence(s) sont en cours de traitement.
+	\end{description}
+	% list_finished event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{list\_finished} ():] Signal déclenché à chaque fois qu'aucune séquence 
+		n'est en cours de \\traitement.
+	\end{description}
+	% list_running event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{list\_running} (data):] Signal déclenché pendant qu'une ou plusieurs 
+		séquence(s) sont en cours de traitement. Cet événement renvoie un dictionaire contenant les clés 
+		suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{float} time}:] Contient le temps écoulé depuis l'exécution de
+			l'ensemble des séquences du module.
+			\item [>> \textbf{\textcolor{red}{int} progress}:] Contient la progression actuelle de 
+			l'ensemble des séquences du module.
+			\item [>> \textbf{\textcolor{red}{float} normalized}:] Contient la progression normalisée de 
+			l'ensemble des séquences du module.
+			\item [>> \textbf{\textcolor{red}{int} count}:] Contient le nombre total de répétitions 
+			éffectuées depuis la première exécution. \\Cependant, si la liste des séquences est exécutée à 
+			l'infinie, vous aurez une valeur négative.\\
+		\end{itemize}
+	\end{description}
+	% timeout event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{timeout} (data):] Signal déclenché à chaque fois qu'un temps mort est
+		requis avant exécuter une séquence. Cet événement renvoie un dictionaire contenant les clés
+		suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{int} preview}:] Contient la position de la séquence
+			précédente.
+			\item [>> \textbf{\textcolor{red}{int} current}:] Contient la position de la séquence future.\\
+		\end{itemize}
+	\end{description}
+	% sequence_loading event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{sequence\_loading} (data):] Signal déclenché pendant qu'une séquence est 
+		en cours de \\chargement. Cet événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{int} index}:] Contient la position de la séquence en cours de
+			chargement.
+			\item [>> \textbf{\textcolor{red}{bool} is\_over}:] Est-ce que toutes les données de la séquence
+			ont-elles été complètement \\chargées ?
+			\item [>> \textbf{\textcolor{red}{int} progress}:] Contient le nombre total actuel de donnée(s)
+			chargée(s) en mémoire.\\
+		\end{itemize}
+	\end{description}
+	% sequence_saving event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{sequence\_saving} (data):] Signal déclenché pendant qu'une séquence est 
+		en cours de sauvegarde. Cet événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{int} index}:] Contient la position de la séquence en question.
+			\item [>> \textbf{\textcolor{red}{int} progress}:] Contient la progression actuelle en
+			pourcentage de la sauvegarde.\\
+		\end{itemize}
+	\end{description}
+	% sequence_error () signal description.
+	\begin{description}
+		\item [+ \textcolor{blue}{sequence\_error} (index):] Signal déclenché lorsque la séquence à chargée
+		n'est pas définit ou que son chargement à échoué.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{int} index}:] Contient la position de la séquence endommagée.
+			\\
+		\end{itemize}
+	\end{description}
+	% sequence_corrupted () signal description.
+	\begin{description}
+		\item [+ \textcolor{blue}{sequence\_corrupted} (index):] Signal déclenché lorsque la séquence à
+		chargée a été corromput de l'extérieur.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{int} index}:] Contient la position de la séquence corromput.
+		\end{itemize}
+	\end{description}
+\end{document}

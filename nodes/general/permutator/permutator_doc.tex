@@ -1,0 +1,158 @@
+% Document type and package imports.
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{charter}
+\usepackage[top = 2cm, bottom = 2cm, left = 1cm, right = 1cm]{geometry}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{tocloft}
+
+% Preanblue.
+\onehalfspacing
+\definecolor{gray}{rgb}{0.4, 0.4, 0.4}
+\definecolor{silver}{rgb}{0.95, 0.95, 0.95}
+\renewcommand{\thesection}{\Roman{section} --}
+\definecolor{darkgreen}{HTML}{1E8C15}
+\cftsetindents{section}{1em}{2.5em}
+\hypersetup {colorlinks=true, linkcolor=blue, urlcolor=blue, pdftitle={Permutator module doc}}
+
+% The start of the article.
+\begin{document}
+	% Change document background to silver color.
+	\pagecolor{silver}
+	% Permutator module description.
+	\huge{\hspace{14cm}\textit{\textbf{\textcolor{darkgreen}{PermutatorFx}}}}\large{} \tableofcontents 
+	\newpage
+	% Permutator module definition.
+	\section{Définition}
+	\textcolor{darkgreen}{\textbf{PermutatorFx}} est un module conçut pour permuter un noeud par un autre. 
+	La permutation peut se faire en fonction de certains critères.\\
+	\textcolor{red}{\textbf{NB}:} Ce module est compatible à un jeu 2D, 3D et est sauvegardable.
+
+	% Permutator properties definition.
+	\section{Les propriétés disponibles}
+	% Target property.
+	\textbf{+ \textcolor{darkgreen}{NodePath} \hypertarget{target}{Target}:} Contient l'instance d'un noeud 
+	de type \href{https://docs.godotengine.org/en/stable/classes/class_spatial.html}
+	{\textit{\textcolor{darkgreen}{Spatial}}} ou
+	\href{https://docs.godotengine.org/en/stable/classes/class_node2d.html}
+	{\textit{\textcolor{darkgreen}{Node2D}}}.\\\\
+	% Domain property.
+	\textbf{+ \textcolor{darkgreen}{NodePath} Domain:} Contient l'instance d'un noeud de type
+	\href{https://docs.godotengine.org/en/stable/classes/class_area.html}
+	{\textit{\textcolor{darkgreen}{Area}}} ou
+	\href{https://docs.godotengine.org/en/stable/classes/class_area2d.html}
+	{\textit{\textcolor{darkgreen}{Area2D}}}. Notez que si la cible est un objet appartenent à un plan,
+	alors vous devriez choisir un domaine du plan. IDEM pour l'objet dans l'espace.\\\\
+	% PartialDestruction property.
+	\textbf{+ \textcolor{red}{bool} PartialDestruction = \textcolor{red}{false}:} Doit-on détruire la cible 
+	par la méthode \textcolor{blue}{\textit{queue\_free ()}} ou par la propriété \textcolor{gray}
+	{\textit{visible}}.\\\\
+	% Solidity property.
+	\textbf{+ \textcolor{red}{float} Solidity = \textcolor{blue}{0.0}:} Contient la solidité à appliquée à
+	la cible avant sa permutation. La valeur de cette propriété est dans l'intervalle [\textcolor{blue}
+	{0.0}, \textcolor{blue}{100.0}]. C'est aussi son degré de résistance.\\\\
+	% Subtitutes property.
+	\textbf{+ \textcolor{darkgreen}{Array} Subtitutes:} Tableau de dictionnaires ou de chaînes contenant 
+	toutes les différentes \\configurations sur chaque descendant prise en charge par le développeur. Cette 
+	propriété renferme tous les objets qui devront remplacer la cible de ce module. Les dictionnaires issus 
+	de ce tableau supportent les clés suivantes:
+	\begin{itemize}
+		\item[>> \textbf{\textcolor{darkgreen}{String} path}:] Quel est le chemin pointant vers le 
+		remplaçant de la dite cible ? L'utilisation de cette clé est obligatoire.\\
+		\item[>> \textbf{\textcolor{darkgreen}{Vector3 | Vector2 | NodePath} position}:] A quelle position 
+		sera importer le remplaçant de la cible du module ? Si vous donnez le chemin d'un noeud de la scène, 
+		veillez à ce que l'objet soit (dans le plan si la cible donnée dans le champ 
+		\textit{\hyperlink{target}{Target}} est un noeud de type
+		\href{https://docs.godotengine.org/en/stable/classes/class_node2d.html}
+		{\textit{\textcolor{darkgreen}{Node2D}}}, dans l'espace \\sinon). 
+		Notez que la non utilisation de cette clé provoquera une importation qui ciblera la position 
+		qu'avait son pré-décésseur avant sa destruction.\\
+		\item[>> \textbf{\textcolor{red}{bool} rotated = \textcolor{red}{true}}:] Doit-on changer la 
+		rotation du remplaçant à celle de son pré-décésseur ?\\
+		\item[>> \textbf{\textcolor{red}{bool} background = \textcolor{red}{true}}:] Contrôle le moyen 
+		utilisé pour charger un objet. A \textit{\textcolor{gray}{true}}, le chargement de l'objet 
+		s'éffectue en arrière plan sans bloqué le jeu.\\
+		\item[>> \textbf{\textcolor{red}{bool} import = \textcolor{red}{true}}:] Doit-on importer 
+		automatiquement le remplaçant ? Cette propriété n'est \\solicité qu'après le chargement des données
+		du gestionnaire des données du jeu.\\
+		\item[>> \textbf{\textcolor{red}{bool} physic = \textcolor{red}{false}}:] Doit-on projeté le 
+		remplaçant physiquement en fonction de puissance et de la direction de frappe ?\\
+	\end{itemize}
+	% Triggers property.
+	\textbf{+ \textcolor{darkgreen}{Array} Triggers:} Tableau de dictionnaires contenant toutes les 
+	différentes configurations sur chaque objet prise en charge par le développeur. Cette propriété renferme 
+	tous les objets qui devront percuter la cible de ce module. Les dictionnaires issus de ce tableau 
+	supportent les clés suivantes:\\
+	\begin{itemize}
+		\item[>> \textbf{\textcolor{darkgreen}{String} id}:] Quel est l'identifiant du noeud à prendre en 
+		charge ? L'utilisation de cette clé est \\obligatoire.\\
+		\item[>> \textbf{\textcolor{red}{int} search = \textcolor{blue}{3}}:] Quel moyen utilisé pour 
+		chercher le noeud à prendre en charge ? Notez que \\l'identifiant donné est pisté à par un programme 
+		de recherche. Les valeurs possibles sont:
+		\begin{itemize}
+			\item [-> \textbf{\textcolor{gray}{MegaAssets.NodeProperty.NAME} ou \textcolor{blue}{0}}:] 
+			Trouve un noeud en utilisant son nom.
+			\item [-> \textbf{\textcolor{gray}{MegaAssets.NodeProperty.GROUP} ou \textcolor{blue}{1}}:] 
+			Trouve un noeud en utilisant le nom de son groupe.
+			\item [-> \textbf{\textcolor{gray}{MegaAssets.NodeProerty.TYPE} ou \textcolor{blue}{2}}:] Trouve 
+			un noeud en utilisant le nom de sa classe.
+			\item [-> \textbf{\textcolor{gray}{MegaAssets.NodeProerty.ANY} ou \textcolor{blue}{3}}:] Trouve 
+			un noeud en utilisant l'un des trois moyens cités plus haut.\\
+		\end{itemize}
+		\item[>> \textbf{\textcolor{red}{bool} ignored = \textcolor{red}{false}}:] Doit-on ignoré
+		l'identifiant précisé ? Dans ce cas, l'objet portant l'identifiant spécifié sera ignoré à sa 
+		détection.\\
+		\item[>> \textbf{\textcolor{red}{float} power = \textcolor{blue}{0.0}}:] Contient la puissance de 
+		frappe de l'objet qui percutera la cible qu'écoute le module. Notez que plus la force de percution
+		est forte plus vite la cible sera remplacée par ces descendants.
+	\end{itemize}
+
+	% Permutator methods definition.
+	\section{Les méthodes disponibles}
+	% Void is_permute () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{is\_permute} ():] La cible actuelle a t-elle été 
+		déjà permutée ?
+	\end{description}
+
+	% Permutator signals definition.
+	\section{Les événements disponibles}
+	% before_permute event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{before\_permute} (node):] Signal déclenché avant la permutation d'un objet
+		par un autre.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\\
+		\end{itemize}
+	\end{description}
+	% after_permute event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{after\_permute} (node):] Signal déclenché après la permutation d'un objet
+		par un autre.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\\
+		\end{itemize}
+	\end{description}
+	% collision event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{collision} (data):] Signal déclenché lorsqu'un objet prise en charge par 
+		le module percute sa cible. Notez que cela ne s'applique qu'aux objets non ignorés par le module. 
+		Cet événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\item [>> \textbf{\textcolor{darkgreen}{Variant} object}:] Contient la référence de l'objet qui 
+			a été détecté. L'objet renvoyé sera l'instance d'un noeud de type
+			\href{https://docs.godotengine.org/en/stable/classes/class_spatial.html}
+			{\textit{\textcolor{darkgreen}{Spatial}}} ou
+			\href{https://docs.godotengine.org/en/stable/classes/class_node2d.html}
+			{\textit{\textcolor{darkgreen}{Node2D}}}.
+		\end{itemize}
+	\end{description}
+\end{document}

@@ -1,0 +1,317 @@
+% Document type and package imports.
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{charter}
+\usepackage[top = 2cm, bottom = 2cm, left = 1cm, right = 1cm]{geometry}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{tocloft}
+
+% Preanblue.
+\onehalfspacing
+\definecolor{gray}{rgb}{0.4, 0.4, 0.4}
+\definecolor{silver}{rgb}{0.95, 0.95, 0.95}
+\renewcommand{\thesection}{\Roman{section} --}
+\definecolor{darkgreen}{HTML}{1E8C15}
+\cftsetindents{section}{1em}{2.5em}
+\hypersetup {colorlinks=true, linkcolor=blue, urlcolor=blue, pdftitle={Menu module doc}}
+
+% The start of the article.
+\begin{document}
+	% Change document background to silver color.
+	\pagecolor{silver}
+	% Menu module description.
+	\huge{\hspace{15.8cm}\textit{\textbf{\textcolor{darkgreen}{MenuFx}}}}\large{} \tableofcontents \newpage
+	% Menu module definition.
+	\section{Définition}
+	\textcolor{darkgreen}{\textbf{MenuFx}} est un module conçut pour la gestion des menu dans un jeu vidéo.
+	Vous pouvez réaliser toute sorte de menu rien qu'en utilisant ce module. Le module implémente les règles
+	de bases de réalisation d'un menu.\\
+	\textcolor{red}{\textbf{NB}:} Ce module est compatible à un jeu 2D, 3D et est sauvegardable.
+
+	% Menu properties definition.
+	\section{Les propriétés disponibles}
+	% ColumnCount property.
+	\textbf{+ \textcolor{red}{int} \hypertarget{ccount}{ColumnCount} = \textcolor{blue}{0}:} Contient le 
+	nombre de colonne sur l'horizontal. La valeur de cette \\propriété est dans l'intervalle 
+	[\textcolor{blue}{0}; \textcolor{blue}{++}].\\\\
+	% RowCount property.
+	\textbf{+ \textcolor{red}{int} \hypertarget{rcount}{RowCount} = \textcolor{blue}{0}:} Contient le nombre 
+	de ligne sur la vertical. La valeur de cette propriété est dans l'intervalle [\textcolor{blue}{0}; 
+	\textcolor{blue}{++}].\\\\
+	% InfiniteScrolling property.
+	\textbf{+ \textcolor{red}{bool} InfiniteScrolling = \textcolor{red}{false}:} Voulez-vous mettre un éffet 
+	de sélection infinie au cours des \\sélections ?\\\\
+	% MouseCapture property.
+	\textbf{+ \textcolor{red}{bool} MouseCapture = \textcolor{red}{true}:} Désirez-vous sychrôniser la 
+	souris au menu ?\\\\
+	% VolatilTime property.
+	\textbf{+ \textcolor{red}{float} VolatilTime = \textcolor{blue}{0.0}:} Souhaitez-vous faire un menu 
+	volatil ? Toute valeur inférieur ou égale à \textcolor{blue}{0.0} désactive l'activité de cette 
+	propriété. Pour exploiter cette option, il faut écouté les événements \textit{\hyperlink{mbegin}
+	{menu\_begin}} et \textit{\hyperlink{mend}{menu\_end}}. La valeur de cette propriété est dans 
+	l'intervalle [\textcolor{blue}{0.0}; \textcolor{blue}{++}].\\\\
+	% ExternalSelector property.
+	\textbf{+ \textcolor{red}{bool} ExternalSelector = \textcolor{red}{false}:} Devrons nous mettre un 
+	sélecteur externe au menu ? Le sélecteur externe fait référence à un objet externe utilisé pour 
+	matérialiser la sélection des différentes options du menu.\\\\
+	% SelectorTransition property.
+	\textbf{+ \textcolor{darkgreen}{Vector3} SelectorTransition = \textcolor{darkgreen}{Vector3}
+	(\textcolor{blue}{0.0}, \textcolor{blue}{0}, \textcolor{blue}{2}):} Devrons nous appliquer une 
+	quelconque \\animation vectorielle à votre sélecteur externe ? La première valeur contient le temps de 
+	la transition; la seconde l'assouplissement et la dernière, le type de transition à utilisé. Notez les 
+	valeurs possibles des deux dernières entrées de cette propriété sont celles de Godot.\\\\
+	% ListenModule property.
+	\textbf{+ \textcolor{darkgreen}{NodePath} ListenModule:} Contient l'instance d'un module du même trampe
+	de ce module. \\Exemple: \textit{\textcolor{darkgreen}{AnimatorFx, MenuFx, AudioTrackFx}} etc... En
+	d'autres termes, contient la référence d'un \\module possèdant également un curseur. Le but de cette
+	fonctionnalité est de synchrôniser la valeur du curseur du module référé à celle de ce module.\\\\
+	% HozScrollBar property.
+	\textbf{+ \textcolor{darkgreen}{NodePath} HozScrollBar:} Contient l'instance d'un noeud de type
+	\href{https://docs.godotengine.org/fr/stable/classes/class_hscrollbar.html}
+	{\textit{\textcolor{darkgreen}{HScrollBar}}}.\\\\
+	% VerScrollBar property.
+	\textbf{+ \textcolor{darkgreen}{NodePath} VerScrollBar:} Contient l'instance d'un noeud de type
+	\href{https://docs.godotengine.org/fr/stable/classes/class_vscrollbar.html}
+	{\textit{\textcolor{darkgreen}{VScrollBar}}}.\\\\
+	% ScrollStep property.
+	\newpage \textbf{+ \textcolor{red}{int} ScrollStep = \textcolor{blue}{0}:} Quel est le pas à ajouté pour 
+	défiler le défileur du menu ? La valeur de cette propriété est dans l'intervalle [\textcolor{blue}{0}
+	\textcolor{blue}{++}].\\\\
+	% Options property.
+	\textbf{+ \textcolor{darkgreen}{Array} Options:} Tableau de dictionnaires contenant toutes les 
+	différentes configurations sur chaque option du menu que le développeur souhaite implémentée. Les 
+	dictionnaires issus de ce tableau \\supportent les clés suivantes:\\
+	\begin{itemize}
+		\item[>> \textbf{\textcolor{darkgreen}{NodePath | String} option}:] Quel est le chemin d'accès
+		l'option que vous voulez ajouter ? \\L'utilisation de cette clé est obligatoire.\\
+		\item[>> \textbf{\textcolor{darkgreen}{String} name}:] Quel nom désirez-vous donner à votre option ?
+		\\
+		\item[>> \textbf{\textcolor{red}{bool} ignored = \textcolor{red}{false}}:] Voulez-vous que le module 
+		ignore cette option à chaque fois que l'on \\mettra le focus dessus ?\\
+		\item[>> \textbf{\textcolor{red}{bool} locked = \textcolor{red}{false}}:] Voulez-vous désactiver 
+		le(s) action(s) que génère cette option ?\\
+		\item[>> \textbf{\textcolor{red}{bool} tabcontrol = \textcolor{red}{false}}:] Souhaitez-vous 
+		exécuter le(s) action(s) prévue(s) sur l'option lorsqu'on la sélectionne directement ?\\
+		\item[>> \textbf{\textcolor{darkgreen}{Array | Dictionary} actions}]: Que se passera t-il lorsqu'on 
+		exécutera le(s) action(s) que cache \\l'option ? Cette clé contient toutes les configurations
+		relatives à un ou plusieurs flux \\d'exécution(s). L'utilisation de cette clé est déjà décrite au
+		niveau des bases du framework. \\Précisement le sujet portant sur l'utilisation de la propriété 
+		\textit{\textcolor{gray}{EventsBindings}} (la section des actions d'un événement).\\
+	\end{itemize}
+	\textcolor{red}{\textbf{NB}:} Les répétitions au niveau des noms des options ne seront pas tolérées.
+
+	% Menu methods definition.
+	\section{Les méthodes disponibles}
+	% Void next () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{next} (delay = 0.0):] Passe à l'option suivante dans
+		le menu établit.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant le passage.\\
+		\end{itemize}
+	\end{description}
+	% Void h_next () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{h\_next} (delay = 0.0):] Passe à l'option suivante 
+		dans le menu vertical. N'utilisez cette \\méthode que le menu est configuré en deux dimension à 
+		savoir les valeurs des champs \textit{\hyperlink{ccount}{\\ColumnCount}} et 
+		\textit{\hyperlink{rcount}{RowCount}} sont supérieur à zéro. Notez que si l'une des valeurs de ces 
+		deux champs est supérieur à zéro et que l'autre est nulle, le menu est configuré en une dimension. 
+		Il est très important de comprendre cela.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant le passage.\\
+		\end{itemize}
+	\end{description}
+	% Void v_next () method description.
+	\newpage \begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{v\_next} (delay = 0.0):] Passe à l'option suivante 
+		dans le menu horizontal. N'utilisez cette méthode que le menu est configuré en deux dimension à 
+		savoir les valeurs des champs \textit{\hyperlink{ccount}{\\ColumnCount}} et 
+		\textit{\hyperlink{rcount}{RowCount}} sont supérieur à zéro. Notez que si l'une des valeurs de ces 
+		deux champs est supérieur à zéro et que l'autre est nulle, le menu est configuré en une dimension. 
+		Il est très important de comprendre cela.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant le passage.\\
+		\end{itemize}
+	\end{description}
+	% Void preview () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{preview} (delay = 0.0):] Passe à l'option précédante 
+		dans le menu établit.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant le passage.\\
+		\end{itemize}
+	\end{description}
+	% Void h_preview () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{h\_preview} (delay = 0.0):] Passe à l'option 
+		précédante dans le menu vertical. N'utilisez cette méthode que le menu est configuré en deux 
+		dimension à savoir les valeurs des champs \textit{\hyperlink{ccount}{\\ColumnCount}} et 
+		\textit{\hyperlink{rcount}{RowCount}} sont supérieur à zéro. Notez que si l'une des valeurs de ces 
+		deux champs est supérieur à zéro et que l'autre est nulle, le menu est configuré en une dimension. 
+		Il est très important de comprendre cela.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant le passage.\\
+		\end{itemize}
+	\end{description}
+	% Void v_preview () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{v\_preview} (delay = 0.0):] Passe à l'option 
+		précédante dans le menu horizontal. N'utilisez cette méthode que le menu est configuré en deux 
+		dimension à savoir les valeurs des champs \textit{\hyperlink{ccount}{ColumnCount}} et 
+		\textit{\hyperlink{rcount}{RowCount}} sont supérieur à zéro. Notez que si l'une des valeurs de ces 
+		deux champs est supérieur à zéro et que l'autre est nulle, le menu est configuré en une dimension. 
+		Il est très important de comprendre cela.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant le passage.\\
+		\end{itemize}
+	\end{description}
+	% Void next_to () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{next\_to} (id, delay = 0.0):] Change d'option grâce
+		à son identifiant.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String} | \textcolor{red}{int} id}:] Quel est 
+			l'identifiant de l'option à rendre active ?
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant le passage.\\
+		\end{itemize}
+	\end{description}
+	% Int get_active_option_index () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} \textcolor{blue}{get\_active\_option\_index} ():] Renvoie l'index de
+		l'option actuellement sélectionnée dans le menu établit.\\
+	\end{description}
+	% Int get_preview_option_index () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} \textcolor{blue}{get\_preview\_option\_index} ():] Renvoie l'index de
+		l'option pécédement sélectionnée dans le menu établit.\\
+	\end{description}
+	% Int get_next_option_index () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} \textcolor{blue}{get\_next\_option\_index} ():] Renvoie l'index de
+		la prochaine option à sélectionnée dans le menu établit.\\
+	\end{description}
+	% Void run_actions () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{\hypertarget{runactions}{run\_actions}} (id = null, 
+		delay = 0.0):] Exécute toutes les actions que cache une option \\donnée. Par défaut, l'exécution se 
+		fera sur l'option sélectionnée.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String} | \textcolor{red}{int} id}:] Quel est 
+			l'identifiant de l'option à ciblée ?
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant les éxécutions.\\
+		\end{itemize}
+	\end{description}
+
+	% Menu signals definition.
+	\section{Les événements disponibles}
+	% menu_action event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{menu\_action} (data):] Signal déclenché lorsqu'on exécute le(s) action(s)
+		d'une option donnée. Ce événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\item [>> \textbf{\textcolor{red}{int} index}:] Contient l'index de position de l'option ayant 
+			été frappée par la méthode \textit{\hyperlink{runactions}{run\_actions ()}}.\\
+		\end{itemize}
+	\end{description}
+	% option_changed event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{option\_changed} (data):] Signal déclenché lorsqu'on change d'option dans 
+		le menu établit. Ce événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\item [>> \textbf{\textcolor{red}{int} preview}:] Contient l'index de position de l'option 
+			précédement sélectionnée.
+			\item [>> \textbf{\textcolor{red}{int} current}:] Contient l'index de position de l'option 
+			actuellement sélectionnée.\\
+		\end{itemize}
+	\end{description}
+	% option_ignored event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{option\_ignored} (data):] Signal déclenché lorsqu'on sélectionne une 
+		option qui doit être ignorée par le module. Ce événement renvoie un dictionaire contenant les clés 
+		suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\item [>> \textbf{\textcolor{red}{int} index}:] Contient l'index de position de l'option 
+			ignorée.\\
+		\end{itemize}
+	\end{description}
+	% option_locked event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{option\_locked} (data):] Signal déclenché lorsqu'on déclenche les actions
+		d'une option bloquée. Ce événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\item [>> \textbf{\textcolor{red}{int} index}:] Contient l'index de position de l'option 
+			bloquée.\\
+		\end{itemize}
+	\end{description}
+	% menu_begin event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{\hypertarget{mbegin}{menu\_begin}} (node):] Signal déclenché lorsqu'on 
+		appel des fonctions en faveur des options du menu.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\\
+		\end{itemize}
+	\end{description}
+	% menu_end event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{\hypertarget{mend}{menu\_end}} (node):] Signal déclenché lorsque le temps 
+		de volatilisation du menu est écoulé.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\\
+		\end{itemize}
+	\end{description}
+	% mouse_enter event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{mouse\_enter} (data):] Signal déclenché lorsque le curseur de la souris 
+		entre dans le survol d'une option du menu établit. Ce événement renvoie un dictionaire contenant les 
+		clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\item [>> \textbf{\textcolor{red}{int} index}:] Contient l'index de position de l'option en 
+			question.\\
+		\end{itemize}
+	\end{description}
+	% mouse_exit event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{mouse\_exit} (data):] Signal déclenché lorsque le curseur de la souris 
+		sort du survol d'une option du menu établit. Ce événement renvoie un dictionaire contenant les clés 
+		suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\item [>> \textbf{\textcolor{red}{int} index}:] Contient l'index de position de l'option en 
+			question.\\
+		\end{itemize}
+	\end{description}
+	% mouse_over event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{mouse\_over} (data):] Signal déclenché lorsque le curseur de la souris 
+		survol une option du menu établit. Ce événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\item [>> \textbf{\textcolor{red}{int} index}:] Contient l'index de position de l'option en 
+			question.\\
+		\end{itemize}
+	\end{description}
+	% mouse_clicked event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{mouse\_clicked} (data):] Signal déclenché lorsque le curseur de la souris 
+		clique une option du menu établit. Ce événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\item [>> \textbf{\textcolor{red}{int} index}:] Contient l'index de position de l'option en 
+			question.
+			\item [>> \textbf{\textcolor{red}{int} button}:] Contient l'index du bouton qui a été appuyée.\\
+		\end{itemize}
+	\end{description}
+\end{document}

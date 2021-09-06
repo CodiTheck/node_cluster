@@ -1,0 +1,293 @@
+[gd_scene load_steps=24 format=2]
+
+[ext_resource path="res://prefabs/single_player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://nodes/exp.gd" type="Script" id=3]
+[ext_resource path="res://sprites/icon.png" type="Texture" id=4]
+[ext_resource path="res://sounds/music1.mp3" type="AudioStream" id=5]
+[ext_resource path="res://line.png" type="Texture" id=6]
+
+[sub_resource type="ProceduralSky" id=1]
+
+[sub_resource type="Environment" id=2]
+background_mode = 2
+background_sky = SubResource( 1 )
+
+[sub_resource type="NavigationMesh" id=3]
+vertices = PoolVector3Array( -4.3, 0.364046, 2, -3.7, 0.364046, 2, -3.7, 0.364046, 0.5, -4.3, 0.364046, -7.6, -1.6, 0.364046, -7.6, -1.6, 0.364046, -9.4, -6.7, 0.364046, -8.5, -6.7, 0.364046, -5.2, -4.6, 0.364046, -5.5, -4.3, 0.364046, -7.6, -6.7, 0.364046, -8.5, -6.7, 0.364046, -8.5, -1.6, 0.364046, -9.4, -9.4, 0.364046, -9.4, -8.5, 0.364046, -8.8, -4.3, 0.364046, 2, -3.7, 0.364046, 0.5, -8.5, 0.364046, 0.5, -9.4, 0.364046, 5.6, -7.6, 0.364046, 5.6, -9.4, 0.364046, -1.9, -8.5, 0.364046, -1.9, -8.5, 0.364046, -3.1, -8.5, 0.364046, -3.1, -8.5, 0.364046, -8.8, -9.4, 0.364046, -9.4, -9.4, 0.364046, -1.9, -9.4, 0.364046, -1.9, -9.4, 0.364046, 5.6, -8.5, 0.364046, 0.5, -8.5, 0.364046, -1.9, 4.1, 0.364046, -3.4, 5.6, 0.364046, -2.2, 6.5, 0.364046, -3.1, -1.6, 0.364046, -9.4, -1.6, 0.364046, -7.6, 1.1, 0.364046, -7.6, 6.5, 0.364046, -8.8, 1.1, 0.364046, -5.2, 2.9, 0.364046, -3.4, 4.1, 0.364046, -3.4, 8.3, 0.364046, -8.5, 8.3, 0.364046, -5.2, 9.5, 0.364046, -4.9, 9.5, 0.364046, -9.4, 6.5, 0.364046, -8.8, 9.5, 0.364046, -9.4, -1.6, 0.364046, -9.4, 6.5, 0.364046, -8.8, 8.3, 0.364046, -8.5, 9.5, 0.364046, -9.4, 1.1, 0.364046, -7.6, 1.1, 0.364046, -5.2, 4.1, 0.364046, -3.4, 6.5, 0.364046, -3.1, 6.5, 0.364046, -8.8, -6.7, 0.364046, -3.4, -8.5, 0.364046, -3.1, -8.5, 0.364046, -1.9, -1.9, 0.364046, -1.9, 2.3, 0.364046, -2.5, 2.9, 0.364046, -3.4, 1.1, 0.364046, -5.2, -4.6, 0.364046, -5.5, -6.7, 0.364046, -5.2, -6.7, 0.364046, -3.4, -1.9, 0.364046, -1.9, 2.3, 0.364046, -2.5, 1.1, 0.364046, -5.2, -1.6, 0.364046, -1, 2.9, 0.364046, -1, 2.3, 0.364046, -2.5, -1.9, 0.364046, -1.9, 9.5, 0.364046, -4.9, 8.3, 0.364046, -5.2, 8.3, 0.364046, -3.4, 8.9, 0.364046, 0.200001, 9.5, 0.364046, 3.5, -1.9, 0.364046, 0.5, -3.7, 0.364046, 0.5, -3.7, 0.364046, 2, -2.5, 0.364046, 2.6, 9.5, 0.364046, 3.5, 8, 0.364046, 2.3, 7.1, 0.364046, 2.3, 3.5, 0.364046, 3.5, 2.9, 0.364046, 6.2, 3.2, 0.364046, 5.6, 3.5, 0.364046, 3.5, 8.3, 0.364046, -3.4, 6.5, 0.364046, -3.1, 5.6, 0.364046, -2.2, 8.9, 0.364046, 0.200001, -2.5, 0.364046, 2.6, -2.8, 0.364046, 4.1, -2.2, 0.364046, 6.2, 3.5, 0.364046, 3.5, 7.1, 0.364046, 2.3, 2.9, 0.364046, -1, 2.9, 0.364046, -1, -1.6, 0.364046, -1, -1.9, 0.364046, 0.5, 9.5, 0.364046, 3.5, 8.9, 0.364046, 1.4, 8, 0.364046, 2.3, -1.9, 0.364046, 0.5, -2.5, 0.364046, 2.6, -2.2, 0.364046, 6.2, 2.9, 0.364046, 6.2, 3.5, 0.364046, 3.5, 2.9, 0.364046, -1, 9.5, 0.364046, 3.5, 8.9, 0.364046, 0.200001, 8.9, 0.364046, 1.4, -8.2, 0.364046, 6.2, -7.6, 0.364046, 5.6, -9.4, 0.364046, 5.6, -2.8, 0.364046, 6.5, -2.2, 0.364046, 6.2, -2.8, 0.364046, 4.1, -8.2, 0.364046, 7.7, -8.2, 0.364046, 6.2, -9.4, 0.364046, 5.6, -9.4, 0.364046, 9.5, 2.9, 0.364046, 8.6, -2.5, 0.364046, 8.6, -0.0999994, 0.364046, 9.5, 9.5, 0.364046, 9.5, 3.2, 0.364046, 5.6, 2.9, 0.364046, 6.2, 2.9, 0.364046, 8.6, 9.5, 0.364046, 9.5, 9.5, 0.364046, 5.9, -6.4, 0.364046, 8.3, -8.2, 0.364046, 7.7, -9.4, 0.364046, 9.5, -2.8, 0.364046, 6.5, -2.8, 0.364046, 4.1, -6.4, 0.364046, 8.3, -2.5, 0.364046, 8.6, -2.8, 0.364046, 6.5, -6.4, 0.364046, 8.3, -6.4, 0.364046, 8.3, -9.4, 0.364046, 9.5, -0.0999994, 0.364046, 9.5, -2.5, 0.364046, 8.6 )
+polygons = [ PoolIntArray( 2, 1, 0 ), PoolIntArray( 4, 3, 5 ), PoolIntArray( 5, 3, 6 ), PoolIntArray( 8, 7, 9 ), PoolIntArray( 9, 7, 10 ), PoolIntArray( 14, 13, 11 ), PoolIntArray( 11, 13, 12 ), PoolIntArray( 16, 15, 17 ), PoolIntArray( 17, 15, 19 ), PoolIntArray( 17, 19, 18 ), PoolIntArray( 22, 21, 20 ), PoolIntArray( 24, 23, 25 ), PoolIntArray( 25, 23, 26 ), PoolIntArray( 30, 29, 27 ), PoolIntArray( 27, 29, 28 ), PoolIntArray( 33, 32, 31 ), PoolIntArray( 35, 34, 36 ), PoolIntArray( 36, 34, 37 ), PoolIntArray( 40, 39, 38 ), PoolIntArray( 42, 41, 43 ), PoolIntArray( 43, 41, 44 ), PoolIntArray( 47, 46, 45 ), PoolIntArray( 48, 50, 49 ), PoolIntArray( 52, 51, 53 ), PoolIntArray( 53, 51, 54 ), PoolIntArray( 54, 51, 55 ), PoolIntArray( 57, 56, 58 ), PoolIntArray( 58, 56, 59 ), PoolIntArray( 62, 61, 60 ), PoolIntArray( 64, 63, 65 ), PoolIntArray( 65, 63, 66 ), PoolIntArray( 66, 63, 68 ), PoolIntArray( 66, 68, 67 ), PoolIntArray( 72, 71, 69 ), PoolIntArray( 69, 71, 70 ), PoolIntArray( 74, 73, 75 ), PoolIntArray( 75, 73, 76 ), PoolIntArray( 76, 73, 77 ), PoolIntArray( 80, 79, 81 ), PoolIntArray( 81, 79, 78 ), PoolIntArray( 83, 82, 84 ), PoolIntArray( 84, 82, 85 ), PoolIntArray( 87, 86, 88 ), PoolIntArray( 90, 89, 91 ), PoolIntArray( 91, 89, 92 ), PoolIntArray( 95, 94, 93 ), PoolIntArray( 96, 98, 97 ), PoolIntArray( 101, 100, 99 ), PoolIntArray( 104, 103, 102 ), PoolIntArray( 106, 105, 107 ), PoolIntArray( 107, 105, 108 ), PoolIntArray( 108, 105, 109 ), PoolIntArray( 109, 105, 110 ), PoolIntArray( 113, 112, 111 ), PoolIntArray( 116, 115, 114 ), PoolIntArray( 119, 118, 117 ), PoolIntArray( 121, 120, 122 ), PoolIntArray( 122, 120, 123 ), PoolIntArray( 125, 124, 126 ), PoolIntArray( 126, 124, 127 ), PoolIntArray( 129, 128, 130 ), PoolIntArray( 130, 128, 132 ), PoolIntArray( 130, 132, 131 ), PoolIntArray( 135, 134, 133 ), PoolIntArray( 138, 137, 136 ), PoolIntArray( 141, 140, 139 ), PoolIntArray( 145, 144, 142 ), PoolIntArray( 142, 144, 143 ) ]
+geometry/parsed_geometry_type = 2
+geometry/collision_mask = 4294967295
+agent/height = 1.0
+
+[sub_resource type="SpatialMaterial" id=4]
+albedo_color = Color( 0.631373, 0.631373, 0.631373, 1 )
+
+[sub_resource type="PlaneMesh" id=5]
+material = SubResource( 4 )
+size = Vector2( 20, 20 )
+
+[sub_resource type="BoxShape" id=6]
+extents = Vector3( 10, 0.001, 10 )
+
+[sub_resource type="ConcavePolygonShape" id=7]
+data = PoolVector3Array( -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1 )
+
+[sub_resource type="CubeMesh" id=8]
+
+[sub_resource type="ConcavePolygonShape" id=9]
+data = PoolVector3Array( -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1 )
+
+[sub_resource type="ConcavePolygonShape" id=10]
+data = PoolVector3Array( -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1 )
+
+[sub_resource type="ConcavePolygonShape" id=11]
+data = PoolVector3Array( -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1 )
+
+[sub_resource type="CubeMesh" id=12]
+size = Vector3( 1, 1, 1 )
+
+[sub_resource type="SpatialMaterial" id=13]
+albedo_color = Color( 0.298039, 0.952941, 0.137255, 1 )
+
+[sub_resource type="ConcavePolygonShape" id=14]
+data = PoolVector3Array( -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1 )
+
+[sub_resource type="ConcavePolygonShape" id=15]
+data = PoolVector3Array( -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1 )
+
+[sub_resource type="ConcavePolygonShape" id=16]
+data = PoolVector3Array( -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1 )
+
+[sub_resource type="ConcavePolygonShape" id=17]
+data = PoolVector3Array( -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1 )
+
+[sub_resource type="SpatialMaterial" id=18]
+flags_transparent = true
+flags_do_not_receive_shadows = true
+flags_ensure_correct_normals = true
+albedo_color = Color( 0.984314, 0.92549, 0.0392157, 1 )
+albedo_texture = ExtResource( 6 )
+emission_enabled = true
+emission = Color( 0.937255, 0.172549, 0.172549, 1 )
+emission_energy = 2.0
+emission_operator = 0
+emission_on_uv2 = false
+
+[node name="Test" type="Spatial" groups=[
+"group a",
+"group b",
+"group c",
+"group d",
+"group e",
+]]
+_import_path = NodePath("e4fe3fe")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 200, 200 )
+
+[node name="Sun" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 6.30793, 0 )
+shadow_enabled = true
+
+[node name="Module" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 6.30793, 0 )
+
+[node name="effect2" type="Sprite" parent="Module"]
+visible = false
+modulate = Color( 1, 1, 1, 0.784314 )
+self_modulate = Color( 1, 1, 1, 0.784314 )
+position = Vector2( 480, 296 )
+scale = Vector2( 7.3949, 7.1275 )
+texture = ExtResource( 4 )
+region_enabled = true
+region_rect = Rect2( 2.25, 4.25, 62, 59 )
+region_filter_clip = true
+
+[node name="Spatial" type="Spatial" parent="Module"]
+
+[node name="Navigation" type="Navigation" parent="."]
+
+[node name="NavigationMeshInstance" type="NavigationMeshInstance" parent="Navigation"]
+navmesh = SubResource( 3 )
+
+[node name="Ground" type="MeshInstance" parent="Navigation/NavigationMeshInstance"]
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Navigation/NavigationMeshInstance/Ground"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Navigation/NavigationMeshInstance/Ground/StaticBody"]
+shape = SubResource( 6 )
+
+[node name="Walls" type="Spatial" parent="Navigation/NavigationMeshInstance"]
+transform = Transform( 1.18696, 0, 0, 0, 1, 0, 0, 0, 2.06996, -7.65436, 0, -5.92595 )
+
+[node name="StaticBody2" type="StaticBody" parent="Navigation/NavigationMeshInstance/Walls"]
+transform = Transform( 0.289555, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.964047, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Navigation/NavigationMeshInstance/Walls/StaticBody2"]
+shape = SubResource( 7 )
+
+[node name="Wall" type="MeshInstance" parent="Navigation/NavigationMeshInstance/Walls/StaticBody2" groups=[
+"Occlusion",
+]]
+mesh = SubResource( 8 )
+material/0 = null
+
+[node name="StaticBody3" type="StaticBody" parent="Navigation/NavigationMeshInstance/Walls"]
+transform = Transform( 0.289555, 0, 0, 0, 1, 0, 0, 0, 1, 12.676, 0.964047, -0.0570538 )
+
+[node name="Wall2" type="MeshInstance" parent="Navigation/NavigationMeshInstance/Walls/StaticBody3" groups=[
+"Occlusion",
+]]
+mesh = SubResource( 8 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Navigation/NavigationMeshInstance/Walls/StaticBody3"]
+shape = SubResource( 9 )
+
+[node name="StaticBody4" type="StaticBody" parent="Navigation/NavigationMeshInstance/Walls"]
+transform = Transform( -1.12245e-07, 0, 2.37936, 0, 0.999999, 0, -0.194228, 0, -1.09284e-07, 12.0999, 0.964046, 5.169 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Navigation/NavigationMeshInstance/Walls/StaticBody4"]
+transform = Transform( 1, 0, 5.68434e-14, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0 )
+shape = SubResource( 10 )
+
+[node name="Wall3" type="MeshInstance" parent="Navigation/NavigationMeshInstance/Walls/StaticBody4" groups=[
+"Occlusion",
+]]
+transform = Transform( 1, 0, 1.13687e-13, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, -2.38419e-07 )
+mesh = SubResource( 8 )
+material/0 = null
+
+[node name="StaticBody5" type="StaticBody" parent="Navigation/NavigationMeshInstance/Walls"]
+transform = Transform( -0.254602, 0, 1.56929, 0, 0.999999, 0, -0.128101, 0, -1.02556, 1.90686, 0.964046, 5.34792 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Navigation/NavigationMeshInstance/Walls/StaticBody5"]
+shape = SubResource( 11 )
+
+[node name="Wall4" type="MeshInstance" parent="Navigation/NavigationMeshInstance/Walls/StaticBody5" groups=[
+"Occlusion",
+]]
+transform = Transform( 1, 0, 0, 0, 1, 0, -7.45058e-09, 0, 1, 0, 0, 0 )
+mesh = SubResource( 8 )
+material/0 = null
+
+[node name="StaticBody6" type="StaticBody" parent="Navigation/NavigationMeshInstance/Walls"]
+transform = Transform( 0.338625, 0, -0.0553092, 0, 0.999999, 0, 0.00451497, 0, 1.36401, 9.22654, 0.964046, 1.04196 )
+
+[node name="impact" type="MeshInstance" parent="Navigation/NavigationMeshInstance/Walls/StaticBody6"]
+transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
+mesh = SubResource( 12 )
+material/0 = SubResource( 13 )
+
+[node name="Wall5" type="MeshInstance" parent="Navigation/NavigationMeshInstance/Walls/StaticBody6" groups=[
+"Occlusion",
+]]
+transform = Transform( 1, 0, 4.76837e-07, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+mesh = SubResource( 8 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Navigation/NavigationMeshInstance/Walls/StaticBody6"]
+shape = SubResource( 14 )
+
+[node name="StaticBody" type="StaticBody" parent="Navigation/NavigationMeshInstance/Walls"]
+transform = Transform( -1.12245e-07, 0, 2.37936, 0, 0.999999, 0, -0.194228, 0, -1.09284e-07, 1.97619, 0.964046, 2.56462 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Navigation/NavigationMeshInstance/Walls/StaticBody"]
+shape = SubResource( 15 )
+
+[node name="Wall6" type="MeshInstance" parent="Navigation/NavigationMeshInstance/Walls/StaticBody" groups=[
+"Occlusion",
+]]
+transform = Transform( 1, 0, 1.13687e-13, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0 )
+mesh = SubResource( 8 )
+material/0 = null
+
+[node name="StaticBody7" type="StaticBody" parent="Navigation/NavigationMeshInstance/Walls"]
+transform = Transform( -8.91495e-08, 0, 1.88978, 0, 0.999999, 0, -0.194228, 0, -1.09284e-07, 5.02718, 0.964045, -0.238568 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Navigation/NavigationMeshInstance/Walls/StaticBody7"]
+shape = SubResource( 16 )
+
+[node name="Wall7" type="MeshInstance" parent="Navigation/NavigationMeshInstance/Walls/StaticBody7" groups=[
+"Occlusion",
+]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 3.55271e-15, 0, 1, 0, 0, 0 )
+mesh = SubResource( 8 )
+material/0 = null
+
+[node name="StaticBody8" type="StaticBody" parent="Navigation/NavigationMeshInstance/Walls"]
+transform = Transform( -8.91495e-08, 0, 1.88978, 0, 0.999998, 0, -0.194228, 0, -1.09284e-07, 6.59544, 0.964045, 6.48113 )
+
+[node name="Wall8" type="MeshInstance" parent="Navigation/NavigationMeshInstance/Walls/StaticBody8" groups=[
+"Occlusion",
+]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 3.55271e-15, 0, 1, 0, 0, 0 )
+mesh = SubResource( 8 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Navigation/NavigationMeshInstance/Walls/StaticBody8"]
+shape = SubResource( 17 )
+
+[node name="Target" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.204854, 0.495859, -9.12661 )
+mesh = SubResource( 12 )
+material/0 = SubResource( 13 )
+
+[node name="ImmediateGeometry" type="ImmediateGeometry" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.459642, 0 )
+material_override = SubResource( 18 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, -5.29951e-26, 3.25281e-19, -3.25281e-19, -1.62921e-07, 1, 0, -1, -1.62921e-07, 2.84217e-14, 13.9601, 0.640707 )
+current = true
+
+[node name="single_player" parent="." instance=ExtResource( 1 )]
+transform = Transform( -1.6292e-07, -3.46907e-10, -1, -0.0021293, 0.999998, 0, 0.999998, 0.0021293, -1.62921e-07, -7.23279, 0.0181504, 8.99992 )
+collision_layer = 2
+
+[node name="Camera3" type="Camera" parent="single_player"]
+transform = Transform( 0.999312, -0.00644025, 0.0365163, -1.45892e-06, 0.984794, 0.173725, -0.0370799, -0.173605, 0.984117, 0.285539, 1.24938, 0.435648 )
+
+[node name="RayCast" type="RayCast" parent="single_player"]
+transform = Transform( 1, 0, 4.40536e-13, 0, 1, -8.32667e-17, -4.40536e-13, -8.60423e-16, 1, 0.120198, 1.08635, -0.00981092 )
+enabled = true
+cast_to = Vector3( 0, 0, -100 )
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
+
+[node name="Camera2" type="Camera" parent="."]
+transform = Transform( -0.63008, -2.53615e-09, 0.77653, -5.47152e-09, 1, -1.17362e-09, -0.77653, -4.98827e-09, -0.63008, 10.9695, 1.55464, -6.05184 )
+
+[node name="impact2" type="MeshInstance" parent="."]
+transform = Transform( 0.16, 0, 0, 0, 0.16, 0, 0, 0, 0.16, 3.11041, 1.19006, -5.92583 )
+mesh = SubResource( 12 )
+material/0 = SubResource( 13 )
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 5 )
+max_db = 6.0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_left = 664.0
+margin_top = 264.0
+margin_right = 704.0
+margin_bottom = 304.0
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_right = 40.0
+margin_bottom = 14.0
+text = "New Game okey baby."
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

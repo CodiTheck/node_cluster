@@ -1,0 +1,160 @@
+% Document type and package imports.
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{charter}
+\usepackage{hyperref}
+\usepackage{tocloft}
+\usepackage[top = 2cm, bottom = 2cm, left = 1cm, right = 1cm]{geometry}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{xcolor}
+
+% Preanblue.
+\onehalfspacing
+\definecolor{gray}{rgb}{0.4, 0.4, 0.4}
+\definecolor{silver}{rgb}{0.95, 0.95, 0.95}
+\renewcommand{\thesection}{\Roman{section} --}
+\definecolor{darkgreen}{HTML}{1E8C15}
+\cftsetindents{section}{1em}{2.5em}
+\hypersetup {colorlinks=true, linkcolor=blue, urlcolor=blue, pdftitle={ControllerSensor module doc}}
+
+% The start of the article.
+\begin{document}
+	% Change document background to silver color.
+	\pagecolor{silver}
+	% ControllerSensor module description.
+	\huge{\hspace{12cm}\textit{\textbf{\textcolor{darkgreen}{ControllerSensorFx}}}}\large{}
+	\tableofcontents \newpage
+	% ControllerSensor module definition.
+	\section{Définition}
+	\textcolor{darkgreen}{\textbf{ControllerSensorFx}} est un module conçut pour la détection des 
+	différentes commandes \\interagissants avec le jeu. Il adapte les touches d'aide du jeu en fonction du 
+	contrôleur détecté. Bien évidemment, ces différentes touches ne sont rien d'autres que des
+	\href{https://docs.godotengine.org/en/stable/classes/class_sprite.html}
+	{\textit{\textcolor{darkgreen}{Sprite}}},
+	\href{https://docs.godotengine.org/en/stable/classes/class_sprite3d.html}
+	{\textit{\textcolor{darkgreen}{Sprite3D}}} ou
+	\href{https://docs.godotengine.org/en/stable/classes/class_texturerect.html}
+	{\textit{\textcolor{darkgreen}{TextureRect}}} réalisés par le développeur. \\Exemple: Le 
+	\href{https://docs.godotengine.org/en/stable/classes/class_sprite.html}
+	{\textit{\textcolor{darkgreen}{Sprite}}} de la touche "X" de la manette XBox; celui de la touche "Space" 
+	du clavier etc... \\Le fonctionnement de ce module est assez banal et très simple à exploité.\\
+	\textcolor{red}{\textbf{NB}:} Ce module est de nature indestructible, est compatible à un jeu 2D, 3D et 
+	n'est pas sauvegardable.
+
+	% ControllerSensor properties definition.
+	\section{Les propriétés disponibles}
+	% Controller property.
+	\textbf{+ \textcolor{red}{int} Controller = \textcolor{blue}{0}:} Contient les différents contrôleurs 
+	détectés par le module. La valeur de ce champ varie en fonction des commandes connectées par 
+	l'ordinateur.
+	\\\\
+	% Count property.
+	\textbf{+ \textcolor{red}{int} \hypertarget{count}{Count} = \textcolor{blue}{-1}:} Combien de commandes 
+	voulez-vous écoutée ? La valeur nulle coupe les \\détections. Tandis que celle négative entraîne une 
+	détection ilimitée des commandes.\\\\
+	% BaseController property.
+	\textbf{+ \textcolor{red}{bool} BaseController = \textcolor{red}{true}:} Doit-on utilisée la commande de 
+	base à chaque déconnexion ?\\\\
+	% Adapter property.
+	\textbf{+ \textcolor{red}{bool} Adapter = \textcolor{red}{false}:} Doit-on mettre à jour les
+	\href{https://docs.godotengine.org/en/stable/classes/class_sprite.html}
+	{\textit{\textcolor{darkgreen}{Sprite}}} des boutons lorsqu'une nouvelle commande est détectée ?\\\\
+	% Categories property.
+	\textbf{+ \textcolor{darkgreen}{Array} Categories:} Tableau de dictionnaires contenant toutes les 
+	différentes configurations sur chaque catégory de contrôleur prise en charge par le développeur. Les 
+	dictionnaires issus de ce tableau \\supportent les clés suivantes:\\
+	\begin{itemize}
+		\item[>> \textbf{\textcolor{darkgreen}{String} \hypertarget{cat}{category}}:] Le contrôleur détecté 
+		appartient à quelle catégory (xbox 360; xbox one; \\playstation; wii; nintendo switch; etc...).\\
+		\item[>> \textbf{\textcolor{red}{int} search = \textcolor{blue}{3}}:] Contient le moyen à utilisé 
+		pour chercher les noeuds (\href{https://docs.godotengine.org/en/stable/classes/class_sprite.html}
+		{\textit{\textcolor{darkgreen}{Sprite}}},
+		\href{https://docs.godotengine.org/en/stable/classes/class_sprite3d.html}
+		{\textit{\textcolor{darkgreen}{Sprite3D}}} ou
+		\href{https://docs.godotengine.org/en/stable/classes/class_texturerect.html}
+		{\textit{\textcolor{darkgreen}{\\TextureRect}}}) qui seront victime de l'influence de ce module. Les 
+		valeurs possibles sont:
+		\begin{itemize}
+			\item[-> \textbf{\textcolor{gray}{MegaAssets.NodeProperty.NAME} ou \textcolor{blue}{0}}:] 
+			Ciblage par nom.
+			\item[-> \textbf{\textcolor{gray}{MegaAssets.NodeProperty.GROUP} ou \textcolor{blue}{1}}:] 
+			Ciblage par groupe.
+			\item[-> \textbf{\textcolor{gray}{MegaAssets.NodeProperty.TYPE} ou \textcolor{blue}{2}}:] 
+			Ciblage par type.
+			\item[-> \textbf{\textcolor{gray}{MegaAssets.NodeProperty.ALL} ou \textcolor{blue}{3}}:] Ciblage 
+			sur n'importe quel type.\\
+			\item[>> \textbf{\textcolor{darkgreen}{Vector2} size = \textcolor{darkgreen}{Vector2}
+			(\textcolor{blue}{50}, \textcolor{blue}{50})}:] Contrôle la résolution des textures.\\
+			\item[>> \textbf{\textcolor{red}{int} quality = \textcolor{blue}{2}}:] Contrôle la qualité des
+			textures. Les valeurs possibles sont celles définient au sein de classe
+			\href{https://docs.godotengine.org/en/stable/classes/class_image.html}
+			{\textit{\textcolor{darkgreen}{Image}}} de Godot.\\
+		\end{itemize}
+	\end{itemize}
+	\newpage Si vous voulez que la propriété \textit{\textcolor{gray}{texture}} des noeuds ciblés change en 
+	fonction du type de contrôleur \\détecté par l'ordinateur, vous devez suivre dans le(s) dictionaire(s) 
+	défini(en)t au sein de la propriété \textit{\hyperlink{cat}{Categories}}, la nomenclature:
+	\textit{\textcolor{gray}{IdentifiantDuNoeud: LienVersImageDuSpriteAssocier}}. Si vous désirez \\affecter 
+	une même texture à plusieurs noeuds à la fois, séparez chaque identifiant de noeud par un pipe. IDEM
+	pour la catégory.\\\\
+	% TargetScenes property.
+	\textbf{+ \textcolor{darkgreen}{PoolStringArray} TargetScenes:} Cette option permet au module de savoirs 
+	quant est-ce qu'il doit ciblé des noeuds ou pas. N'ajoutez que les scènes possédant des noeuds ayant 
+	pour objectif de servir de bouton d'aide à l'utilisateur de votre produit. Cela permettra ainsi 
+	d'optimiser les recherches à faire avant la mise à jour de la texture des noeuds pris pour cible.\\
+	\textcolor{red}{\textbf{NB}:} La présence de doublons au niveau des catégories de manettes et les noms 
+	des scènes n'est pas tolérée.
+
+	% ControllerSensor methods definition.
+	\section{Les méthodes disponibles}
+	% PoolStringArray get_detected_controller_names () method description.
+	\begin{description}
+		\item [+ \textcolor{darkgreen}{PoolStringArray} \textcolor{blue}{get\_detected\_controller\_names} 
+		():] Renvoie les noms de tous les contrôleurs se trouvant dans l'intervalle de détection imposé par
+		le développeur. Pour agir sur l'intervalle de détection, modifiez la valeur de la propriété
+		\textit{\hyperlink{count}{Count}}.\\
+	\end{description}
+	% String get_active_controller_name () method description.
+	\begin{description}
+		\item [+ \textcolor{darkgreen}{String} \textcolor{blue}{get\_active\_controller\_name} ():] Renvoie 
+		le nom du contrôleur en cours d'utilisation.\\
+	\end{description}
+	% Int get_active_controller_index () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} \textcolor{blue}{get\_active\_controller\_index} ():] Renvoie la 
+		position du joueur associé au contrôleur en cours d'utilisation.
+	\end{description}
+
+	% ControllerSensor signals definition.
+	\section{Les événements disponibles}
+	% controller_changed event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{controller\_changed} (name):] Signal déclenché lorsqu'on change de 
+		contrôleur.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String} name}:] Contient le nom du nouveau contrôleur
+			actif.\\
+		\end{itemize}
+	\end{description}
+	% controller_connected event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{controller\_connected} (name):] Signal déclenché lorsqu'un nouveau 
+		contrôleur a été connecté à l'ordinateur.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String} name}:] Contient le nom du nouveau contrôleur
+			connecté.\\
+		\end{itemize}
+	\end{description}
+	% controller_disconnected event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{controller\_disconnected} (name):] Signal déclenché lorsqu'un nouveau 
+		contrôleur a été \\déconnecté de l'ordinateur.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String} name}:] Contient le nom du contrôleur 
+			déconnecté.\\
+		\end{itemize}
+	\end{description}
+\end{document}

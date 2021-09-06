@@ -1,0 +1,564 @@
+% Document type and package imports.
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{charter}
+\usepackage[top = 2cm, bottom = 2cm, left = 1cm, right = 1cm]{geometry}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{tocloft}
+
+% Preanblue.
+\onehalfspacing
+\definecolor{gray}{rgb}{0.4, 0.4, 0.4}
+\definecolor{silver}{rgb}{0.95, 0.95, 0.95}
+\renewcommand{\thesection}{\Roman{section} --}
+\definecolor{darkgreen}{HTML}{1E8C15}
+\cftsetindents{section}{1em}{2.5em}
+\hypersetup {colorlinks=true, linkcolor=blue, urlcolor=blue, pdftitle={CameraControl module doc}}
+
+% The start of the article.
+\begin{document}
+	% Change document background to silver color.
+	\pagecolor{silver}
+	% CameraControl module description.
+	\huge{\hspace{12.5cm}\textit{\textbf{\textcolor{darkgreen}{CameraControlFx}}}}\large{} \tableofcontents
+	\newpage
+	% CameraControl module definition.
+	\section{Définition}
+	\textcolor{darkgreen}{\textbf{CameraControlFx}} est un module conçut pour la gestion des caméras dans un
+	jeu vidéo. Le module offre également aux développeurs des fonctionnalités afin de leur permettre de 
+	configurer facilement la caméra de leur joueur.\\
+	\textcolor{red}{\textbf{NB}:} Ce module est compatible à un jeu 3D et n'est pas sauvegardable.
+
+	% CameraControl properties definition.
+	\section{Les propriétés disponibles}
+	% TargetCamera property.
+	\textbf{+ \textcolor{darkgreen}{NodePath} TargetCamera:} Contient l'instance d'un noeud de type 
+	\href{https://docs.godotengine.org/en/stable/classes/class_camera.html}
+	{\textit{\textcolor{darkgreen}{Camera}}}.\\\\
+	% Privot property.
+	\textbf{+ \textcolor{darkgreen}{NodePath} Privot:} Contient l'instance d'un noeud de type 
+	\href{https://docs.godotengine.org/en/stable/classes/class_spatial.html}
+	{\textit{\textcolor{darkgreen}{Spatial}}}.\\\\
+	% Mode property.
+	\textbf{+ \textcolor{red}{int} Mode = \textcolor{blue}{0}:} Contient le mode de la caméra que vous 
+	souhaitez utiliser. Les valeurs possibles sont:
+	\begin{itemize}
+		\item [-> \textbf{\textcolor{gray}{CameraControlFx.Model.FPS} ou \textcolor{blue}{0}}:] Mode FPS 
+		(First Person Shooter) activé.
+		\item [-> \textbf{\textcolor{gray}{CameraControlFx.Model.THIRD\_PERSON} ou \textcolor{blue}{1}}:] 
+		Configuration de la caméra à la troisième \\personne.\\
+	\end{itemize}
+	% KeepTransform property.
+	\textbf{+ \textcolor{red}{int} KeepTransform = \textcolor{blue}{0}:} Contrôle la transformation que doit
+	écouté la caméra afin de pourvoir bien suivre sa cible.
+	\begin{itemize}
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Transformation.LOCATION} ou \textcolor{blue}{1}}:] La 
+		caméra suivra sa cible en écoutant sa \\position.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Transformation.LOCROT} ou \textcolor{blue}{4}}:] La 
+		caméra suivra sa cible en écoutant sa position ainsi que sa rotation.\\
+	\end{itemize}
+	% Distance property.
+	\textbf{+ \textcolor{red}{float} Distance = \textcolor{blue}{5.0}:} Quelle est la distance de la caméra 
+	par rapport à sa cible ?\\\\
+	% OffsetPosition property.
+	\textbf{+ \textcolor{darkgreen}{Vector3} \hypertarget{ofstpos}{OffsetPosition} = \textcolor{darkgreen}
+	{Vector3} (\textcolor{blue}{0.0}, \textcolor{blue}{0.0}, \textcolor{blue}{0.0}):} Contrôle l'ajustement 
+	de la caméra en terme de position.\\\\
+	% Zooming property.
+	\textbf{+ \textcolor{darkgreen}{Vector3} Zooming = \textcolor{darkgreen}{Vector3} (\textcolor{blue}
+	{0.0}, \textcolor{blue}{100.0}, \textcolor{blue}{0.0}):} Contrôle le niveau d'agrandissement de la 
+	\\caméra. La première valeur est le zoom minimum; la deuxième, le zoom maximum et la troisième le taux 
+	d'agrandissement actuelle de la caméra.\\\\
+	% ZoomTurbulence property.
+	\textbf{+ \textcolor{red}{bool} ZoomTurbulence = \textcolor{blue}{false}:} La caméra va t-elle gérée 
+	automatiquement l'agrandissement en fonction de la vitesse de sa cible par rapport l'agrandissement fixé 
+	?\\\\
+	% Layout property.
+	\textbf{+ \textcolor{red}{int} Layout = \textcolor{blue}{2}:} Contrôle l'angle de direction de la 
+	caméra. Les valeurs possibles sont:
+	\begin{itemize}
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Disposal.TOP} ou \textcolor{blue}{2}}:] Vue de haut.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Disposal.BOTTOM} ou \textcolor{blue}{4}}:] Vue de bas.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Disposal.FORWARD} ou \textcolor{blue}{6}}:] Vue de
+		face.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Disposal.BACKWARD} ou \textcolor{blue}{7}}:] Vue de
+		dos.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Disposal.LEFT} ou \textcolor{blue}{5}}:] Vue de
+		gauche.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Disposal.RIGHT} ou \textcolor{blue}{3}}:] Vue de
+		droite.\\
+	\end{itemize}
+	% OffsetRotation property.
+	\textbf{+ \textcolor{darkgreen}{Vector3} \hypertarget{ofstrot}{OffsetRotation} = \textcolor{darkgreen}
+	{Vector3} (\textcolor{blue}{0.0}, \textcolor{blue}{0.0}, \textcolor{blue}{0.0}):} Contrôle l'ajustement 
+	de la caméra en terme de rotation.\\\\
+	% RotationLimit property.
+	\textbf{+ \textcolor{darkgreen}{Vector2} RotationLimit = \textcolor{darkgreen}{Vector2} 
+	(\textcolor{blue}{360.0}, \textcolor{blue}{360.0}):} Contient l'angle limite de la rotation de la 
+	caméra.\\\\
+	% Velocity property.
+	\textbf{+ \textcolor{darkgreen}{Vector2} Velocity = \textcolor{darkgreen}{Vector2} (\textcolor{blue}
+	{0.5}, \textcolor{blue}{0.5}):} Contrôle la sensitivité et l'adoucissement de la rotation de la caméra. 
+	La première valeur est la sensitivité de la rotation et la deuxième, l'adoucissement.\\\\
+	% Cinematic property.
+	\textbf{+ \textcolor{darkgreen}{Vector2} Cinematic = \textcolor{darkgreen}{Vector2} (\textcolor{blue}
+	{1.0}, \textcolor{blue}{0.1}):} Contrôle l'accélération et la décélération des \\mouvements de la 
+	caméra. La première valeur est l'accélération et la deuxième, la décélération.\\\\
+	% MaxSpeed property.
+	\textbf{+ \textcolor{darkgreen}{Vector3} MaxSpeed = \textcolor{darkgreen}{Vector3} (\textcolor{blue}
+	{1.0}, \textcolor{blue}{1.0}, \textcolor{blue}{1.0}):} Contrôle la vitesse des movements de la caméra.
+	\\\\
+	% Collision property.
+	\textbf{+ \textcolor{red}{bool} Collision = \textcolor{blue}{false}:} Désirez-vous que la caméra percute 
+	tous les objets dotés d'un \\collisionneur ?\\\\
+	% Local property.
+	\textbf{+ \textcolor{red}{bool} Local = \textcolor{blue}{true}:} Les mouvements de caméra vont-ils se 
+	faire dans un monde local ?\\\\
+	% RotatePrivot property.
+	\textbf{+ \textcolor{red}{bool} RotatePrivot = \textcolor{blue}{false}:} Désirez-vous tourner l'objet 
+	pivot que chasse la caméra ?\\\\
+	% AutoReset property.
+	\textbf{+ \textcolor{red}{int} AutoReset = \textcolor{blue}{0}:} Voulez-vous renitialiser les mouvements 
+	de la caméra de façon automatique ? Les valeurs possibles sont:
+	\begin{itemize}
+		\item [-> \textbf{\textcolor{gray}{CameraControlFx.Reset.NONE} ou \textcolor{blue}{0}}:] Aucune 
+		rénitialisation ne sera éffectuée.
+		\item [-> \textbf{\textcolor{gray}{CameraControlFx.Reset.At\_ONCE} ou \textcolor{blue}{1}}:] 
+		Rénitialisation immédiate de la caméra.
+		\item [-> \textbf{\textcolor{gray}{CameraControlFx.Reset.GRADUALLY} ou \textcolor{blue}{2}}:] 
+		Rénitialisation progressive de la caméra. Ce type de rénitialisation suit le déplacement de sa
+		cible.\\
+	\end{itemize}
+	% Gap property.
+	\textbf{+ \textcolor{darkgreen}{Vector2} \hypertarget{gap}{Gap} = \textcolor{darkgreen}{Vector2} 
+	(\textcolor{blue}{0.0}, \textcolor{blue}{0.0}):} A quel angle ou à quelle position de la cible devrons 
+	nous \\rénitialisé la caméra ? Cette option peut s'avérée très pratique dans certains cas d'utilisation. 
+	La première valeur est l'angle à atteindre pour rénitialiser la caméra et la deuxième, la distance à 
+	atteindre.\\\\
+	% ShakeAxis property.
+	\textbf{+ \textcolor{darkgreen}{Vector2} \hypertarget{shkaxis}{ShakeAxis} = \textcolor{darkgreen}
+	{Vector2} (\textcolor{blue}{25.0}, \textcolor{blue}{25.0}):} Quel sont les axes qui seront affectés par 
+	la \\vibration.\\\\
+	% ShakeDensity property.
+	\textbf{+ \textcolor{darkgreen}{Vector2} \hypertarget{shkden}{ShakeDensity} = \textcolor{darkgreen}
+	{Vector2} (\textcolor{blue}{25.0}, \textcolor{blue}{1.0}):} Contient la densité de la vibration de la 
+	caméra. La première valeur contient le taux de roulage et la second, l'intensité de la vibration.\\\\	
+	% TargetingSystem property.
+	\textbf{+ \textcolor{red}{bool} TargetingSystem = \textcolor{blue}{false}:} Désirez-vous activer le 
+	sytème de pistage de la caméra ?\\\\
+	% TargetingAera property.
+	\textbf{+ \textcolor{darkgreen}{NodePath} TargetingAera:} Contient l'instance d'un noeud de type 
+	\href{https://docs.godotengine.org/en/stable/classes/class_area.html}
+	{\textit{\textcolor{darkgreen}{Area}}}.\\\\
+	% Targets property.
+	\textbf{+ \textcolor{darkgreen}{Array} Targets:} Tableau de dictionnaires contenant toutes les 
+	différentes configurations sur chaque objet prise en charge par le développeur. Les dictionnaires issus 
+	de ce tableau supportent les clés \\suivantes:\\
+	\begin{itemize}
+		\item[>> \textbf{\textcolor{darkgreen}{String} id}:] Quel est l'identifiant du noeud à prendre en 
+		charge ? L'utilisation de cette clé est \\obligatoire.\\
+		\item[>> \textbf{\textcolor{red}{int} search = \textcolor{blue}{3}}:] Quel moyen utilisé pour 
+		chercher le noeud à prendre en charge ? Notez que \\l'identifiant donné est pisté à par un programme 
+		de recherche. Les valeurs possibles sont:
+		\begin{itemize}
+			\item [-> \textbf{\textcolor{gray}{MegaAssets.NodeProperty.NAME} ou \textcolor{blue}{0}}:] 
+			Trouve un noeud en utilisant son nom.
+			\item [-> \textbf{\textcolor{gray}{MegaAssets.NodeProperty.GROUP} ou \textcolor{blue}{1}}:] 
+			Trouve un noeud en utilisant le nom de son groupe.
+			\item [-> \textbf{\textcolor{gray}{MegaAssets.NodeProerty.TYPE} ou \textcolor{blue}{2}}:] Trouve 
+			un noeud en utilisant le nom de sa classe.
+			\item [-> \textbf{\textcolor{gray}{MegaAssets.NodeProerty.ANY} ou \textcolor{blue}{3}}:] Trouve 
+			un noeud en utilisant l'un des trois moyens cités plus haut.\\
+		\end{itemize}
+		\item[>> \textbf{\textcolor{red}{bool} ignored = \textcolor{red}{false}}:] Le pisteur de la caméra 
+		doit-il ignoré l'identifiant précisé ?\\
+		\item[>> \textbf{\textcolor{red}{float} transition = \textcolor{blue}{1.0}}:] Combien de temps prend 
+		le passage d'une cible à une autre ?\\
+		\item[>> \textbf{\textcolor{red}{int} type = \textcolor{blue}{0}}:] Quel type de transition adopté ?
+		Les valeurs possibles de ce champ sont celles de Godot. Cette propriété est solicité au changement 
+		de cible.\\
+		\item[>> \textbf{\textcolor{red}{int} easing = \textcolor{blue}{2}}:] Quel assouplissement adopté ? 
+		Les valeurs possibles de ce champ sont celles de Godot. Cette propriété est solicité au changement 
+		de cible.\\
+		\item[>> \textbf{\textcolor{darkgreen}{Array | Dictionary} entered}:] Signal déclenché lorsque
+		l'objet entre dans le champ de vision du pisteur. Cette clé exécute les différentes actions données
+		à son déclenchement. Pour soumettre les actions à exécutées référez vous à la méthode utilisée au
+		niveau de la clé \textit{\textcolor{gray}{actions}} de la propriété \textit{\textcolor{gray}
+		{EventsBindings}} dans les bases du framework.\\
+		\item[>> \textbf{\textcolor{darkgreen}{Array | Dictionary} exited}:] Signal déclenché lorsqu'un
+		objet sort du champ de vision du pisteur. Cette clé exécute les différentes actions données à son
+		déclenchement. Pour soumettre les \\actions à exécutées référez vous à la méthode utilisée au niveau
+		de la clé \textit{\textcolor{gray}{actions}} de la propriété \textit{\textcolor{gray}
+		{EventsBindings}} dans les bases du framework.\\
+	\end{itemize}
+	% TargetingDirection property.
+	\textbf{+ \textcolor{red}{int} TargetingDirection = \textcolor{blue}{2}:} Sur quelle direction les 
+	pistages se feront ? Les valeurs possibles sont:
+	\begin{itemize}
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.X} ou \textcolor{blue}{1}}:] L'axe des absisses.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.Y} ou \textcolor{blue}{2}}:] L'axe des ordonnés.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.Z} ou \textcolor{blue}{3}}:] L'axe des côtes.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.\_X} ou \textcolor{blue}{4}}:] L'opposé de l'axe 
+		des absisses.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.\_Y} ou \textcolor{blue}{5}}:] L'opposé de l'axe 
+		des ordonnés.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.\_Z} ou \textcolor{blue}{6}}:] L'opposé de l'axe 
+		des côtes.\\
+	\end{itemize}
+	% FroozenTargetingAxis property.
+	\textbf{+ \textcolor{red}{int} FroozenTargetingAxis = \textcolor{blue}{1}:} Quel axe bloqué au cours des 
+	pistages ? Les valeurs possibles sont:
+	\begin{itemize}
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.NONE} ou \textcolor{blue}{0}}:] Aucun blockage.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.X} ou \textcolor{blue}{1}}:] Blockage de l'axe 
+		des absisses.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.Y} ou \textcolor{blue}{2}}:] Blockage de l'axe 
+		des ordonnés.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.Z} ou \textcolor{blue}{3}}:] Bockage de l'axe des 
+		côtes.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.XY} ou \textcolor{blue}{7}}:] Bockage des axes x 
+		et y.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.XZ} ou \textcolor{blue}{8}}:] Bockage des axes x 
+		et z.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.YZ} ou \textcolor{blue}{9}}:] Bockage des axes y 
+		et z.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.XYZ} ou \textcolor{blue}{10}}:] Bockage des axes 
+		x, y et z.\\
+	\end{itemize}
+	% TargetingPriority property.
+	\textbf{+ \textcolor{red}{bool} TargetingPriority = \textcolor{blue}{true}:} Devront nous rendre
+	prioritaire le pistage automatique devant les actions du joueur ? En d'autres termes, le joueur peut-il 
+	manipuler la caméra lorsqu'elle piste \\automatique un objet ?
+
+	% CameraControl methods definition.
+	\section{Les méthodes disponibles}
+	% Void reset_camera () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{reset\_camera} (delay = 0.0):] Rénitialise la caméra
+		par rapport à sa cible.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant la 
+			rénitialisation ?\\
+		\end{itemize}
+	\end{description}
+	% Void change_target () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{change\_target} (index = -1, delay = 0.0):] Force la 
+		caméra à changé de cible parmit celles détectées. Par défaut, une cible est générée si l'index de la 
+		nouvelle cible n'a pas été donné.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{int} index}:] Contient l'index de la nouvelle cible à pistée.
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant le changement ?\\
+		\end{itemize}
+	\end{description}
+	% Void zoom () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{zoom} (depth = -1, transition = 1.0, type = 0, 
+		easing = 2, delay = 0.0):] Génère un éffet d'agrandissement en avant.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{float} depth}:] Contient le degré d'agrandissement. Par 
+			défaut, celui précisé dans les \\configurations de la caméra est utilisé pour faire le 
+			traitement.
+			\item[>> \textbf{\textcolor{red}{float} transition}:] L'agrandissement se fera sur combien de 
+			temps ?
+			\item[>> \textbf{\textcolor{red}{int} type}:] Quel type de transition adopté ? Les valeurs 
+			possibles de ce champ sont celles de Godot.
+			\item[>> \textbf{\textcolor{red}{int} easing}:] Quel assouplissement adopté ? Les valeurs 
+			possibles de ce champ sont celles de Godot.
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant l'agrandissement 
+			?\\
+		\end{itemize}
+	\end{description}
+	% Void unzoom () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{unzoom} (depth = -1, transition = 1.0, type = 0, 
+		easing = 2, delay = 0.0):] Génère un \\éffet d'agrandissement en arrière.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{float} depth}:] Contient le degré de désagrandissement. Par 
+			défaut, celui précisé dans les \\configurations de la caméra est utilisé pour faire le 
+			traitement.
+			\item[>> \textbf{\textcolor{red}{float} transition}:] Le désagrandissement se fera sur combien 
+			de temps ?
+			\item[>> \textbf{\textcolor{red}{int} type}:] Quel type de transition adopté ? Les valeurs 
+			possibles de ce champ sont celles de Godot.
+			\item[>> \textbf{\textcolor{red}{int} easing}:] Quel assouplissement adopté ? Les valeurs 
+			possibles de ce champ sont celles de Godot.
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant le 
+			désagrandissement ?\\
+		\end{itemize}
+	\end{description}
+	% Void zooming () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{zooming} (velocity, depth = -1):] Etablit un éffet
+		d'agrandissement en fonction de la valeur contenu dans le paramètre \textit{\textcolor{gray}
+		{velocity}}.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{float} depth}:] Contient le degré de désagrandissement. Par 
+			défaut, celui précisé dans les \\configurations de la caméra est utilisé pour faire le 
+			traitement.
+			\item [>> \textbf{\textcolor{red}{float} velocity}:] Contient la vélocité de l'agrandissement.\\
+		\end{itemize}
+	\end{description}
+	% Void unzooming () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{unzooming} (velocity, depth = -1):] Etablit un éffet 
+		de désagrandissement en fonction de la valeur contenu dans le paramètre \textit{\textcolor{gray}
+		{velocity}}.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{float} depth}:] Contient le degré de désagrandissement. Par 
+			défaut, celui précisé dans les \\configurations de la caméra est utilisé pour faire le 
+			traitement.
+			\item [>> \textbf{\textcolor{red}{float} velocity}:] Contient la vélocité du désagrandissement.
+			\\
+		\end{itemize}
+	\end{description}
+	% Dictionary get_targets_data () method description.
+	\begin{description}
+		\item [+ \textcolor{darkgreen}{Dictionary} \textcolor{blue}{get\_targets\_data} (json = false):] 
+		Renvoie toutes les données concernant les cibles de la caméra.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{bool} json}:] Voulez-vous renvoyer les données au format json 
+			?\\
+		\end{itemize}
+	\end{description}
+	% Void rot () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{rot} (velocity):] Pivote la caméra. Cette méthode
+		s'adapte en fonction du mode choisi par le développeur.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Vector2 | Vector3} depth}:] Contient la vélocity du 
+			pivotement.\\
+		\end{itemize}
+	\end{description}
+	% Void local_translation () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{local\_translation} (velocity):] Déplace la caméra
+		d'une position à une autre. Cette méthode agit sur la propriété \textit{\hyperlink{ofstpos}
+		{OffsetPosition}} pour provoquer un mouvement de translation dans les axes.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Vector2 | Vector3} depth}:] Contient la vélocity du 
+			déplacement.\\
+		\end{itemize}
+	\end{description}
+	% Void local_rotation () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{local\_rotation} (velocity):] Pivote la caméra d'un 
+		ange à un autre. Cette méthode agit sur la propriété \textit{\hyperlink{ofstrot}{OffsetRotation}} 
+		pour provoquer un mouvement de rotation dans les axes.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Vector2 | Vector3} depth}:] Contient la vélocity du 
+			pivotement.\\
+		\end{itemize}
+	\end{description}
+	% Spatial get_current_target () method description.
+	\begin{description}
+		\item [+ \textcolor{darkgreen}{Spatial} \textcolor{blue}{get\_current\_target} ():] Renvoie la 
+		référence de l'objet ou du noeud actuellement ciblé par le sytème de pistage automatique.\\
+	\end{description}
+	% Spatial get_preview_target () method description.
+	\begin{description}
+		\item [+ \textcolor{darkgreen}{Spatial} \textcolor{blue}{get\_preview\_target} ():] Renvoie la 
+		référence de l'objet ou du noeud ayant été \\précédement ciblé par le sytème de pistage automatique.
+		\\
+	\end{description}
+	% Spatial get_next_target () method description.
+	\begin{description}
+		\item [+ \textcolor{darkgreen}{Spatial} \textcolor{blue}{get\_next\_target} ():] Renvoie la
+		référence du future objet ou noeud qui sera ciblé par le sytème de pistage automatique.\\
+	\end{description}
+	% Bool is_reset () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{bool} \textcolor{blue}{is\_reset} ():] A t-on déjà rénitialisé la rotation 
+		de la caméra ?\\
+	\end{description}
+	% Void shaken () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{shaken} (amount, delay = 0.0):] Vibre la caméra.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{float} amount}:] Contient la force de vibration de la caméra.
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant la vibration ?\\
+		\end{itemize}
+	\end{description}
+	% Void generate_shaken () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{generate\_shaken} (amount, delay = 0.0):] Génère 
+		aléatoirement une vibration de la \\caméra. Notez que cette méthode affecte les configurations 
+		éffectuées sur la caméra sur ses \\vibrations. Il se peut donc qu'après une appelle de cette 
+		méthode, les valeurs des champs \textit{\hyperlink{shkaxis}{\\ShakeAxis}} et 
+		\textit{\hyperlink{shkden}{ShakeDensity}} est changées.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{float} amount}:] Contient la force de vibration de la caméra.
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant la vibration ?
+		\end{itemize}
+	\end{description}
+
+	% CameraControl signals definition.
+	\section{Les événements disponibles}
+	% reset event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{reset} (node):] Signal déclenché lorsque la caméra a été rénitialisée.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\\
+		\end{itemize}
+	\end{description}
+	% target_changed event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{target\_changed} (data):] Signal déclenché lorsque le système de pistage
+		automatique de la \\caméra a changé de cible. Cet événement renvoie un dictionaire contenant les 
+		clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\item [>> \textbf{\textcolor{darkgreen}{Node} target}:] Contient la référence de la nouvelle 
+			cible de la caméra.\\
+		\end{itemize}
+	\end{description}
+	% target_entered event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{target\_entered} (data):] Signal déclenché lorsqu'un objet entre dans le 
+		champ de vision du pisteur automatique de la caméra. Cet événement renvoie un dictionaire contenant 
+		les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\item [>> \textbf{\textcolor{darkgreen}{Node} target}:] Contient la référence de l'objet 
+			détecté.\\
+		\end{itemize}
+	\end{description}
+	% target_exited event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{target\_exited} (data):] Signal déclenché lorsqu'un objet sort du champ de 
+		vision du pisteur \\automatique de la caméra. Cet événement renvoie un dictionaire contenant les 
+		clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\item [>> \textbf{\textcolor{darkgreen}{Node} target}:] Contient la référence de l'objet 
+			détecté.\\
+		\end{itemize}
+	\end{description}
+	% target_generated event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{target\_generated} (data):] Signal déclenché lorsqu'une cible a été 
+		générée par le pisteur \\automatique de la caméra. Cet événement renvoie un dictionaire contenant 
+		les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\item [>> \textbf{\textcolor{darkgreen}{Node} target}:] Contient la référence de la future cible
+			du pisteur automatique de la caméra.\\
+		\end{itemize}
+	\end{description}
+	% targeting_enabled event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{targeting\_enabled} (node):] Signal déclenché lorsque le système de 
+		pistage automatique de la caméra s'active.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\\
+		\end{itemize}
+	\end{description}
+	% targeting_disabled event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{targeting\_disabled} (node):] Signal déclenché lorsque le système de 
+		pistage automatique de la caméra se désactive.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\\
+		\end{itemize}
+	\end{description}
+	% min_zoom event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{min\_zoom} (data):] Signal déclenché lorsqu'on atteint l'agrandissement 
+		minimale de la caméra. Cet événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\item [>> \textbf{\textcolor{red}{float} depth}:] Contient le degré actuelle de
+			l'agrandissement de la caméra.\\
+		\end{itemize}
+	\end{description}
+	% max_zoom event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{max\_zoom} (data):] Signal déclenché lorsqu'on atteint l'agrandissement 
+		maximale de la caméra. Cet événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\item [>> \textbf{\textcolor{red}{float} depth}:] Contient le degré actuelle de
+			l'agrandissement de la caméra.\\
+		\end{itemize}
+	\end{description}
+	% zoom_started event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{zoom\_started} (data):] Signal déclenché lorsqu'on démarre l'opération 
+		d'agrandissement de la caméra. Cet événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\item [>> \textbf{\textcolor{red}{float} depth}:] Contient le degré actuelle de
+			l'agrandissement de la caméra.\\
+		\end{itemize}
+	\end{description}
+	% zoom_finished event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{zoom\_finished} (data):] Signal déclenché lorsque l'opération 
+		d'agrandissement de la caméra \\s'arrête. Cet événement renvoie un dictionaire contenant les clés 
+		suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\item [>> \textbf{\textcolor{red}{float} depth}:] Contient le degré actuelle de
+			l'agrandissement de la caméra.\\
+		\end{itemize}
+	\end{description}
+	% zoom event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{zoom} (data):] Signal déclenché au changement de la valeur 
+		d'agrandissement de la caméra. Cet événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\item [>> \textbf{\textcolor{red}{float} depth}:] Contient le degré actuelle de
+			l'agrandissement de la caméra.\\
+		\end{itemize}
+	\end{description}
+	% generate_zoom event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{generate\_zoom} (data):] Signal déclenché lorsqu'une valeur 
+		d'agrandissement a été générée suite à un calcule éffectué en fonction de la vitesse de l'objet 
+		pivot de la caméra. Cet événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\item [>> \textbf{\textcolor{red}{float} depth}:] Contient le future degré d'agrandissement de 
+			la caméra.\\
+		\end{itemize}
+	\end{description}
+	% max_distance event description.
+	\newpage \begin{description}
+		\item [+ \textcolor{blue}{max\_distance} (node):] Signal déclenché lorsque la distance de l'objet 
+		pivot de la caméra est supérieur ou égale à la deuxième valeur du champ \textit{\hyperlink{gap}
+		{Gap}}.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\\
+		\end{itemize}
+	\end{description}
+	% max_angle event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{max\_angle} (node):] Signal déclenché lorsque la distance de l'objet 
+		pivot de la caméra est \\supérieur ou égale à la première valeur du champ \textit{\hyperlink{gap}
+		{Gap}}.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\\
+		\end{itemize}
+	\end{description}
+	% flat_angle event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{flat\_angle} (data):] Signal déclenché lorsque l'angle de rotation de la 
+		caméra est plat. Cet \\événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\item [>> \textbf{\textcolor{red}{float} angle}:] Contient l'angle de rotation de la caméra. 
+			Notez que cet angle peut changé de signe en fonction du sens de rotation de la caméra.
+		\end{itemize}
+	\end{description}
+\end{document}

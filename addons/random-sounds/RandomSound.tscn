@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://addons/random-sounds/RandomSound.gd" type="Script" id=1]
+[ext_resource path="res://addons/kenney_interface_sounds/back_002.wav" type="AudioStream" id=2]
+[ext_resource path="res://addons/kenney_interface_sounds/back_001.wav" type="AudioStream" id=3]
+
+[node name="RandomSound" type="Node"]
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_icon": null
+}
+
+[node name="Channels" type="Node" parent="."]
+
+[node name="sound1" type="AudioStreamPlayer" parent="Channels"]
+stream = ExtResource( 2 )
+
+[node name="sound2" type="AudioStreamPlayer" parent="Channels"]
+stream = ExtResource( 3 )

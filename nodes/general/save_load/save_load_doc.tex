@@ -1,0 +1,576 @@
+% Document type and package imports.
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{charter}
+\usepackage[top = 2cm, bottom = 2cm, left = 1cm, right = 1cm]{geometry}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{tocloft}
+
+% Preanblue.
+\onehalfspacing
+\definecolor{gray}{rgb}{0.4, 0.4, 0.4}
+\definecolor{silver}{rgb}{0.95, 0.95, 0.95}
+\renewcommand{\thesection}{\Roman{section} --}
+\definecolor{darkgreen}{HTML}{1E8C15}
+\cftsetindents{section}{1em}{2.5em}
+\hypersetup {colorlinks=true, linkcolor=blue, urlcolor=blue, pdftitle={SaveLoad module doc}}
+
+% The start of the article.
+\begin{document}
+	% Change document background to silver color.
+	\pagecolor{silver}
+	% SaveLoad module description.
+	\huge{\hspace{14.5cm}\textit{\textbf{\textcolor{darkgreen}{SaveLoadFx}}}}\large{} \tableofcontents 
+	\newpage
+	% SaveLoad module definition.
+	\section{Définition}
+	\textcolor{darkgreen}{\textbf{SaveLoadFx}} est un module conçut pour la sauvegarde et le chargement de 
+	données dans un jeu. Ce dernier permettra aux développeurs de sauvegarder et de charger facilement leurs 
+	données. Cependant, les données du jeu sont déposées dans un fichier configuré par le développeur lui-
+	même.\\
+	\textcolor{red}{\textbf{NB}:} La sauvegarde et le chargement des données peuvent être sécurisées. Notez
+	également que ce module est de nature indestructible, est compatible à un jeu 2D, 3D et n'est pas 
+	sauvegardable.
+
+	% SaveLoad properties definition.
+	\section{Les propriétés disponibles}
+	% TargetPath property.
+	\textbf{+ \textcolor{red}{int} \hypertarget{idx}{TargetPath} = \textcolor{blue}{0}:} Contient les 
+	différents chemins que prend en charge ce module. Ces chemins \\représentent les endroits possibles où
+	l'on peut déposé le fichier de sauvegarde du jeu. Les valeurs \\possibles sont celles définient au sein
+	de la méthode \textit{\textcolor{blue}{get\_os\_dir ()}} de la classe \textbf{\textcolor{darkgreen}
+	{MegaAssets}}.\\\\
+	% Source property.
+	\textbf{+ \textcolor{darkgreen}{String} Source:} Contient le chemin pointant vers le fichier de
+	sauvegarde définit ou à créé par le module au cours des sauvegardes.\\\\
+	% ActiveCheckpoint property.
+	\textbf{+ \textcolor{darkgreen}{String} ActiveCheckpoint:} Contient le nom du point de sauvegarde à
+	ciblé pour la gestion des \\données du jeu sur le fichier de sauvegarde. Elle représente également le
+	point de sauvegarde actif. Cette option met le focus sur le point de sauvegarde donné parmi plusieurs 
+	autres points de sauvegarde dans lequel les sauvegardes et les chargements de données seront éffectuées.
+	Notez que le fichier de sauvegarde peut avoir un ou plusieurs point(s) de sauvegarde. Pour pouvoir 
+	sauvegarder et/ou charger les données du jeu, il faudra préciser le point de sauvegarde à ciblé pour 
+	effectuer l'opération demandée. Pour tous traitement à faire sur les données du jeu, on solicitera par 
+	défaut, le point de sauvegarde actif au niveau du fichier de sauvegarde.\\\\
+	% Security property.
+	\textbf{+ \textcolor{red}{int} \hypertarget{idx}{Security} = \textcolor{blue}{7}:} Contient les
+	différents modes de sécurité possibles que l'on peut utilisé au cours de la sauvegarde des données du
+	jeu. Les valeurs possibles sont celles définient au sein de la méthode \textit{\textcolor{blue}
+	{serialize ()}} de la classe \textbf{\textcolor{darkgreen}{MegaAssets}}.\\\\
+	% Level property.
+	\textbf{+ \textcolor{red}{int} \hypertarget{idx}{Level} = \textcolor{blue}{1}:} Contient les différents
+	niveaux de sécurité possibles que l'on peut utilisé au cours de la sauvegarde des données du jeu. Les
+	valeurs possibles sont celles définient au sein de la méthode \textit{\textcolor{blue}{serialize ()}} de 
+	la classe \textbf{\textcolor{darkgreen}{MegaAssets}}.\\\\
+	% FileChecksum property.
+	\textbf{+ \textcolor{red}{int} FileChecksum = \textcolor{blue}{1}:} Quelle méthode de chiffrement
+	voulez-vous utiliser pour générer le \\checksum du fichier de sauvegarde ? Les valeurs possibles sont
+	celles définient au sein de la méthode \textit{\textcolor{blue}{serialize ()}} de la classe 
+	\textbf{\textcolor{darkgreen}{MegaAssets}}.\\\\
+	% Key property.
+	\textbf{+ \textcolor{darkgreen}{String} \hypertarget{pass}{Key}:} Contient le mot de passe à utilisé
+	pour sécuriser les données du jeu. Le développeur a la possibilité de générer automatiquement un mot de
+	passe via le booléen \textit{\hyperlink{genpass}{GeneratePassword}}.\\\\
+	% ScreenCapture property.
+	\textbf{+ \textcolor{red}{bool} ScreenCapture = \textcolor{red}{false}:} Voulez-vous éffectuer une
+	capture d'écran à chaque sauvegarde \\éffectuée ?\\\\
+	% Size property.
+	\textbf{+ \textcolor{darkgreen}{Vector2} Size = \textcolor{darkgreen}{Vector2} (\textcolor{blue}{64}, 
+	\textcolor{blue}{64}):} Contrôle la résolution des captures d'écran à générées lors des sauvegardes.\\\\
+	% Quality property.
+	\textbf{+ \textcolor{red}{int} Quality = \textcolor{blue}{2}:} Contrôle la qualité des captures d'écran
+	à générées lors des sauvegardes. Les \\valeurs possibles sont celles définient au sein de la classe
+	\href{https://docs.godotengine.org/en/stable/classes/class_image.html#class-image-constant-interpolate-bilinear}{\textit{\textcolor{darkgreen}{Image}}} de Godot.\\\\
+	% CompressMode property.
+	\textbf{+ \textcolor{red}{int} CompressMode = \textcolor{blue}{2}:} Quel mode de compression voulez-vous
+	adopter pour compresser les \\captures d'écran générées lors des sauvegardes ? Les valeurs possibles
+	sont celles définient au sein de la méthode \textit{\textcolor{blue}{get\_screen\_shot ()}} de la classe 
+	\textbf{\textcolor{darkgreen}{MegaAssets}}.\\\\
+	% CompressSource property.
+	\textbf{+ \textcolor{red}{int} CompressSource = \textcolor{blue}{2}:} A partir de quelle source de
+	compression les compressions des captures d'écran générées lors des sauvegardes seront éffectuées ? Les
+	valeurs possibles sont celles définient au sein de la classe
+	\href{https://docs.godotengine.org/en/stable/classes/class_image.html#enum-image-compresssource}
+	{\textit{\textcolor{darkgreen}{Image}}} de Godot.\\\\
+	% CompressRatio property.
+	\textbf{+ \textcolor{red}{float} CompressRatio = \textcolor{blue}{1000.0}:} Quel taux de compression
+	appliqué aux captures d'écran \\générées lors des sauvegardes ?\\\\
+	% Format property.
+	\textbf{+ \textcolor{red}{int} Format = \textcolor{blue}{6}:} Quel sera le format des captures d'écran à 
+	générées lors des sauvegardes ? Les valeurs possibles sont celles définient au sein de la méthode
+	\textit{\textcolor{blue}{get\_screen\_shot ()}} de la classe \textbf{\textcolor{darkgreen}{MegaAssets}}.
+	\\\\
+	% LoadAllData property.
+	\textbf{+ \textcolor{red}{bool} LoadAllData = \textcolor{red}{true}:} Voulez-vous charger
+	automatiquement le fichier de sauvegarde à \\l'initialisation du jeu ?\\\\
+	% TargetScenes property.
+	\textbf{+ \textcolor{darkgreen}{PoolStringArray} TargetScenes:} Contient tous les noms en chaîne de
+	caractères des scènes à \\ciblées. Cette option, permettra au module de charger ou de recharger le 
+	fichier de sauvegarde ciblé par le développeur lorsque l'une des scènes spécifiées par ce dernier sera 
+	charger et active.\\
+	\textcolor{red}{\textbf{NB}:} La répétition du nom d'une ou de plusieurs scène(s) n'est pas tolérée.\\\\
+	% GeneratePassword property.
+	\textbf{+ \textcolor{red}{bool} \hypertarget{genpass}{GeneratePassword} = \textcolor{red}{false}:}
+	Souhaitez-vous générer automatiquement un mot de passe ? A ce niveau, la valeur du champ
+	\textit{\hyperlink{pass}{Key}} sera mise à jour à chaque génération.
+
+	% SaveLoad methods definition.
+	\section{Les méthodes disponibles}
+	% Void generate_password () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{generate\_password} (delay = 0.0):] Génère au 
+		hazard, un mot de passe en fonction des configurations présentent à son niveau. La valeur du champ
+		\textit{\hyperlink{pass}{Key}} sera mise à jour à chaque \\génération. \textbf{Notez que vous n'avez
+		pas la possibilité de générer un mot de passe lorsque le jeu est en cours d'exécution}.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant la génération ?\\
+		\end{itemize}
+	\end{description}
+	% Void save_game_data () method description.
+	\newpage \begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{save\_game\_data} (checkpoints = null, ignore =
+		null, active\_camera = null, delay = 0.0):] Enregistre le dictionnaire des données du jeu dans le
+		fichier de sauvegarde.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String | PoolStringArray} checkpoints}:] Quel(s) est/
+			sont le(s) point(s) de sauvegarde à \\modifié(s) avant la sauvegarde complète des données du jeu
+			? La mise à jour que subira les \\différents points de sauvegarde ne sera rien d'autre que
+			l'insertion des clés spéciales suivantes: \textit{\textcolor{gray}{\_\_last\_save\_date\_\_,
+			\_\_last\_save\_time\_\_, \_\_last\_load\_date\_\_, \_\_last\_load\_time\_\_,
+			\_\_game\_time\_\_}} et \textit{\textcolor{gray}{\_\_game\_screenshot\_\_}} dont se base
+			certaines fonctionnalités du module pour éffectuer leurs traitements. \textbf{Notez que si aucun
+			point de sauvegarde n'est précisé, celui actif ne sera pas solicité}.
+			\item [>> \textbf{\textcolor{darkgreen}{Variant} ignore}:] Contient la liste des clés à ignorées
+			au cours de la sauvegarde des données. Notez que vous avez la possibilité d'ignorer un point de
+			sauvegarde tout entier. Dans ce cas, toutes ces clés subiront le même sort.
+			\item [>> \textbf{\textcolor{darkgreen}{Camera} active\_camera}:] Voulez-vous faire une capture
+			d'écran à partir d'une autre caméra avant la sauvegarde générale des données du jeu ?
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant la sauvegarde des 
+			données du jeu ?\\
+		\end{itemize}
+	\end{description}
+	% Void load_game_data () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{load\_game\_data} (checkpoints = null, ignore =
+		null, delay = 0.0):] Charge les données du jeu à partir du fichier de sauvegarde créé par la
+		méthode \textcolor{blue}{\textit{save\_game\_data ()}}.
+ 		\begin{itemize}
+ 			\item [>> \textbf{\textcolor{darkgreen}{String | PoolStringArray} checkpoints}:] Quel(s) est/
+			sont le(s) point(s) de sauvegarde à \\modifié(s) après le chargement complet des données du jeu
+			? Notez que si vous précisez des points de sauvegarde dans ce paramètre, Seule ces derniers 
+			seront redéfinit dans le \\gestionnaire de données. Les autres conserveront leurs données. 
+			\textbf{Par défaut, toutes les \\données du gestionnaire sont écrasées par celles chargées à
+			partir du fichier de \\sauvegarde}.
+			\item [>> \textbf{\textcolor{darkgreen}{String | PoolStringArray} ignore}:] Contient la liste
+			des clés à ignorées au cours du chargement des données. Notez que vous avez la possibilité
+			d'ignorer un point de sauvegarde tout entier. Dans ce cas, toutes ces clés subiront le même
+			sort.
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant le chargement des 
+			données du jeu ?\\
+		\end{itemize}
+	\end{description}
+	% Bool is_progress () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{bool} \textcolor{blue}{is\_progress} ():] Détermine s'il y a une quelconque
+		progression éffectuée dans le jeu.\\
+	\end{description}
+	% String get_root_folders () method description.
+	\begin{description}
+		\item [+ \textcolor{darkgreen}{String} \textcolor{blue}{get\_root\_folders} ():] Renvoie les
+		dossiers parents du fichier de sauvegarde.\\
+	\end{description}
+	% String get_full_path () method description.
+	\begin{description}
+		\item [+ \textcolor{darkgreen}{String} \textcolor{blue}{get\_full\_path} ():] Renvoie le chemin
+		complet pointant vers le fichier de sauvegarde.\\
+	\end{description}
+	% Dictionary get_last_save_date () method description.
+	\begin{description}
+		\item [+ \textcolor{darkgreen}{Dictionary} \textcolor{blue}{get\_last\_save\_date} (checkpoint =
+		''):] Renvoie la date de la dernière sauvegarde \\éffectuée pour un point de sauvegarde donné. Cette
+		méthode exploite la clé \textit{\textcolor {gray}{\_\_last\_save\_date\_\_}} pour accomplir sa
+		tâche. Le dictionaire renvoyé par cette méthode contient les clés suivantes:
+		\textit{\textcolor{gray}{year, day, month, weekday}} et \textit{\textcolor{gray}{dst}} (heure
+		d'été).
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String} checkpoint}:] Contient le nom du point de 
+			sauvegarde à ciblé. Par défaut, le point de \\sauvegarde actif est utilisé pour faire le
+			traitement demandé.\\
+		\end{itemize}
+	\end{description}
+	% Dictionary get_last_save_time () method description.
+	\begin{description}
+		\item [+ \textcolor{darkgreen}{Dictionary} \textcolor{blue}{get\_last\_save\_time} (checkpoint =
+		'')]: Renvoie le temps de la dernière sauvegarde éffectuée pour un point de sauvegarde donné. Cette
+		méthode exploite la clé \textit{\textcolor {gray}{\_\_last\_save\_time\_\_}} pour accomplir sa
+		tâche. Le dictionaire renvoyé par cette méthode contient les clés suivantes:
+		\textit{\textcolor{gray}{hour, minute}} et \textit{\textcolor{gray}{second}}.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String} checkpoint}:] Contient le nom du point de 
+			sauvegarde à ciblé. Par défaut, le point de \\sauvegarde actif est utilisé pour faire le
+			traitement demandé.\\
+		\end{itemize}
+	\end{description}
+	% Int get_game_time () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} \textcolor{blue}{get\_game\_time} (checkpoint = ''):] Renvoie le temps
+		total écoulé toutes les fois où le jeu a été ouvert pour un point de sauvegarde donné. \textbf{Notez 
+		qu'en cas d'échec, le temps écoulé depuis le démarrage du jeu sera renvoyé}. Cette méthode exploite
+		la clé \textit{\textcolor{gray}{\_\_game\_time\_\_}} pour accomplir sa tâche.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String} checkpoint}:] Contient le nom du point de 
+			sauvegarde à ciblé. Par défaut, le point de \\sauvegarde actif est utilisé pour faire le
+			traitement demandé.\\
+		\end{itemize}
+	\end{description}
+	% Int get_global_game_time () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} \textcolor{blue}{get\_global\_game\_time} (checkpoint = ''):] Renvoie
+		le temps global écoulé toutes les fois où le jeu a été ouvert pour un point de sauvegarde donné.
+		\textbf{Notez qu'en cas d'échec, le temps écoulé depuis le démarrage du jeu sera renvoyé}. Cette
+		méthode exploite la clé \textit{\textcolor{gray}{\_\_game\_time\_\_}} pour accomplir sa tâche.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String} checkpoint}:] Contient le nom du point de 
+			sauvegarde à ciblé. Par défaut, le point de \\sauvegarde actif est utilisé pour faire le
+			traitement demandé.\\
+		\end{itemize}
+	\end{description}
+	% Dictionary get_last_load_date () method description.
+	\begin{description}
+		\item [+ \textcolor{darkgreen}{Dictionary} \textcolor{blue}{get\_last\_load\_date} (checkpoint =
+		''):] Renvoie la date du dernier chargement \\éffectué pour un point de sauvegarde donné. Cette
+		méthode exploite la clé \textit{\textcolor {gray}{\_\_last\_load\_date\_\_}} pour accomplir sa
+		tâche. \textbf{Notez qu'en cas d'échec, la date du dernier chargement éffectué au niveau du fichier
+		de sauvegarde sera renvoyé}. Le dictionaire renvoyé par cette méthode contient les clés suivantes:
+		\textit{\textcolor{gray}{year, day, month, weekday}} et \textit{\textcolor{gray}{dst}} (heure
+		d'été).
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String} checkpoint}:] Contient le nom du point de 
+			sauvegarde à ciblé. Par défaut, le point de \\sauvegarde actif est utilisé pour faire le
+			traitement demandé.\\
+		\end{itemize}
+	\end{description}
+	% Dictionary get_last_load_time () method description.
+	\begin{description}
+		\item [+ \textcolor{darkgreen}{Dictionary} \textcolor{blue}{get\_last\_load\_time} (checkpoint =
+		'')]: Renvoie le temps du dernier chargement \\éffectué pour un point de sauvegarde donné. Cette
+		méthode exploite la clé \textit{\textcolor {gray}{\_\_last\_load\_time\_\_}} pour accomplir sa
+		tâche. \textbf{Notez qu'en cas d'échec, le temps du dernier chargement éffectué au niveau du fichier
+		de sauvegarde sera renvoyé}. Le dictionaire renvoyé par cette méthode contient les clés suivantes:
+		\textit{\textcolor{gray}{hour, minute}} et \textit{\textcolor{gray}{second}}.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String} checkpoint}:] Contient le nom du point de 
+			sauvegarde à ciblé. Par défaut, le point de \\sauvegarde actif est utilisé pour faire le
+			traitement demandé.\\
+		\end{itemize}
+	\end{description}
+	% ImageTexture get_screen_capture () method description.
+	\begin{description}
+		\item [+ \textcolor{darkgreen}{ImageTexture} \textcolor{blue}{get\_screen\_capture} (checkpoint =
+		''):] Renvoie la capture d'écran générée pour un point de sauvegarde donné lors d'une sauvegarde.
+		Cette méthode exploite la clé \textit{\textcolor {gray}{\\\_\_game\_screenshot\_\_}} pour accomplir
+		sa tâche.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String} checkpoint}:] Contient le nom du point de 
+			sauvegarde à ciblé. Par défaut, le point de \\sauvegarde actif est utilisé pour faire le
+			traitement demandé.\\
+		\end{itemize}
+	\end{description}
+	% Void set_data () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{set\_data} (key, value, checkpoint = '', delay = 
+		0.0):] Mets à jour le gestionnaire de \\données.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String} key}:] Contient le nom de la clé qui va servir
+			d'identification à la valeur à insérée. \textbf{Evitez de mettre des espaces, si vous tenez à
+			récupéré valeur contenu dans votre clé}. Si votre clé n'existe pas, elle sera automatique créé.
+			\item [>> \textbf{\textcolor{darkgreen}{Variant} value}:] Contient la valeur de la clé à
+			ajoutée ou à modifiée.
+			\item [>> \textbf{\textcolor{darkgreen}{String} checkpoint}:] Contient le nom du point de
+			sauvegarde à ciblé. Si le point de sauvegarde n'est pas définit dans le gestionnaire de données, 
+			il sera automatiquement créé. Par défaut, le point de sauvegarde actif est pris pour cible.
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant la mise à jour du
+			gestionnaire de données ?\\
+		\end{itemize}
+	\end{description}
+	% Variant get_data () method description.
+	\begin{description}
+		\item [+ \textcolor{darkgreen}{Variant} \textcolor{blue}{get\_data} (key, default = null, checkpoint
+		= ''):] Renvoie la valeur correspondante à \textit{\textcolor{gray}{key}}.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String} key}:] Contient le nom de la clé qui va servir
+			d'identification à la valeur à récupérée.
+			\item [>> \textbf{\textcolor{darkgreen}{Variant} default}:] Quelle valeur va t-on retournée,
+			lorsque le nom de la clé ou celui du point de sauvegarde n'est pas définit dans le gestionnaire 
+			de données.
+			\item [>> \textbf{\textcolor{darkgreen}{String} checkpoint}:] Contient le nom du point de
+			sauvegarde à ciblé. Par défaut, le point de sauvegarde actif est pris pour cible.\\
+		\end{itemize}
+	\end{description}
+	% Array get_checkpoints_list () method description.
+	\begin{description}
+		\item [+ \textcolor{darkgreen}{Array} \textcolor{blue}{get\_checkpoints\_list} ():] Renvoie la liste
+		de tous le(s) point(s) de sauvegarde défini(en)t au sein du gestionnaire de données.\\
+	\end{description}
+	% Bool has_checkpoints () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{bool} \textcolor{blue}{has\_checkpoints} (checkpoints):] Le(s) point(s) de
+		sauvegarde référé(s) est/sont-il(s) \\défini(en)t au sein du gestionaire de données ?
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String} checkpoint}:] Contient le(s) nom(s) de(s)
+			point(s) de sauvegarde à ciblé(s).\\
+		\end{itemize}
+	\end{description}
+	% Void destroy_keys () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{destroy\_keys} (keys = null, checkpoints = null,
+		delay = 0.0):] Supprime un ou plusieurs \\identifiant(s) dans un ou plusieurs point(s) de 
+		sauvegarde. Notez que la valeur de(s) identifiant(s) sera également supprimée.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String | PoolStringArray} keys}:] Contient le(s)
+			identifiant(s) à supprimé(s). \textbf{Si aucune clé n'a été référée, on assistera à un nétoyage 
+			complet de toutes les données au sein du point de sauvegarde en question}.
+			\item [>> \textbf{\textcolor{darkgreen}{String | PoolStringArray} checkpoints}:] Contient le(s) 
+			nom(s) de(s) point(s) de sauvegarde dans lesquel(s) le(s) identifiant(s) précisé(s) sera(ont)
+			supprimé(s). Par défaut, on ciblera le point de sauvegarde actif pour faire le traitement.
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant la mise à jour du
+			gestionnaire de données ?\\
+		\end{itemize}
+	\end{description}
+	% Bool has_keys () method description.
+	\newpage \begin{description}
+		\item [+ \textcolor{red}{bool} \textcolor{blue}{has\_keys} (keys, checkpoints = null):] Détermine si
+		un ou plusieurs identifiant(s) sont bel et bien définient dans un ou plusieurs point(s) de
+		sauvegarde.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String | PoolStringArray} keys}:] Contient tous le(s)
+			identifiant(s) à cherché(s).
+			\item [>> \textbf{\textcolor{darkgreen}{String | PoolStringArray} checkpoints}:] Quel(s) est/
+			sont le(s) point(s) de sauvegarde qui \\sera(ont) ciblé(s) ? Par défaut, le point de sauvegarde
+			actif sera pris pour cible.\\
+		\end{itemize}
+	\end{description}
+	% Dictionary | String get_game_data () method description.
+	\begin{description}
+		\item [+ \textcolor{darkgreen}{Dictionary | String} \textcolor{blue}{get\_game\_data} (json =
+		true):] Renvoie toutes les informations sur le \\gestionnaire des données du jeu.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{bool} json}:] Voulez-vous renvoyer le résultat sous le format 
+			json ?\\
+		\end{itemize}
+	\end{description}
+	% Dictionary | String get_checkpoint_data () method description.
+	\begin{description}
+		\item [+ \textcolor{darkgreen}{Dictionary | String} \textcolor{blue}{get\_checkpoint\_data}
+		(checkpoint = '', json = true):] Renvoie toutes les \\données présentes au sein d'un point de
+		sauvegarde donné.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String} checkpoint}:] Quel point de sauvegarde voulez-
+			vous ciblé ? Par défaut, le point de \\sauvegarde actif sera utiliser pour faire le traitement.
+			\item [>> \textbf{\textcolor{red}{bool} json}:] Voulez-vous renvoyer le résultat sous le format 
+			json ?\\
+		\end{itemize}
+	\end{description}
+	% Void destroy_game_data () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{destroy\_game\_data} (on\_disc = false, delay =
+		0.0):] Supprime toutes les données du jeu au sein du gestionnaire. Faites très attention lorsque
+		vous utilisez cette fonction, car il n'y a pas de retour arrière après une telle opération.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{bool} on\_disc}:] Voulez-vous supprimer physiquement le
+			fichier de sauvegarde du disque dure ?
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant le nétoyage ?\\
+		\end{itemize}
+	\end{description}
+	% Void destroy_checkpoints () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{destroy\_checkpoints} (checkpoints = null, delay =
+		0.0):] Supprime un ou plusieurs point(s) de sauvegarde.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String | PoolStringArray} checkpoints}:] Quel(s) est/
+			sont le(s) nom(s) de(s) point(s) de \\sauvegarde à détruire ? Par défaut, le point de sauvegarde
+			actif est pris pour cible.
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant le nétoyage ?\\
+		\end{itemize}
+	\end{description}
+	% Void set_checkpoint_data () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{set\_checkpoint\_data} (data, checkpoint = '', delay
+		= 0.0):] Mets à jour les données au sein d'un point de sauvegarde donné.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Dictionary} data}:] Quelles sont différentes données qui
+			constituent le point de sauvegarde en question. \textbf{Evitez de mettre des espaces dans vos
+			clés si vous tenez à les récupérées}.
+			\item [>> \textbf{\textcolor{darkgreen}{String} checkpoint}:] Quel est le nom du point de
+			sauvegarde à modifié ? Notez que si ce dernier n'est pas définit dans le gestionnaire, il sera
+			automatiquement créé. Par défaut, le point de sauvegarde actif sera pris pour cible.
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant la mise à jour du
+			gestionnaire des données ?\\
+		\end{itemize}
+	\end{description}
+	% Int get_total_data_count () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} \textcolor{blue}{get\_total\_data\_count} ():] Renvoie le nombre total
+		de données définient au sein du \\gestionnaire des données du jeu.
+	\end{description}
+
+	% SaveLoad signals definition.
+	\newpage \section{Les événements disponibles}
+	% before_save () signal description.
+	\begin{description}
+		\item [+ \textcolor{blue}{before\_save}:] Signal appelé avant la sauvegarde des données du jeu.
+	\end{description}
+	% before_load () signal description.
+	\begin{description}
+		\item [+ \textcolor{blue}{before\_load}:] Signal appelé avant le chargement des données du jeu.
+	\end{description}
+	% game_data_changed () signal description.
+	\begin{description}
+		\item [+ \textcolor{blue}{game\_data\_changed}:] Signal appelé lorsque la structure des données
+		définient au sein du \\gestionnaire a changé.\\
+	\end{description}
+	% before_destroy () signal description.
+	\begin{description}
+		\item [+ \textcolor{blue}{before\_destroy} (data):] Signal appelé avant la destruction des données 
+		du jeu.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Dictionary | Array} data}:] Contient des informations
+			sur les différent(s) élément(s) à détruire.\\
+		\end{itemize}
+	\end{description}
+	% after_save () signal description.
+	\begin{description}
+		\item [+ \textcolor{blue}{after\_save} (datum\_count):] Signal appelé après la sauvegarde des
+		données du jeu.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{int} datum\_count}:] Contient le nombre total de donnée(s)
+			sauvegardée(s).\\
+		\end{itemize}
+	\end{description}
+	% after_load () signal description.
+	\begin{description}
+		\item [+ \textcolor{blue}{after\_load} (datum\_count):] Signal appelé après le chargement des
+		données du jeu.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{int} datum\_count}:] Contient le nombre total de donnée(s)
+			chargée(s).\\
+		\end{itemize}
+	\end{description}
+	% after_destroy () signal description.
+	\begin{description}
+		\item [+ \textcolor{blue}{after\_destroy} (data):] Signal appelé après la destruction des données du
+		jeu. Cet événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Array} checkpoints}:] Contient la liste de tous les
+			points de sauvegarde supprimés.
+			\item [>> \textbf{\textcolor{darkgreen}{Array} keys}:] Contient la liste de toutes les clés
+			supprimées.\\
+		\end{itemize}
+	\end{description}
+	% before_update () signal description.
+	\begin{description}
+		\item [+ \textcolor{blue}{before\_update} (data):] Signal appelé avant la mise à jour du
+		gestionnaire des données (à chaque fois qu'on ajoute ou modifie la valeur d'une clé). Cet événement
+		renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String} key}:] Contient le nom de la clé à modifiée ou
+			insérée dans le gestionnaire de données.
+			\item [>> \textbf{\textcolor{darkgreen}{String} value}:] Contient la valeur de la clé à modifiée
+			insérée dans le gestionnaire de données.
+			\item [>> \textbf{\textcolor{darkgreen}{String} checkpoint}:] Contient le nom du point de
+			sauvegarde pris pour cible.\\
+		\end{itemize}
+	\end{description}
+	% after_update () signal description.
+	\begin{description}
+		\item [+ \textcolor{blue}{after\_update} (data):] Signal appelé après la mise à jour du gestionnaire 
+		des données (à chaque fois qu'on ajoute ou modifie la valeur d'une clé). Cet événement renvoie un
+		dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String} key}:] Contient le nom de la clé modifiée ou
+			insérée dans le gestionnaire de données.
+			\item [>> \textbf{\textcolor{darkgreen}{String} value}:] Contient la valeur de la clé modifiée
+			ou insérée dans le gestionnaire de données.
+			\item [>> \textbf{\textcolor{darkgreen}{String} checkpoint}:] Contient le nom du point de
+			sauvegarde pris pour cible.\\
+		\end{itemize}
+	\end{description}
+	% file_cant_open () signal description.
+	\begin{description}
+		\item [+ \textcolor{blue}{file\_cant\_open} (data):] Signal déclenché lorsqu'on a du mal à ouvrir
+		le fichier de sauvegarde ou que son accès à été refusé. Cet événement renvoie un dictionaire
+		contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String} path}:] Contient le chemin pointant vers le
+			fichier de sauvegarde.
+			\item [>> \textbf{\textcolor{red}{int} type}:] Contient le type de l'erreur déclenché.
+			\item [>> \textbf{\textcolor{darkgreen}{String} message}:] Contient le méssage renvoyé par 
+			l'erreur déclenché.\\
+		\end{itemize}
+	\end{description}
+	% file_not_found () signal description.
+	\begin{description}
+		\item [+ \textcolor{blue}{file\_not\_found} (data):] Signal déclenché lorsque le fichier de 
+		sauvegarde n'est pas définit. Cet événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String} path}:] Contient le chemin pointant vers le
+			fichier de sauvegarde.
+			\item [>> \textbf{\textcolor{red}{int} type}:] Contient le type de l'erreur déclenché.
+			\item [>> \textbf{\textcolor{darkgreen}{String} message}:] Contient le méssage renvoyé par 
+			l'erreur déclenché.\\
+		\end{itemize}
+	\end{description}
+	% file_corrupted () signal description.
+	\begin{description}
+		\item [+ \textcolor{blue}{file\_corrupted} (data):] Signal déclenché lorsque le fichier de
+		sauvegarde a été corromput de \\l'extérieur. Cet événement renvoie un dictionaire contenant les 
+		clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String} path}:] Contient le chemin pointant vers le
+			fichier de sauvegarde.
+			\item [>> \textbf{\textcolor{red}{int} type}:] Contient le type de l'erreur déclenché.
+			\item [>> \textbf{\textcolor{darkgreen}{String} message}:] Contient le méssage renvoyé par 
+			l'erreur déclenché.\\
+		\end{itemize}
+	\end{description}
+	% file_saving event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{file\_saving} (data):] Signal déclenché pendant qu'on sauvegarde les
+		données du jeu dans le fichier de sauvegarde. Cet événement renvoie un dictionaire contenant les
+		clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String} path}:] Contient le chemin pointant vers le
+			fichier de sauvegarde.
+			\item [>> \textbf{\textcolor{red}{int} progress}:] Contient la progression actuelle en 
+			pourcentage de la sauvegarde.\\
+		\end{itemize}
+	\end{description}
+	% file_loading event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{file\_loading} (data):] Signal déclenché pendant que le fichier de
+		sauvegarde est en cours de \\chargement. Cet événement renvoie un dictionaire contenant les clés 
+		suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String} path}:] Contient le chemin pointant vers le
+			fichier de sauvegarde.
+			\item [>> \textbf{\textcolor{red}{bool} is\_over}:] Est-ce que toutes les données du fichier de
+			sauvegarde ont-elles été \\complètement chargées ?
+			\item [>> \textbf{\textcolor{red}{int} progress}:] Contient le nombre total de donnée(s) déjà
+			chargée(s) en mémoire.\\
+		\end{itemize}
+	\end{description}
+	% game_time_changed event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{game\_time\_changed} (time):] Signal déclenché à chaque fois que le temps 
+		écoulé depuis le \\démarrage du jeu, évolue.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{int} time}:] Contient le temps actuellement écoulé en seconde.
+			\\
+		\end{itemize}
+	\end{description}
+\end{document}

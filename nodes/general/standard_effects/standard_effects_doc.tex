@@ -1,0 +1,213 @@
+% Document type and package imports.
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{charter}
+\usepackage[top = 2cm, bottom = 2cm, left = 1cm, right = 1cm]{geometry}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{tocloft}
+
+% Preanblue.
+\onehalfspacing
+\definecolor{gray}{rgb}{0.4, 0.4, 0.4}
+\definecolor{silver}{rgb}{0.95, 0.95, 0.95}
+\renewcommand{\thesection}{\Roman{section} --}
+\definecolor{darkgreen}{HTML}{1E8C15}
+\cftsetindents{section}{1em}{2.5em}
+\hypersetup {colorlinks=true, linkcolor=blue, urlcolor=blue, pdftitle={StandardEffects module doc}}
+
+% The start of the article.
+\begin{document}
+	% Change document background to silver color.
+	\pagecolor{silver}
+	% StandardEffects module description.
+	\huge{\hspace{12.5cm}\textit{\textbf{\textcolor{darkgreen}{StandardEffectsFx}}}}\large{} 
+	\tableofcontents \newpage
+	% StandardEffects module definition.
+	\section{Définition}
+	\textcolor{darkgreen}{\textbf{StandardEffectsFx}} est un module permettant de faire des effets simple 
+	cool et sympa dans un jeu vidéo. Notez qu'il y a deux catégories d'éffets à savoirs: Les éffets en deux
+	dimension et ceux en trois dimension.\\
+	\textcolor{red}{\textbf{NB}:} Ce module est compatible à un jeu 2D, 3D et est sauvegardable.
+
+	% StandardEffects properties definition.
+	\section{Les propriétés disponibles}
+	% Target property.
+	\textbf{+ \textcolor{darkgreen}{NodePath} Target:} Contient une référence de l'instance d'un noeud de 
+	type \href{https://docs.godotengine.org/en/stable/classes/class_meshinstance.html}
+	{\textit{\textcolor{darkgreen}{MeshInstance}}},
+	\href{https://docs.godotengine.org/en/stable/classes/class_node2d.html}
+	{\textit{\textcolor{darkgreen}{Node2D}}} ou
+	\href{https://docs.godotengine.org/en/stable/classes/class_control.html}
+	{\textit{\textcolor{darkgreen}{Control}}}.\\\\
+	% Effect property.
+	\textbf{+ \textcolor{red}{int} Effect = \textcolor{blue}{0}:} Contient l'éffet à appliqué. Les valeurs 
+	possibles sont:
+	\begin{itemize}
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.NONE} ou \textcolor{blue}{0}}:] Aucun 
+		éffet à appliqué.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.BAKED\_SPRITE\_GLOW2D} ou 
+		\textcolor{blue}{1}}:] Utilisation de l'éffet baked glow sprite 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.BILINEAR\_FILTERING2D} ou 
+		\textcolor{blue}{2}}:] Utilisation de l'éffet bilinear \\filtering 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.BILLBOARD2D} ou \textcolor{blue}{3}}:] 
+		Utilisation de l'éffet bilboard.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.BLUR2D} ou \textcolor{blue}{4}}:] 
+		Utilisation de l'éffet flou.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.CHROMATIC\_ABERATION2D} ou 
+		\textcolor{blue}{5}}:] Utilisation de l'éffet \\chromatic aberation 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.CLOUD2D} ou \textcolor{blue}{6}}:] 
+		Utilisation de l'éffet de nuage 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.COMPOSE2D} ou \textcolor{blue}{7}}:] 
+		Utilisation de l'éffet de composition.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.CROSSHAIR2D} ou \textcolor{blue}{8}}:] 
+		Utilisation de l'éffet crosshair 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.DISSOLVE2D} ou \textcolor{blue}{9}}:] 
+		Utilisation de l'éffet dissolve 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.DISTORTION2D} ou \textcolor{blue}
+		{10}}:] Utilisation de l'éffet distortion 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.FADE2D} ou \textcolor{blue}{11}}:] 
+		Utilisation de l'éffet de disparution.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.FLAT\_OUTLINE2D} ou \textcolor{blue}
+		{12}}:] Utilisation de l'éffet flat outline 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.GAUSSIAN\_BLUR2D} ou \textcolor{blue}
+		{13}}:] Utilisation de l'éffet gaussian blur 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.GAUSSIAN\_BLUR\_OPTIMIZED2D} ou 
+		\textcolor{blue}{14}}:] Utilisation de l'éffet \\d'écran gaussian blur optimized 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.GRADIENT2D} ou \textcolor{blue}{15}}:] 
+		Utilisation de l'éffet gradient 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.GRADIENT\_SHIFT2D} ou \textcolor{blue}
+		{16}}:] Utilisation de l'éffet gradient shift 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.GRAYSCALE2D} ou \textcolor{blue}{17}}:] 
+		Utilisation de l'éffet grayscale 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.INLINE2D} ou \textcolor{blue}{18}}:] 
+		Utilisation de l'éffet inline 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.INOUTLINE2D} ou \textcolor{blue}{19}}:] 
+		Utilisation de l'éffet inoutline 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.INVERT2D} ou \textcolor{blue}{20}}:] 
+		Utilisation de l'éffet d'invertion de coleur 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.NEGATIVE2D} ou \textcolor{blue}{21}}:] 
+		Utilisation de l'éffet de négation 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.OUTLINE2D} ou \textcolor{blue}{22}}:] 
+		Utilisation de l'éffet outline 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.PIXELIZE2D} ou \textcolor{blue}{23}}:] 
+		Utilisation de l'éffet de pixélisation 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.PIXEL\_OUTLINE2D} ou \textcolor{blue}
+		{24}}:] Utilisation de l'éffet pixel outline 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.POINTILISM2D} ou \textcolor{blue}
+		{25}}:] Utilisation de l'éffet pointilisme 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.PSYCHADELIC2D} ou \textcolor{blue}
+		{26}}:] Utilisation de l'éffet psychadelic 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.REFLECTION2D} ou \textcolor{blue}
+		{27}}:] Utilisation de l'éffet de réflection 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.SEPIA2D} ou \textcolor{blue}{28}}:] 
+		Utilisation de l'éffet sepia 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.SHADOW2D} ou \textcolor{blue}{29}}:] 
+		Utilisation de l'éffet d'ombre 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.SHINY2D} ou \textcolor{blue}{30}}:] 
+		Utilisation de l'éffet shiny 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.SHOCKWAVE2D} ou \textcolor{blue}{31}}:] 
+		Utilisation de l'éffet de vibration de \\matériel 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.SIMPLE\_DISSOLVE2D} ou \textcolor{blue}
+		{32}}:] Utilisation de l'éffet de \\désintégration 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.SOBEL\_EDGE2D} ou \textcolor{blue}
+		{33}}:] Utilisation de l'éffet sobel edge 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.STACKED2D} ou \textcolor{blue}{34}}:] 
+		Utilisation de l'éffet stacked 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.SWIRL2D} ou \textcolor{blue}{35}}:] 
+		Utilisation de l'éffet swirl 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.VIGNETTE2D} ou \textcolor{blue}{36}}:] 
+		Utilisation de l'éffet vignette 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.WATER2D} ou \textcolor{blue}{37}}:] 
+		Utilisation de l'éffet d'eau 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.XRAY\_MASK2D} ou \textcolor{blue}
+		{38}}:] Utilisation de l'éffet x-ray mask 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.ZOOM\_BLUR2D} ou \textcolor{blue}
+		{39}}:] Utilisation de l'éffet d'agrandissement flou.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.XBRZ2D} ou \textcolor{blue}{40}}:] 
+		Utilisation de l'éffet xbrz 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.SIMPLE\_FIRE2D} ou \textcolor{blue}
+		{41}}:] Utilisation de l'éffet feu en 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.OMNISCALE2D} ou \textcolor{blue}{42}}:] 
+		Utilisation de l'éffet omniscale 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.EASY\_BLEND2D} ou \textcolor{blue}
+		{43}}:] Fournit plusieurs autres pack d'éffet \\agissant sur le physique de l'objet 2d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.ADVANCED\_TOON3D} ou \textcolor{blue}
+		{44}}:] Utilisation de l'éffet avancé du toon 3d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.CEL3D} ou \textcolor{blue}{45}}:] 
+		Utilisation de l'éffet cel 3d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.CLOUD3D} ou \textcolor{blue}{46}}:] 
+		Utilisation de l'éffet de nuage 3d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.COLOR\_BLENDED3D} ou \textcolor{blue}
+		{47}}:] Utilisation de mélange de couleur 3d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.CRISTAL3D} ou \textcolor{blue}{48}}:] 
+		Utilisation de l'éffet de cristélisation de \\matériaux 3d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.CURVATURE3D} ou \textcolor{blue}{49}}:] 
+		Utilisation de l'éffet curvature 3d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.DISSOLVE3D} ou \textcolor{blue}{50}}:] 
+		Utilisation de l'éffet désintégration 3d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.FLEXIBLE\_TOON3D} ou \textcolor{blue}
+		{51}}:] Utilisation de l'éffet flexible toon 3d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.FORCE\_FIELD3D} ou \textcolor{blue}
+		{52}}:] Utilisation de l'éffet de champ de force 3d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.GRADIENT3D} ou \textcolor{blue}{53}}:] 
+		Utilisation de l'éffet de dégradé 3d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.MOSAIC3D} ou \textcolor{blue}{54}}:] 
+		Utilisation de l'éffet mosaic 3d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.OUTLINE3D} ou \textcolor{blue}{55}}:] 
+		Utilisation de l'éffet outline 3d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.OVERDRAW3D} ou \textcolor{blue}{56}}:] 
+		Utilisation de l'éffet overdraw 3d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.PLANET\_ATMOSPHERE3D} ou 
+		\textcolor{blue}{57}}:] Utilisation de l'éffet \\d'atmosphère de planet 3d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.PSX\_LIT3D} ou \textcolor{blue}{58}}:] 
+		Utilisation de l'éffet psx lit 3d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.PULSE\_GLOW3D} ou \textcolor{blue}
+		{59}}:] Utilisation de l'éffet pulse glow 3d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.REFRACTION3D} ou \textcolor{blue}
+		{60}}:] Utilisation de l'éffet de réfraction 3d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.RIM3D} ou \textcolor{blue}{61}}:] 
+		Utilisation de l'éffet rim 3d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.SHOCKWAVE3D} ou \textcolor{blue}{62}}:] 
+		Utilisation de l'éffet de vibration de \\matériel 3d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.SIMPLE\_FORCE\_FIELD3D} ou 
+		\textcolor{blue}{63}}:] Utilisation de l'éffet de champ de force 3d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.STYLIZED\_LIQUID3D} ou \textcolor{blue}
+		{64}}:] Utilisation de l'éffet de liquide dans un verre 3d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.WIND3D} ou \textcolor{blue}{65}}:] 
+		Utilisation de l'éffet de vent 3d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.XRAY\_GLOW3D} ou \textcolor{blue}
+		{66}}:] Utilisation de l'éffet x-ray glow 3d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.DEBANDING\_MATERIAL3D} ou 
+		\textcolor{blue}{67}}:] Utilisation de l'éffet debanding material 3d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.ADVANCED\_DECAL3D} ou \textcolor{blue}
+		{68}}:] Utilisation de l'éffet decal avancé 3d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.SIMPLE\_DECAL3D} ou \textcolor{blue}
+		{69}}:] Utilisation de decal simple 3d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.SIMPLE\_FIRE3D} ou \textcolor{blue}
+		{70}}:] Utilisation d'un simple éffet de feu 3d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.LIGHT\_RAYS3D} ou \textcolor{blue}
+		{71}}:] Utilisation de l'éffet de rayons de lumière 3d.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.StandardEffect.LENS\_FLARE3D} ou \textcolor{blue}
+		{72}}:] Utilisation de l'éffet lens flare 3d.\\
+	\end{itemize}
+	% Geometry property.
+	\textbf{+ \textcolor{red}{bool} Geometry = \textcolor{red}{true}:} Voulez-vous que l'éffet à appliqué 
+	soit mis sur la propriété \textit{\textcolor{gray}{material\_override}} ? Notez que la désactivation de 
+	cette option ne peut qu'être fait que sur un noeud de type
+	\href{https://docs.godotengine.org/en/stable/classes/class_meshinstance.html}
+	{\textit{\textcolor{darkgreen}{MeshInstance}}}.\\\\
+	% Index property.
+	\textbf{+ \textcolor{red}{int} Index = \textcolor{blue}{0}:} Contient l'index de position du matériel 
+	qui sera affecté par l'éffet. Cette propriété est à utilisée uniquement sur un noeud de type
+	\href{https://docs.godotengine.org/en/stable/classes/class_meshinstance.html}
+	{\textit{\textcolor{darkgreen}{MeshInstance}}}.\\\\
+	% NextPass property.
+	\textbf{+ \textcolor{red}{bool} NextPass = \textcolor{red}{false}:} Voulez-vous que l'éffet à appliqué
+	soit mis sur la valeur de la propriété \textit{\textcolor{gray}{NextPass}} ? Le comportement de cette 
+	option est récursive.
+\end{document}

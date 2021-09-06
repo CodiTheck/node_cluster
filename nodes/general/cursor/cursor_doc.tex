@@ -1,0 +1,34 @@
+% Document type and package imports.
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{charter}
+\usepackage{hyperref}
+\usepackage{tocloft}
+\usepackage[top = 2cm, bottom = 2cm, left = 1cm, right = 1cm]{geometry}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{xcolor}
+
+% Preanblue.
+\onehalfspacing
+\definecolor{gray}{rgb}{0.4, 0.4, 0.4}
+\definecolor{silver}{rgb}{0.95, 0.95, 0.95}
+\renewcommand{\thesection}{\Roman{section} --}
+\definecolor{darkgreen}{HTML}{1E8C15}
+\cftsetindents{section}{1em}{2.5em}
+\hypersetup {colorlinks=true, linkcolor=blue, urlcolor=blue, pdftitle={Cursor module doc}}
+
+% The start of the article.
+\begin{document}
+	% Change document background to silver color.
+	\pagecolor{silver}
+	% Cursor module description.
+	\huge{\hspace{12cm}\textit{\textbf{\textcolor{darkgreen}{CursorFx}}}}\large{} \tableofcontents \newpage
+	% Cursor module definition.
+	\section{Définition}
+	\textcolor{darkgreen}{\textbf{CursorFx}} est un module conçut 
+	\textcolor{red}{\textbf{NB}:} Ce module est de nature indestructible, est compatible à un jeu 2D, 3D et 
+	est sauvegardable.
+\end{document}

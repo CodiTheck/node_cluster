@@ -1,0 +1,235 @@
+% Document type and package imports.
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{charter}
+\usepackage[top = 2cm, bottom = 2cm, left = 1cm, right = 1cm]{geometry}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{tocloft}
+
+% Preanblue.
+\onehalfspacing
+\definecolor{gray}{rgb}{0.4, 0.4, 0.4}
+\definecolor{silver}{rgb}{0.95, 0.95, 0.95}
+\renewcommand{\thesection}{\Roman{section} --}
+\definecolor{darkgreen}{HTML}{1E8C15}
+\cftsetindents{section}{1em}{2.5em}
+\hypersetup {colorlinks=true, linkcolor=blue, urlcolor=blue, pdftitle={Languages module doc}}
+
+% The start of the article.
+\begin{document}
+	% Change document background to silver color.
+	\pagecolor{silver}
+	% LanguagesFx module description.
+	\huge{\hspace{14cm}\textit{\textbf{\textcolor{darkgreen}{LanguagesFx}}}}\large{} \tableofcontents 
+	\newpage
+	% Languages module definition.
+	\section{Définition}
+	\textcolor{darkgreen}{\textbf{LanguagesFx}} est un module conçut pour la gestion des langues d'un jeu. 
+	Elle assure le chargement des différents langages du jeu. Ces langues sont décidées par le développeur. 
+	En d'autres termes, c'est le développeur lui-même qui intègre les différentes langues dont-il pourra 
+	charger grâce à ce module. Cela lui permettra ainsi de prendre en charge autant de langues que possible.
+	\\
+	\textcolor{red}{\textbf{NB}:} Notez que ce module est de nature indestructible, est compatible à un jeu 
+	2D, 3D et est \\sauvegardable.
+
+	% Languages properties definition.
+	\section{Les propriétés disponibles}
+	% TargetPath property.
+	\textbf{+ \textcolor{red}{int} \hypertarget{idx}{TargetPath} = \textcolor{blue}{0}:} Contient les 
+	différents chemins que prend en charge ce module. Ces chemins \\représentent les endroits possibles où
+	l'on peut accédé au fichier (.csv). Les valeurs possibles sont celles définient au sein de la méthode
+	\textit{\textcolor{blue}{get\_os\_dir ()}} de la classe \textbf{\textcolor{darkgreen}{MegaAssets}}. Le
+	champ d'activité de ce champ est uniquement sur le moteur Godot.\\\\
+	% Input property.
+	\textbf{+ \textcolor{darkgreen}{String} Input:} Contient le chemin pointant vers le fichier de langue à 
+	prendre charge. L'extention de ce fichier doit être en (.csv). Le champ d'activité de ce champ est
+	uniquement sur le moteur Godot.\\\\
+	% Separator property.
+	\textbf{+ \textcolor{darkgreen}{String} Separator = \textcolor{blue}{0}:} Contient les différents
+	séparateurs que supporte ce module. Le champ \\d'activité de ce champ est uniquement sur le moteur
+	Godot. Les valeurs possibles sont:
+	\begin{itemize}
+		\item [-> \textbf{\textcolor{gray}{LanguagesFx.Divider.COMMA} ou \textcolor{blue}{0}}:] Le fichier
+		sera traité avec les \textbf{virgules}.
+		\item [-> \textbf{\textcolor{gray}{LanguagesFx.Divider.SEMICOLON} ou \textcolor{blue}{1}}:] Le
+		fichier sera traité avec les \textbf{points virgule}.
+		\item [-> \textbf{\textcolor{gray}{LanguagesFx.Divider.TAB} ou \textcolor{blue}{2}}:] Le fichier
+		sera traité avec les \textbf{tabulations}.\\
+	\end{itemize}
+	% Output property.
+	\textbf{+ \textcolor{darkgreen}{String} Output:} Contient le chemin pointant vers le(s) fichier(s) de
+	langue au format (.translation).\\\\
+	% Security property.
+	\textbf{+ \textcolor{red}{bool} \hypertarget{idx}{Security} = \textcolor{red}{true}:} Voulez-vous mettre
+	une sécurité sur le(s) fichier(s) de langue ?\\\\
+	% Level property.
+	\textbf{+ \textcolor{red}{int} \hypertarget{idx}{Level} = \textcolor{blue}{1}:} Contient les différents
+	niveaux de sécurité possibles pour la création de(s) fichier(s) au format (.translation). Les valeurs
+	possibles sont celles définient au sein de la méthode \textit{\textcolor{blue}{serialize ()}} de la
+	classe \textbf{\textcolor{darkgreen}{MegaAssets}}.\\\\
+	% Key property.
+	\textbf{+ \textcolor{darkgreen}{String} \hypertarget{pass}{Pass}:} Contient le mot de passe à utilisé
+	pour sécuriser les données de langue. Vous avez la possibilité de générer automatiquement un mot de
+	passe via le booléen \textit{\hyperlink{genpass}{GeneratePassword}}.\\\\
+	% ActiveLanguage property.
+	\textbf{+ \textcolor{red}{int} | \textcolor{darkgreen}{String} ActiveLanguage:} Contient la langue à
+	chargée. Notez que les valeurs que vous \\enterez ici, devront prendre en charge les éléments qui seront
+	générés dans le \textcolor{blue}{\textit{Output}}. Vous avez la possibilité de cibler une langue en
+	donnant le nom correspondant à son fichier.\\\\
+	% AutoGeneration property.
+	\newpage \textbf{+ \textcolor{red}{bool} \hypertarget{autogen}{AutoGeneration} = \textcolor{red}
+	{false}:} Souhaitez-vous générer de façon automatique les correspondances (.translation) du fichier
+	(.csv) ? Notez que cette option, une fois activée, met en écoute l'édition du \\fichier source en vue de
+	générer en temps réel, les équivalents (.translation). Vous ne serez donc plus tenu d'appuyer sur le
+	bouton \textit{\hyperlink{genlanglfile}{GenerateLangFile(s)}} à chaque fois que vous progresserez dans
+	l'édition de votre source. Toute fois, désactivé cette fonctionnalité avant chaque exécution du jeu pour
+	éviter des écoutes inutiles. Le champ d'activité de cette propriété est uniquement sur le moteur Godot.
+	\\\\
+	% Interval property.
+	\textbf{+ \textcolor{red}{float} Interval = \textcolor{blue}{3.0}:} Quel est le temps mort avant chaque 
+	génération ? Notez que la valeur \\minimum de ce champ est de \textcolor{blue}{0.1} secondes et ne 
+	s'active que lorsque l'option \textcolor{blue}{\textit{AutoGeneration}} est activé. Le champ d'activité 
+	de cette propriété est uniquement sur le moteur Godot.\\\\
+	% GeneratePassword property.
+	\textbf{+ \textcolor{red}{bool} \hypertarget{genpass}{GeneratePassword} = \textcolor{red}{false}:}
+	Souhaitez-vous générer automatiquement un mot de passe ? A ce niveau, la valeur du champ
+	\textit{\hyperlink{pass}{Passs}} sera mise à jour à chaque génération. Le champ d'activité de cette
+	propriété est uniquement sur le moteur Godot.\\\\
+	% GenerateLangFile(s) property.
+	\textbf{+ \textcolor{red}{bool} \hypertarget{genlangfile}{GenerateLangFile(s)} = \textcolor{red}
+	{false}:} Bouton générant les équivalents (.translation) du fichier source (.csv). Le champ d'activité
+	de cette propriété est uniquement sur le moteur Godot.
+
+	% Languages méthods definition.
+	\section{Les méthodes disponibles}
+	% Void generate_passwords () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{generate\_passwords} (delay = 0.0):] Génère au 
+		hazard, un mot de passe en fonction des configurations présentes à son niveau. Le(s) élément(s) 
+		contenant la clé \textit{\hyperlink{pass}{password}} seront affecté(s) par cette génération.
+		Attention ! Cette méthode ne s'exécute qu'en mode édition.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant la génération ?\\
+		\end{itemize}
+	\end{description}
+	% Void generate_lang_files () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{generate\_lang\_files} (delay = 0.0):] Génère les 
+		équivalents (.translation) du fichier source (.csv) ayant été précisé. Attention ! Cette méthode ne
+		s'exécute qu'en mode édition.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant la génération ?\\
+		\end{itemize}
+	\end{description}
+	% String get_value_at () method description.
+	\begin{description}
+		\item [+ \textcolor{darkgreen}{String} \textcolor{blue}{get\_value\_at} (key, default = "Null"):]
+		Renvoie la valeur associée à un identifiant donné en fonction du langage actif.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String} key}:] Contient l'identificateur de la valeur à
+			retournée.
+			\item [>> \textbf{\textcolor{darkgreen}{String} default}:] Quelle valeur doit-on retournée en 
+			cas de problème ?\\
+		\end{itemize}
+	\end{description}
+	% Dictionary | String get_language_data () method description.
+	\begin{description}
+		\item [+ \textcolor{darkgreen}{Dictionary | String} \textcolor{blue}{get\_language\_data} (json =
+		true):] Renvoie toutes les données associées au langage actif.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{bool} json}:] Voulez-vous renvoyer le résultat sous le format 
+			json ?\\
+		\end{itemize}
+	\end{description}
+	% Bool has_keys () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{bool} \textcolor{blue}{has\_keys} (keys):] Détermine si un ou plusieurs
+		identifiant(s) sont bel et bien définient dans le gestionnaire de langue.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String | PoolStringArray} keys}:] Contient tous le(s)
+			identifiant(s) à cherché(s).\\
+		\end{itemize}
+	\end{description}
+	% PoolStringArray get_language_list () method description.
+	\begin{description}
+		\item [+ \textcolor{darkgreen}{PoolStringArray} \textcolor{blue}{get\_language\_list} ():] Renvoie
+		les noms de toutes les langues prises en charge dans le module.\\
+	\end{description}
+	% Void reload_language () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{reload\_language} (delay = 0.0):] Recharge dans le
+		gestionnaire des langues du jeu, les \\données du language actif.
+		\begin{itemize}
+			\item[>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant le rechargement ?
+		\end{itemize}
+	\end{description}
+
+	% Languages events definition.
+	\section{Les événements disponibles}
+	% language_changed () signal description.
+	\begin{description}
+		\item [+ \textcolor{blue}{language\_changed} (data):] Signal déclenché lorsque les données de langue
+		ont changées.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Dictionary} data}:] Contient les données du langage
+			actuellement chargé en mémoire.\\
+		\end{itemize}
+	\end{description}
+	% lang_file_cant_open () signal description.
+	\begin{description}
+		\item [+ \textcolor{blue}{lang\_file\_cant\_open} (data):] Signal déclenché lorsqu'on a du mal à
+		ouvrir un fichier de langue ou que son accès à été refusé. Cet événement renvoie un dictionaire
+		contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String} path}:] Contient le chemin pointant vers le
+			fichier de langue.
+			\item [>> \textbf{\textcolor{red}{int} type}:] Contient le type de l'erreur déclenché.
+			\item [>> \textbf{\textcolor{darkgreen}{String} message}:] Contient le méssage renvoyé par 
+			l'erreur déclenché.\\
+		\end{itemize}
+	\end{description}
+	% lang_file_not_found () signal description.
+	\begin{description}
+		\item [+ \textcolor{blue}{lang\_file\_not\_found} (data):] Signal déclenché lorsqu'un fichier de
+		langue n'est pas définit. Cet événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String} path}:] Contient le chemin pointant vers le
+			fichier de langue.
+			\item [>> \textbf{\textcolor{red}{int} type}:] Contient le type de l'erreur déclenché.
+			\item [>> \textbf{\textcolor{darkgreen}{String} message}:] Contient le méssage renvoyé par 
+			l'erreur déclenché.\\
+		\end{itemize}
+	\end{description}
+	% lang_file_corrupted () signal description.
+	\begin{description}
+		\item [+ \textcolor{blue}{lang\_file\_corrupted} (data):] Signal déclenché lorsqu'un fichier de
+		langue a été corromput de \\l'extérieur. Cet événement renvoie un dictionaire contenant les clés
+		suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String} path}:] Contient le chemin pointant vers le
+			fichier de langue.
+			\item [>> \textbf{\textcolor{red}{int} type}:] Contient le type de l'erreur déclenché.
+			\item [>> \textbf{\textcolor{darkgreen}{String} message}:] Contient le méssage renvoyé par 
+			l'erreur déclenché.\\
+		\end{itemize}
+	\end{description}
+	% lang_file_loading event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{lang\_file\_loading} (data):] Signal déclenché pendant qu'un fichier de
+		langue est en cours de \\chargement. Cet événement renvoie un dictionaire contenant les clés
+		suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String} path}:] Contient le chemin pointant vers le
+			fichier de langue.
+			\item [>> \textbf{\textcolor{red}{bool} is\_over}:] Est-ce que toutes les données du fichier de
+			langue ont-elles été \\complètement chargées ?
+			\item [>> \textbf{\textcolor{red}{int} progress}:] Contient le nombre total de donnée(s) déjà
+			chargée(s) en mémoire.\\
+		\end{itemize}
+	\end{description}
+\end{document}

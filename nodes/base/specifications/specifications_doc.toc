@@ -1,0 +1,48 @@
+\babel@toc {french}{}
+\contentsline {chapter}{Table des mati\`eres}{1}{section*.1}%
+\contentsline {chapter}{Table des figures}{2}{section*.2}%
+\contentsline {chapter}{\chapternumberline {1}\leavevmode {\color {darkblue}Ingénierie du cahier des charges}}{3}{chapter.1}%
+\contentsline {section}{\numberline {1.1}\leavevmode {\color {darkred}Analyse du domaine}}{3}{section.1.1}%
+\contentsline {subsection}{\leavevmode {\color {darkorange}Les acteurs du domaine}}{3}{section.1.1}%
+\contentsline {subsubsection}{\leavevmode {\color {darkgreen}Le Game Designer}}{3}{section.1.1}%
+\contentsline {subsubsection}{\leavevmode {\color {darkgreen}Le Programmeur}}{3}{section.1.1}%
+\contentsline {subsubsection}{\leavevmode {\color {darkgreen}Le Graphiste}}{3}{section.1.1}%
+\contentsline {subsubsection}{\leavevmode {\color {darkgreen}L'Ergonome}}{4}{section.1.1}%
+\contentsline {subsubsection}{\leavevmode {\color {darkgreen}Le Chef de projet}}{4}{section.1.1}%
+\contentsline {subsubsection}{\leavevmode {\color {darkgreen}L'Infographite 2D/3D}}{4}{section.1.1}%
+\contentsline {subsubsection}{\leavevmode {\color {darkgreen}Animateur 2D/3D}}{4}{section.1.1}%
+\contentsline {subsubsection}{\leavevmode {\color {darkgreen}Business Developer}}{4}{section.1.1}%
+\contentsline {subsubsection}{\leavevmode {\color {darkgreen}Testeur développement/QA}}{5}{section.1.1}%
+\contentsline {subsubsection}{\leavevmode {\color {darkgreen}Associate producer}}{5}{section.1.1}%
+\contentsline {subsection}{\leavevmode {\color {darkorange}Description du système existant et fonctionnement}}{5}{section.1.1}%
+\contentsline {subsubsection}{\leavevmode {\color {darkgreen}Les ressources de la bibliothèque}}{6}{section.1.1}%
+\contentsline {subsubsection}{\leavevmode {\color {darkgreen}Le gestionnaire d'entrées/sorties}}{6}{section.1.1}%
+\contentsline {subsubsection}{\leavevmode {\color {darkgreen}Les mathématiques}}{7}{section.1.1}%
+\contentsline {subsubsection}{\leavevmode {\color {darkgreen}La physique}}{7}{section.1.1}%
+\contentsline {subsubsection}{\leavevmode {\color {darkgreen}La détection des collisions}}{8}{section.1.1}%
+\contentsline {subsubsection}{\leavevmode {\color {darkgreen}Les graphismes}}{9}{section.1.1}%
+\contentsline {subsubsection}{\leavevmode {\color {darkgreen}La gestion du son}}{10}{section.1.1}%
+\contentsline {subsubsection}{\leavevmode {\color {darkgreen}Le scriptage}}{10}{section.1.1}%
+\contentsline {subsubsection}{\leavevmode {\color {darkgreen}La modularité}}{11}{section.1.1}%
+\contentsline {subsubsection}{\leavevmode {\color {darkgreen}L'usabilité}}{11}{section.1.1}%
+\contentsline {subsubsection}{\leavevmode {\color {darkgreen}Efficacité}}{11}{section.1.1}%
+\contentsline {subsubsection}{\leavevmode {\color {darkgreen}Effets de rendu et qualité d'image}}{11}{section.1.1}%
+\contentsline {subsection}{\leavevmode {\color {darkorange}Le model existant du domaine}}{12}{section.1.1}%
+\contentsline {subsection}{\leavevmode {\color {darkorange}Les ressources nécessaires à un moteur de jeu}}{14}{figure.1.2}%
+\contentsline {subsubsection}{\leavevmode {\color {darkgreen}Développement de jeux 2D}}{15}{figure.1.2}%
+\contentsline {subsubsection}{\leavevmode {\color {darkgreen}Développement de jeux 3D}}{18}{figure.1.6}%
+\contentsline {subsubsection}{\leavevmode {\color {darkgreen}Autres composants}}{20}{figure.1.10}%
+\contentsline {subsubsection}{\leavevmode {\color {darkgreen}Conclusion}}{21}{figure.1.10}%
+\contentsline {section}{\numberline {1.2}\leavevmode {\color {darkred}Les problématiques du domaine}}{21}{section.1.2}%
+\contentsline {subsection}{\leavevmode {\color {darkorange}Le système existant}}{21}{section.1.2}%
+\contentsline {subsection}{\leavevmode {\color {darkorange}Le développement de jeux vidéo}}{22}{section.1.2}%
+\contentsline {section}{\numberline {1.3}\leavevmode {\color {darkred}Proposition de solutions}}{23}{section.1.3}%
+\contentsline {subsection}{\leavevmode {\color {darkorange}Clarification du système à mettre en place}}{24}{section.1.3}%
+\contentsline {subsubsection}{\leavevmode {\color {darkgreen}Définition d'un framework}}{24}{section.1.3}%
+\contentsline {subsubsection}{\leavevmode {\color {darkgreen}Les sources du système}}{25}{section.1.3}%
+\contentsline {subsubsection}{\leavevmode {\color {darkgreen}Les objectifs du système}}{26}{section.1.3}%
+\contentsline {subsubsection}{\leavevmode {\color {darkgreen}Les fonctionnalités globales du système}}{26}{section.1.3}%
+\contentsline {subsubsection}{\leavevmode {\color {darkgreen}Les interactions liées au système}}{26}{section.1.3}%
+\contentsline {subsection}{\leavevmode {\color {darkorange}Les ressources néccessaires à l'établissement du système}}{27}{section.1.3}%
+\contentsline {subsection}{\leavevmode {\color {darkorange}Les avantages de l'utilisation du système}}{28}{section.1.3}%
+\contentsline {subsection}{\leavevmode {\color {darkorange}Les exigences du système}}{29}{section.1.3}%

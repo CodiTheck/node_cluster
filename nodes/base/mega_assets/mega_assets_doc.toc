@@ -1,0 +1,3 @@
+\babel@toc {french}{}
+\contentsline {section}{\numberline {I --}Définition}{2}{section.1}%
+\contentsline {section}{\numberline {II --}Fonctionnalités disponibles}{2}{section.2}%

@@ -1,0 +1,562 @@
+% Document type and package imports.
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{charter}
+\usepackage[top = 2cm, bottom = 2cm, left = 1cm, right = 1cm]{geometry}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{tocloft}
+
+% Preanblue.
+\onehalfspacing
+\definecolor{gray}{rgb}{0.4, 0.4, 0.4}
+\definecolor{silver}{rgb}{0.95, 0.95, 0.95}
+\renewcommand{\thesection}{\Roman{section} --}
+\definecolor{darkgreen}{HTML}{1E8C15}
+\cftsetindents{section}{1em}{2.5em}
+\hypersetup {colorlinks=true, linkcolor=blue, urlcolor=blue, pdftitle={InputController module doc}}
+
+% The start of the article.
+\begin{document}
+	% Change document background to silver color.
+	\pagecolor{silver}
+	% InputController module description.
+	\huge{\hspace{12.5cm}\textit{\textbf{\textcolor{darkgreen}{InputControllerFx}}}}\large{}
+	\tableofcontents \newpage
+	% InputController module definition.
+	\section{Définition}
+	\textcolor{darkgreen}{\textbf{InputControllerFx}} est un module conçut pour la gestion des différentes 
+	entrées de l'utilisateur \\(Clavier, Souris, et Manette). L'objectif de ce module est de permettre aux
+	développeurs de pouvoir \\facilement géré les entrées de ses clients sans trop se gèner. Concernant 
+	l'utilisation de ce dernier, le \\développeur doit être précis sur les touches dont-il souhaite prendre 
+	en charge dans son jeu. \\Une mauvaise utilisation peut conduire à des bugs. Notez que ce module prend 
+	également en charge les changements de touches dynamiques (\textit{\textcolor{gray}{keybindings}}).\\
+	\textcolor{red}{\textbf{NB}:} Ce module est compatible à un jeu 2D, 3D et est sauvegardable. Avant de 
+	continuer, le module ne supporte pas encore les écrans tactiles.
+
+	% InputController properties definition.
+	\section{Les propriétés disponibles}
+	% PlayerIndex property.
+	\textbf{+ \textcolor{red}{int} PlayerIndex:} Quel joueur voulez-vous écouter ? Notez que cette option
+	n'est destiné qu'aux manettes.\\\\
+	% DisableMouseMotion property.
+	\textbf{+ \textcolor{red}{bool} DisableMouseMotion = \textcolor{red}{true}:} Contrôle l'activation ainsi 
+	que la désactivation de la prise en charge des mouvements de la souris lors d'une opération de 
+	changement de touche (\textit{\textcolor{gray}{keybindings}}).\\\\
+	% Inputs property.
+	\textbf{+ \textcolor{darkgreen}{Array} \hypertarget{inputs}{Inputs}:} Tableau de dictionnaires contenant 
+	toutes les différentes configurations sur chaque touche prise en charge par le développeur. Les 
+	dictionnaires issus de ce tableau supportent les clés suivantes:
+	\begin{itemize}
+		\item[>> \textbf{\textcolor{red}{int} controller = \textcolor{blue}{0}}:] Quel contrôleur voulez-
+		vous écouter ? Les valeurs possibles sont:
+		\begin{itemize}
+			\item[-> \textbf{\textcolor{gray}{InputControllerFx.KEYBOARD} ou \textcolor{blue}{0}}:] Ecoute 
+			le clavier de l'ordinateur.
+			\item[-> \textbf{\textcolor{gray}{InputControllerFx.MOUSE} ou \textcolor{blue}{1}}:] Ecoute la 
+			souris de l'ordinateur.
+			\item[-> \textbf{\textcolor{gray}{InputControllerFx.JOYSTICK} ou \textcolor{blue}{2}}:] Ecoute 
+			la manette connectée à l'ordinateur.
+			\item[-> \textbf{\textcolor{gray}{InputControllerFx.INPUTMAP} ou \textcolor{blue}{3}}:] Ecoute 
+			la carte des entrées définit au sein de Godot.
+			\item[-> \textbf{\textcolor{gray}{InputControllerFx.ALL} ou \textcolor{blue}{4}}:] Ecoute 
+			l'entrée de n'importe quel contrôleur.\\
+		\end{itemize}
+		\item[>> \textbf{\textcolor{darkgreen}{String} \hypertarget{key}{key}}:] Quel est le nom de la 
+		touche du contrôleur à mettre en écoute ? A ce niveau, il y a certaines restrictions que vous devez 
+		respecter. Si le contrôleur est le clavier, vous êtes plié de mettre le nom correspondant à la 
+		touche recherchée tout en respectant ce que renvoie \textcolor{gray}{\\Godot} lorsqu'on appuie sur 
+		une telle touche. Si le contrôleur est la souris, en cas de bouton, il doit suivre la nomenclature 
+		\textcolor{gray}{\textbf{Mouse+IndexDeLaToucheVoulue}}. \\Exemple: \textcolor{gray}{\textit{Mouse2, 
+		Mouse1, ...MouseN}}. \\En cas d'axe, le ciblage des défilements doit se faire avec les mots clés 
+		suivants: \textcolor{gray}{\textit{-ScrollX, +ScrollX, -ScrollY, +ScrollY}} et celui des mouvements
+		avec \textcolor{gray}{-MouseX, +MouseX, -MouseY, +MouseY}. Si le contrôleur est la manette, en cas 
+		de bouton, il doit suivre la nomenclature \textcolor{gray}{\textbf{\\Joy+IndexDeLaToucheVoulue}}.\\
+		Exemple: \textcolor{gray}{\textit{Joy0, Joy1, ...JoyN}}. \\En cas d'axe, suivre la nomenclature 
+		\textcolor{gray}{\textbf{Signe+Axis+IndexDeLaxeVoulu}}. \\Exemple: \textcolor{gray}{\textit{-Axis2, 
+		+Axis0, ...-/+AxisN}}. \newpage Si vous écoutez la carte d'une ou de plusieurs entrée(s) prédéfinit 
+		dans les configurations de votre projet, vous devez renseigner l'identificateur de la carte à 
+		ciblée.\\
+		\item[>> \textbf{\textcolor{red}{bool} any = \textcolor{red}{false}}:] Voulez-vous écouter toutes
+		les touches du contrôleur actuel ?\\
+		\item[>> \textbf{\textcolor{red}{bool} translate = \textcolor{red}{false}}:] Voulez-vous traduire 
+		la touche actuelle en terme plus claire pour les \\futures utilisateurs de votre application ?
+		L'activation de cette option essaye de faire une \\traduction objective de la touche détectée tout 
+		en s'adaptant au contrôleur détecté. Cela ne marche pas à tous les fois. Cette option n'intervient 
+		qu'en mode \textcolor{gray}{\textit{keybindings}}. Notez qu'elle n'est pas activée lorsque le 
+		contrôleur utilise la carte des entrées définit au sein de Godot.\\
+		\item[>> \textbf{\textcolor{red}{bool} changed = \textcolor{red}{false}}:] Voulez-vous changer la 
+		touche actuelle ? Cette option est très utilisé dans l'implémentation d'un système de 
+		\textcolor{gray}{\textit{keybindings}}.\\
+		\item[>> \textbf{\textcolor{red}{float} strength = \textcolor{blue}{0.0}}:] Contient la valeur d'axe
+		maximale que renvoye un bouton. Cette option \\devient utile lorsqu'au cours de l'exécution du jeu,
+		une touche d'axe a été remplacée par un \\bouton au cours d'un processus de changement de touche. 
+		Les valeurs possibles de cette clé sont dans l'intervalle [\textcolor{blue}{-1.0}; \textcolor{blue}
+		{1.0}]. Notez que cette valeur n'est renvoyée que si et seulement si la touche renseignée au niveau 
+		de la clé \textit{\hyperlink{key}{key}} est un bouton.\\
+		\item[>> \textbf{\textcolor{red}{bool} negative = \textcolor{red}{false}}:] Quel sera le signe de la 
+		valeur de la touche ou de l'axe détecté(s) ? Par défaut, la valeur retournée est strictement 
+		positive ou égale à 0.0.\\
+		\item[>> \textbf{\textcolor{red}{bool} loop = \textcolor{red}{false}}:] Souhaitez-vous mettre en 
+		écoute continue la touche à détectée ? A ce niveau, tant que celle-ci sera maintenue enfoncée, elle 
+		sera toujours détectée.\\
+		\item[>> \textbf{\textcolor{red}{bool} timeout = \textcolor{blue}{0.0}}:] Quel est le délai avant
+		chaque détection. Lorsque l'option \textcolor{gray}{\textit{loop}} est activée, on obtient des 
+		intervalles réguliers de détection. Dans le cas contraire, l'utilisateur est plié d'effectuer un 
+		appuie long pour déclencher l'action prévue à cet effet.\\
+		\item[>> \textbf{\textcolor{red}{int} \hypertarget{type}{type} = \textcolor{blue}{1}}:] Quel type de 
+		donnée désirez-vous renvoyée. Les valeurs possibles sont celles \\définient au sein de Godot. 
+		Cependant les types prises en charge sont: \textit{\textcolor{gray}{TYPE\_FLOAT}} et
+		\textit{\textcolor{gray}{\\TYPE\_VECTOR2}}.\\
+		\item[>> \textbf{\textcolor{red}{int} axis = \textcolor{blue}{1}}:] Quel axe sera considéré pour le 
+		retour des valeurs issues de la touche détectée ? Cette option prend son utilitée lorsque la valeur
+		de la clé \textcolor{gray}{\textit{type}} est sur \textcolor{blue}{1}. Les valeurs possibles sont:
+		\begin{itemize}
+			\item[-> \textbf{\textcolor{gray}{MegaAssets.Axis.NONE} ou \textcolor{blue}{0}}:] Renvoie une 
+			valeur nulle ou un vecteur nulle quelque soit la détection.
+			\item[-> \textbf{\textcolor{gray}{MegaAssets.Axis.X} ou \textcolor{blue}{1}}:] Renvoie un 
+			vecteur d'abscisse différent de zéro ou nulle.
+			\item[-> \textbf{\textcolor{gray}{MegaAssets.Axis.Y} ou \textcolor{blue}{2}}:] Renvoie un 
+			vecteur d'ordonné différent de zéro ou nulle.\\
+		\end{itemize}
+		\item[>> \textbf{\textcolor{red}{int} count = \textcolor{blue}{1}}:] Combien de fois la touche sera 
+		détectée avant le déclenchement de(s) action(s) prévu à son égard ?\\
+		\item[>> \textbf{\textcolor{red}{int} step = \textcolor{blue}{1}}:] Quel est le pas à ajouté à 
+		chaque fois que la touche en question est détectée ? Cette option ne s'active que lorsque sa valeur 
+		et celle de \textit{\textcolor{gray}{count}} sont supérieur à 0.\\
+		\item[>> \textbf{\textcolor{red}{bool} resetlevel = \textcolor{red}{true}}:] Voulez-vous 
+		rénitialiser le niveau d'appuie de la touche à chaque fois qu'il serait égale à sa valeur maximale ?
+		En d'autres termes, doit-on remettre à zéro le niveau d'appuie de la touche lorsqu'elle déclenche
+		l'action qui lui est due ?\\
+		\item[>> \textbf{\textcolor{red}{int} decrease = \textcolor{blue}{0}}:] Quel est le pas à enlevé 
+		lorsque la touche détectée est relâchée ? Cette option permet de mettre en place un système de combo 
+		contre système. Elle devient utile lorsque l'on souhaite que le joueur appuie sur une certaine 
+		touche donnée de façon répété pour accomplir une action. Cette fonctionnalité fera office de 
+		décrémenteur pour ramener les éfforts de l'utilisateur à zéro, si ce dernier décide d'abandonner. 
+		Cette option ne s'active que lorsque sa valeur et celle de la clé \textcolor{gray}
+		{\textit{frequence}} sont supérieur à zéro.\\
+		\item[>> \textbf{\textcolor{red}{float} frequence = \textcolor{blue}{0.03}}:] Quel est le temps mort 
+		avant chaque décrémentation. Cette option ne s'active que lorsque sa valeur et celle de
+		\textcolor{gray}{\textit{decrease}} sont supérieur à zéro.\\
+		\item[>> \textbf{\textcolor{darkgreen}{Array} keydown}]: Que se passera t-il lorsqu'on appuyera sur 
+		la touche en question ? Cette clé contient tous les configurations relatives à un ou plusieurs flux 
+		d'exécution(s). L'utilisation de cette clé est déjà décrite au niveau des bases du framework. 
+		Précisement le sujet portant sur \\l'utilisation de la propriété \textcolor{gray}{EventsBindings} 
+		(la section des actions d'un événement).\\
+		\item[>> \textbf{\textcolor{darkgreen}{Array} keyup}]: Que se passera t-il lorsqu'on relâchera la
+		touche en question ? Notez que cette \\dernière possède les mêmes propriétés que la clé 
+		\textit{\textcolor{gray}{keydown}} et s'utilise de la même manière que lui.\\
+	\end{itemize}
+	% InputsMap property.
+	\textbf{+ \textcolor{darkgreen}{PoolStringArray} InputsMap:} Contient la liste complète des cartes des
+	entrées pré-configurées dans les configurations du projet en cours de réalisation. Cette liste est 
+	également solicitée lorsque le module passe en mode \textit{\textcolor{gray}{keybindings}}.\\\\
+	% ExternalInputs property.
+	\textbf{+ \textcolor{darkgreen}{Array} \hypertarget{extinp}{ExternalInputs}:} Tableau de
+	\textcolor{darkgreen}{NodePath} ou de \textcolor{darkgreen}{String} pointant tous vers les différents 
+	instances de ce module en vue d'établir une écoute générale.\\
+	\textcolor{red}{\textbf{NB}:} Les répétitions au niveau des touches ne sont pas tolérées.
+
+	% InputController methods definition.
+	\section{Les méthodes disponibles}
+	% Void keyboard_activation () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{keyboard\_activation} (activation, delay = 0.0):] 
+		Contrôle l'état du clavier en terme de \\permition.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{bool} activation}:] Contient l'état du clavier.
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant le changement 
+			d'état ?\\
+		\end{itemize}
+	\end{description}
+	% Void mouse_activation () method description.
+	\newpage \begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{mouse\_activation} (activation, delay = 0.0):] 
+		Contrôle l'état de la souris en terme de \\permition.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{bool} activation}:] Contient l'état de la souris.
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant le changement 
+			d'état ?\\
+		\end{itemize}
+	\end{description}
+	% Void joystick_activation () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{joystick\_activation} (activation, delay = 0.0):] 
+		Contrôle l'état de la manette en terme de permition.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{bool} activation}:] Contient l'état de la manette.
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant le changement 
+			d'état ?\\
+		\end{itemize}
+	\end{description}
+	% Bool is_keyboad_enabled () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{bool} \textcolor{blue}{is\_keyboard\_enabled} ():] Le clavier est-il en 
+		état d'envoyer des signaux pour déclencher des actions ?\\
+	\end{description}
+	% Bool is_mouse_enabled () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{bool} \textcolor{blue}{is\_mouse\_enabled} ():] La souris est-elle en état 
+		d'envoyer des signaux pour déclencher des actions ?\\
+	\end{description}
+	% Bool is_joystick_enabled () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{bool} \textcolor{blue}{is\_joystick\_enabled} ():] La manette est-elle en 
+		état d'envoyer des signaux pour déclencher des actions ?\\
+	\end{description}
+	% Int get_detected_key () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} \textcolor{blue}{get\_detected\_key} ():] Renvoie l'index de position
+		de la touche qui a été détectée suite à un appuie ou un relâchement.\\
+	\end{description}
+	% PoolStringArray | String get_translation_of () method description.
+	\begin{description}
+		\item [+ \textcolor{darkgreen}{PoolStringArray | String} \textcolor{blue}{get\_translation\_of} 
+		(id = null):] Renvoie le(s) nom(s) réel(s) de(s) \\touche(s) au sein du paramètre \textcolor{gray}
+		{\textit{id}} en fonction du contrôleur détecté. Par défaut, la traduction se fera sur la touche 
+		actuellement détectée.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String | PoolIntArray | Array | PoolStringArray} |
+			\textcolor{red}{int} id}:] Contient le(s) identifiant(s) de(s) touche(s) à ciblée(s). La/les 
+			chaîne(s) de caractères fait/font ici référence aux valeurs que doit prendre la clé 
+			\textit{\hyperlink{key}{key}}. Le(s) entier(s) ici fait/font référence aux index de position de 
+			la ou des touche(s) pris pour cible dans le champ \textit{\hyperlink{inputs}{Inputs}}.\\
+		\end{itemize}
+	\end{description}
+	% String get_detected_controller () method description.
+	\begin{description}
+		\item [+ \textcolor{darkgreen}{String} \textcolor{blue}{get\_detected\_controller} ():] Renvoie le 
+		nom du contrôleur actuellement détecté. La \\valeur \textcolor{gray}{Unknown Controller} est 
+		renvoyée lorsqu'un contrôleur n'a pas pu être identifié.\\
+	\end{description}
+	% Int | PoolIntArray get_keycode () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} | \textcolor{darkgreen}{PoolIntArray} \textcolor{blue}{get\_keycode} 
+		(id = null):] Renvoie le code de la/des touche(s) référencée(s) dans le paramètre \textcolor{gray}
+		{\textit{id}}. Par défaut, le code de la touche actuellement détectée est renvoyé.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String | PoolIntArray | Array | PoolStringArray} |
+			\textcolor{red}{int} id}:] Contient le(s) identifiant(s) de(s) touche(s) à ciblée(s). La/les 
+			chaîne(s) de caractères fait/font ici référence aux valeurs que doit prendre la clé 
+			\textit{\hyperlink{key}{key}}. Le(s) entier(s) ici fait/font référence aux index de position de 
+			la ou des touche(s) pris pour cible dans le champ \textit{\hyperlink{inputs}{Inputs}}.\\
+		\end{itemize}
+	\end{description}
+	% float | Vector2 get_normalized_value () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{float} | \textcolor{darkgreen}{Vector2} \textcolor{blue}
+		{get\_normalized\_value} (id = null):] Renvoie une valeur d'axe comprise entre \textcolor{blue}{0.0} 
+		et \textcolor{blue}{1.0} de la touche référencée dans le paramètre \textcolor{gray}{\textit{id}}. 
+		Par défaut, la valeur d'axe de la touche actuellement détectée est renvoyée. Notez que le changement 
+		de type de valeur au niveau de cette fonction se fait par rapport à la valeur contenue dans la clé 
+		\textit{\hyperlink{type}{type}} du champ \textit{\hyperlink{inputs}{Inputs}}.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String} | \textcolor{red}{int} id}:] Contient 
+			l'identifiant de la touche à ciblée. La chaîne de caractères fait ici \\référence aux valeurs 
+			que doit prendre la clé \textit{\hyperlink{key}{key}}. L'entier ici fait alusion à l'index de 
+			position de la touche pris pour cible dans le champ \textit{\hyperlink{inputs}{Inputs}}.\\
+		\end{itemize}
+	\end{description}
+	% Void key_activation () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{key\_activation} (id, activation, delay = 0.0):] 
+		Contrôle l'état d'une touche donnée en terme de permition.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String | PoolIntArray | Array | PoolStringArray} |
+			\textcolor{red}{int} id}:] Contient le(s) identifiant(s) de(s) touche(s) à ciblée(s). La/les 
+			chaîne(s) de caractères fait/font ici référence aux valeurs que doit prendre la clé 
+			\textit{\hyperlink{key}{key}}. Le(s) entier(s) ici fait/font référence aux index de position de 
+			la ou des touche(s) pris pour cible dans le champ \textit{\hyperlink{input}{Inputs}}.
+			\item [>> \textbf{\textcolor{red}{bool} activation}:] Contient l'état de la touche en question.
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant le changement 
+			d'état ?\\
+		\end{itemize}
+	\end{description}
+	% Bool is_enabled () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{bool} \textcolor{blue}{is\_enabled} (id):] Détermine si la ou les touche(s) 
+		donnée(s) est/sont active(s) pour \\d'éventuelle appuies ou relâchements.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String | PoolIntArray | Array | PoolStringArray} |
+			\textcolor{red}{int} id}:] Contient le(s) identifiant(s) de(s) touche(s) à ciblée(s). La/les 
+			chaîne(s) de caractères fait/font ici référence aux valeurs que doit prendre la clé 
+			\textit{\hyperlink{key}{key}}. Le(s) entier(s) ici fait/font référence aux index de position de 
+			la ou des touche(s) pris pour cible dans le champ \textit{\hyperlink{inputs}{Inputs}}.\\
+		\end{itemize}
+	\end{description}
+	% Void enable_keys_without () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{enable\_keys\_without} (ids, delay = 0.0):] Active 
+		l'utilisation de toutes les touches prises en charge par le développeur exceptées celles renseignées 
+		dans le paramètre \textcolor{gray}{\textit{ids}}.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Array} ids}:] Contient les identifiants des touches à 
+			ciblées. Chaque élément de ce tableau accepte soit un \textcolor{darkgreen}{String} (la valeur 
+			contenue dans clé \textit{\hyperlink{key}{key}}), soit un \textcolor{red}{int} (l'index de 
+			position d'une touche au sein du champ \textit{\hyperlink{inputs}{Inputs}}).
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant les changements
+			d'états ?\\
+		\end{itemize}
+	\end{description}
+	% Void disable_keys_without () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{disable\_keys\_without} (ids, delay = 0.0):] 
+		Désactive l'utilisation de toutes les touches prises en charge par le développeur exceptées celles 
+		renseignées dans le paramètre \textcolor{gray}{\textit{ids}}.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Array} ids}:] Contient les identifiants des touches à 
+			ciblées. Chaque élément de ce tableau accepte soit un \textcolor{darkgreen}{String} (la valeur 
+			contenue dans clé \textit{\hyperlink{key}{key}}), soit un \textcolor{red}{int} (l'index de 
+			position d'une touche au sein du champ \textit{\hyperlink{inputs}{Inputs}}).
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant les changements
+			d'états ?\\
+		\end{itemize}
+	\end{description}
+	% Int | PoolIntArray get_enabled_keys () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} | \textcolor{darkgreen}{PoolIntArray} \textcolor{blue}
+		{get\_enabled\_keys} ():] Renvoie les identifants de toutes les touches n'ayant pas été mise hors 
+		d'usage.\\
+	\end{description}
+	% Int | PoolIntArray get_disabled_keys () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} | \textcolor{darkgreen}{PoolIntArray} \textcolor{blue}
+		{get\_disabled\_keys} ():] Renvoie les identifiants de toutes les touches ayant été mise hors 
+		d'usage.\\
+	\end{description}
+	% Dictionary get_enabled_keys_data () method description.
+	\begin{description}
+		\item [+ \textcolor{darkgreen}{Dictionary} \textcolor{blue}{get\_enabled\_keys\_data} (json = 
+		true):] Renvoie les données de toutes les touches n'ayant pas été mise hors d'usage.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{bool} json}:] Voulez-vous renvoyer le résultat sous le format 
+			json ?\\
+		\end{itemize}
+	\end{description}
+	% Dictionary get_disabled_keys_data () method description.
+	\begin{description}
+		\item [+ \textcolor{darkgreen}{Dictionary} \textcolor{blue}{get\_disabled\_keys\_data} (json = 
+		true):] Renvoie les données de toutes les touches ayant été mise hors d'usage.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{bool} json}:] Voulez-vous renvoyer le résultat sous le format 
+			json ?\\
+		\end{itemize}
+	\end{description}
+	% Void set_key_level () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{set\_key\_level} (id = null, new\_value, delay = 
+		0.0):] Redéfinie la valeur du niveau d'appuie d'une touche donnée. Par défaut, cette méthode cible
+		le niveau d'appuie de la touche actuellement détectée.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String} | \textcolor{red}{int} id}:] Contient 
+			l'identifiant de la touche à ciblée. La chaîne de caractères fait ici \\référence aux valeurs 
+			que doit prendre la clé \textit{\hyperlink{key}{key}}. L'entier ici fait alusion à l'index de 
+			position de la touche pris pour cible dans le champ \textit{\hyperlink{inputs}{Inputs}}.
+			\item [>> \textbf{\textcolor{red}{int} new\_value}:] Quelle est la nouvelle valeur du niveau 
+			d'appuie ?
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant la redéfinition ? 
+			\\
+		\end{itemize}
+	\end{description}
+	% Int get_key_level () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} \textcolor{blue}{get\_key\_level} (id = null):] Renvoie la valeur du 
+		niveau d'appuie d'une touche donnée. Par défaut, cette méthode renvoie le valeur du niveau d'appuie 
+		de la touche actuellement détectée.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String} | \textcolor{red}{int} id}:] Contient 
+			l'identifiant de la touche à ciblée. La chaîne de caractères fait ici \\référence aux valeurs 
+			que doit prendre la clé \textit{\hyperlink{key}{key}}. L'entier ici fait alusion à l'index de 
+			position de la touche pris pour cible dans le champ \textit{\hyperlink{inputs}{Inputs}}.\\
+		\end{itemize}
+	\end{description}
+	% Bool is_combo () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{bool} \textcolor{blue}{is\_combo} (id = null):] Détermine si une ou 
+		plusieurs touche(s) est/sont en traint d'être appuyée(s) de façon répétée. Par défaut, cette méthode 
+		renvoie un résultat en se basant sur la touche actuellement détectée.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String | PoolIntArray | Array | PoolStringArray} |
+			\textcolor{red}{int} id}:] Contient le(s) identifiant(s) de(s) touche(s) à ciblée(s). La/les 
+			chaîne(s) de caractères fait/font ici référence aux valeurs que doit prendre la clé
+			\textit{\hyperlink{key}{key}}. Le(s) entier(s) ici fait/font référence aux index de position de 
+			la ou des touche(s) pris pour cible dans le champ \textit{\hyperlink{inputs}{Inputs}}.\\
+		\end{itemize}
+	\end{description}
+	% float | Vector2 get_axis_value () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{float} | \textcolor{darkgreen}{Vector2} \textcolor{blue}{get\_axis\_value} 
+		(id = null):] Renvoie la valeur d'axe d'une touche grâce à son identifiant. Par défaut, la valeur 
+		d'axe de la touche actuellement détectée est renvoyée. Notez que le changement de type de valeur au 
+		niveau de cette fonction se fait par rapport à la valeur contenue dans la clé
+		\textit{\hyperlink{type}{type}} du champ \textit{\hyperlink{inputs}{Inputs}}.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String} | \textcolor{red}{int} id}:] Contient 
+			l'identifiant de la touche à ciblée. La chaîne de caractères fait ici \\référence aux valeurs 
+			que doit prendre la clé \textit{\hyperlink{key}{key}}. L'entier ici fait alusion à l'index de 
+			position de la touche pris pour cible dans le champ \textit{\hyperlink{inputs}{Inputs}}.\\
+		\end{itemize}
+	\end{description}
+	% Int get_key_pourcent () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} \textcolor{blue}{get\_key\_pourcent} (id = null):] Renvoie en 
+		pourcentage la valeur du niveau d'appuie d'une touche grâce à son identifiant. Par défaut, le 
+		pourcentage de la valeur d'appuie de la touche actuellement détectée est renvoyée.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String} | \textcolor{red}{int} id}:] Contient 
+			l'identifiant de la touche à ciblée. La chaîne de caractères fait ici \\référence aux valeurs 
+			que doit prendre la clé \textit{\hyperlink{key}{key}}. L'entier ici fait alusion à l'index de 
+			position de la touche pris pour cible dans le champ \textit{\hyperlink{inputs}{Inputs}}.\\
+		\end{itemize}
+	\end{description}
+	% Bool is_a_button () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{bool} \textcolor{blue}{is\_a\_button} (id = null):] Détermine si la ou les 
+		touche(s) donnée(s) est/sont un/des \\bouton(s) ou pas. Par défaut, la vérification se fait sur la 
+		touche actuellement détectée.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String | PoolIntArray | Array | PoolStringArray} |
+			\textcolor{red}{int} id}:] Contient le(s) identifiant(s) de(s) touche(s) à ciblée(s). La/les 
+			chaîne(s) de caractères fait/font ici référence aux valeurs que doit prendre la clé
+			\textit{\hyperlink{key}{key}}. Le(s) entier(s) ici fait/font référence aux index de position de 
+			la ou des touche(s) pris pour cible dans le champ \textit{\hyperlink{inputs}{Inputs}}.\\
+		\end{itemize}
+	\end{description}
+	% Bool is_an_axis () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{bool} \textcolor{blue}{is\_an\_axis} (id = null):] Détermine si la ou les 
+		touche(s) donnée(s) est/sont un/des \\bouton(s) d'axe ou pas. Par défaut, la vérification se fait 
+		sur la touche actuellement détectée.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String | PoolIntArray | Array | PoolStringArray} |
+			\textcolor{red}{int} id}:] Contient le(s) identifiant(s) de(s) touche(s) à ciblée(s). La/les 
+			chaîne(s) de caractères fait/font ici référence aux valeurs que doit prendre la clé
+			\textit{\hyperlink{key}{key}}. Le(s) entier(s) ici fait/font référence aux index de position de 
+			la ou des touche(s) pris pour cible dans le champ \textit{\hyperlink{inputs}{Inputs}}.\\
+		\end{itemize}
+	\end{description}
+	% Bool is_pressed () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{bool} \textcolor{blue}{is\_pressed} (id = null):] Détermine si la ou les 
+		touche(s) donnée(s) est/sont appuyée(s) ou pas. Par défaut, la vérification se fait sur la touche 
+		actuellement détectée.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String | PoolIntArray | Array | PoolStringArray} |
+			\textcolor{red}{int} id}:] Contient le(s) identifiant(s) de(s) touche(s) à ciblée(s). La/les 
+			chaîne(s) de caractères fait/font ici référence aux valeurs que doit prendre la clé
+			\textit{\hyperlink{key}{key}}. Le(s) entier(s) ici fait/font référence aux index de position de 
+			la ou des touche(s) pris pour cible dans le champ \textit{\hyperlink{inputs}{Inputs}}.
+		\end{itemize}
+	\end{description}
+
+	% InputController signals definition.
+	\section{Les événements disponibles}
+	% key_changed event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{key\_changed} (data):] Signal déclenché lorsqu'on change de touche dans un 
+		procèssus de \textcolor{gray}{\textit{\\Keybindings}}. Cet événement renvoie un dictionaire 
+		contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où cet signal a été 
+			émit.
+			\item [>> \textbf{\textcolor{darkgreen}{String} key}:] Contient la nouvelle touche détectée.\\
+		\end{itemize}
+	\end{description}
+	% key_action event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{key\_action} (data):] Signal déclenché lorsque la touche détectée respecte 
+		les critères exigées par le développeur conduisant ainsi à l'exécution des actions prévues à cet 
+		éffet. Cet événement \\renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où cet signal a été 
+			émit.
+			\item [>> \textbf{\textcolor{darkgreen}{String} key}:] Contient la touche détectée.
+			\item [>> \textbf{\textcolor{red}{float} delta}:] Contient le temps éffectué depuis la dernière 
+			trame du jeu.\\
+		\end{itemize}
+	\end{description}
+	% key_cloned event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{key\_cloned} (data):] Signal déclenché lorsque la touche détectée dans un 
+		procèssus de \textcolor{gray}{\textit{\\Keybindings}} existe déjà dans la liste des touches prise en 
+		charge par le module. Cet événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où cet signal a été 
+			émit.
+			\item [>> \textbf{\textcolor{darkgreen}{PoolIntArray} | \textcolor{red}{int} index}:] Contient 
+			le(s) position(s) de(s) clone(s).
+			\item [>> \textbf{\textcolor{darkgreen}{Node | Array} other}:] Contient le(s) noeud(s) contenant 
+			des clones. Cette clé n'est renvoyée que si des répétitions ont été trouvées dans les autres 
+			instances de ce module par le biais du champ \textit{\hyperlink{extinp}{ExternalInputs}}.\\
+		\end{itemize}
+	\end{description}
+	% key_level_changed event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{key\_level\_changed} (data):] Signal déclenché lorsqu'on change le niveau 
+		d'appuie d'une touche. Cet événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où cet signal a été 
+			émit.
+			\item [>> \textbf{\textcolor{red}{int} value}:] Contient la nouvelle valeur du niveau d'appuie.
+			\item [>> \textbf{\textcolor{red}{int} index}:] Contient l'index de position de la touche qui a 
+			été affectée par ce changement.\\
+		\end{itemize}
+	\end{description}
+	% keydown event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{keydown} (data):] Signal déclenché lorsqu'on appuie sur une touche prise 
+		en charge par le \\module. Cet événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où cet signal a été 
+			émit.
+			\item [>> \textbf{\textcolor{red}{int} index}:] Contient l'index de position de la touche qui a 
+			été appuyée.\\
+		\end{itemize}
+	\end{description}
+	% keyup event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{keyup} (data):] Signal déclenché lorsqu'on relâche une touche prise en 
+		charge par le module. Cet événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où cet signal a été 
+			émit.
+			\item [>> \textbf{\textcolor{red}{int} index}:] Contient l'index de position de la touche qui a 
+			été relâchée.\\
+		\end{itemize}
+	\end{description}
+	% decreaser_started event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{decreaser\_started} (data):] Signal déclenché lorsque le décrémenteur 
+		automatique se démarre. Cet événement renvoie un dictionaire contenant la clé suivante:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où cet signal a été 
+			émit.\\
+		\end{itemize}
+	\end{description}
+	% decreaser_stoped event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{decreaser\_stoped} (data):] Signal déclenché lorsque le décrémenteur 
+		automatique s'arrète. Cet événement renvoie un dictionaire contenant la clé suivante:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où cet signal a été 
+			émit.\\
+		\end{itemize}
+	\end{description}
+	% key event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{key} (data):] Signal déclenché lorsqu'on appuie ou relâche une touche. Cet 
+		événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où cet signal a été 
+			émit.
+			\item [>> \textbf{\textcolor{red}{float} delta}:] Contient le temps éffectué depuis la dernière 
+			trame du jeu.
+			\item [>> \textbf{\textcolor{red}{int} index}:] Contient l'index de position de la touche qui a 
+			été appuyée ou relâchée.\\
+		\end{itemize}
+	\end{description}
+\end{document}

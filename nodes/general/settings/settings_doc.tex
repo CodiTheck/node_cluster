@@ -1,0 +1,297 @@
+% Document type and package imports.
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{charter}
+\usepackage{hyperref}
+\usepackage{tocloft}
+\usepackage[top = 2cm, bottom = 2cm, left = 1cm, right = 1cm]{geometry}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{xcolor}
+
+% Preanblue.
+\onehalfspacing
+\definecolor{gray}{rgb}{0.4, 0.4, 0.4}
+\definecolor{silver}{rgb}{0.95, 0.95, 0.95}
+\renewcommand{\thesection}{\Roman{section} --}
+\definecolor{darkgreen}{HTML}{1E8C15}
+\cftsetindents{section}{1em}{2.5em}
+\hypersetup {colorlinks=true, linkcolor=blue, urlcolor=blue, pdftitle={Settings module doc}}
+
+% The start of the article.
+\begin{document}
+	% Change document background to silver color.
+	\pagecolor{silver}
+	% Settings module description.
+	\huge{\hspace{15cm}\textit{\textbf{\textcolor{darkgreen}{SettingsFx}}}}\large{} \tableofcontents 
+	\newpage
+	% Settings module definition.
+	\section{Définition}
+	\textcolor{darkgreen}{\textbf{SettingsFx}} est un module conçut pour la gestion des configurations 
+	globales propres à un jeu. Il rapporte en majorité les paramètres d'un jeu dans Godot. La plupard des 
+	champs que possède ce module ne sont rien d'autre que les configurations de Godot. Ce qui est présent 
+	sur ce module rassemble les configurations les plus utilisées.\\
+	\textcolor{red}{\textbf{NB}:} Ce module est de nature indestructible, est compatible à un jeu 2D, 3D et 
+	est sauvegardable.
+
+	% Settings properties definition.
+	\section{Les propriétés disponibles}
+	% DisableAudio property.
+	\textbf{+ \textcolor{red}{bool} DisableAudio = \textcolor{red}{false}:} Souhaitez-vous désactiver les
+	éffets sonores du jeu ?\\\\
+	% AudioVolume property.
+	\textbf{+ \textcolor{red}{float} AudioVolume = \textcolor{blue}{10.0}:} Contrôle le volume des éffets 
+	sonores du jeu. Ces valeurs sont dans \\l'intervalle de [\textcolor{blue}{0.0}; \textcolor{blue}
+	{100.0}].Notez qu'il faut que les éffets sonores doivent être permit avant de pouvoir varier leur 
+	volume.\\\\
+	% GameQuality property.
+	\textbf{+ \textcolor{red}{int} GameQuality = \textcolor{blue}{0}:} Contrôle le degré de qualité du jeu.
+	Les valeurs possibles sont:
+	\begin{itemize}
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.GameGrade.LOW} ou \textcolor{blue}{0}}:] Mauvaise 
+		qualité.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.GameGrade.MEDIUM} ou \textcolor{blue}{1}}:] Qualité 
+		moyen.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.GameGrade.HIGH} ou \textcolor{blue}{2}}:] Bonne 
+		qualité.\\
+	\end{itemize}
+	% ScreenOrientation property.
+	\textbf{+ \textcolor{red}{int} ScreenOrientation = \textcolor{blue}{0}:} Voire la documentation de Godot 
+	sur la propriété
+	\href{https://docs.godotengine.org/en/stable/classes/class_os.html#class-os-property-screen-orientation}
+	{\textit{\textcolor{blue}{ScreenOrientation}}}.\\\\
+	% Borderless property.
+	\textbf{+ \textcolor{red}{bool} Borderless = \textcolor{red}{false}:} Voulez-vous supprimer le cadre 
+	définissant la fenêtre du jeu ? En d'autres termes, souhaitez-vous supprimer la barre de titre ?\\\\
+	% Foreground property.
+	\textbf{+ \textcolor{red}{bool} Foreground = \textcolor{red}{false}:} Voulez-vous mettre en premier plan 
+	la fenêtre du jeu ?\\\\
+	% NoResizable property.
+	\textbf{+ \textcolor{red}{bool} NoResizable = \textcolor{red}{false}:} Voulez-vous permettre le
+	redimentionnement de la fenêtre du jeu ?\\\\
+	% OSName property.
+	\textbf{+ \textcolor{red}{int} OSName = \textcolor{blue}{0}:} Contient les différentes catégories de 
+	systèmes d'exploitation dont la résolution de l'écran a été prise en charge. Cette option ne s'active 
+	que lorsque vous permettez le redimentionnement de la fenêtre du jeu. Les valeurs possibles sont:
+	\begin{itemize}
+		\item [-> \textbf{\textcolor{gray}{SettingsFx.DeviceName.DESKTOP} ou \textcolor{blue}{0}}:] Systèmes 
+		d'exploitation de bureau.
+		\item [-> \textbf{\textcolor{gray}{SettingsFx.DeviceName.IPHONE\_RESOLUTION} ou \textcolor{blue}
+		{1}}:] Systèmes d'exploitation iphone.
+		\item [-> \textbf{\textcolor{gray}{SettingsFx.DeviceName.IPAD\_RESOLUTION} ou \textcolor{blue}{2}}:] 
+		Systèmes d'exploitation ipad.
+		\item [-> \textbf{\textcolor{gray}{SettingsFx.DeviceName.ANDROID\_RESOLUTION} ou \textcolor{blue}
+		{3}}:] Systèmes d'exploitation android.
+		\item [-> \textbf{\textcolor{gray}{SettingsFx.DeviceName.CUSTOM\_RESOLUTION} ou \textcolor{blue}
+		{4}}:] Souhaitez-vous définir une résolution \\personnalisée ?\\
+	\end{itemize}
+	% WindowSize property.
+	\newpage \textbf{+ \textcolor{darkgreen}{Vector2} \hypertarget{winsize}{WindowSize} =
+	\textcolor{darkgreen}{Vector3} (\textcolor{blue}{1024}, \textcolor{blue}{600}):} Quelle est la nouvelle
+	résolution de la fenêtre ? Cette option ne s'active que lorsque vous souhaitez donner une résolution
+	personnalisée. Notez que cette \\propriété peut se transformer en une liste de résolution de la catégory 
+	du système d'exploitation choisie. Dans ce cas, vous aurez un champ de type entier.\\\\
+	% Maximize property.
+	\textbf{+ \textcolor{red}{bool} Maximize = \textcolor{red}{false}:} Voulez-vous maximiser la taille de 
+	la fenêtre du jeu ? Si cette \\fonctionnalité est activée, la fenêtre du jeu sera redimentionnée à la 
+	résolution maximale de l'écran. Notez que cette option ne s'active que lorsque vous permettez le
+	redimentionnement de la fenêtre du jeu.\\\\
+	% FullScreen property.
+	\textbf{+ \textcolor{red}{bool} FullScreen = \textcolor{red}{false}:} Contrôle le mode plein écran du 
+	jeu.\\\\
+	% MinSize property.
+	\textbf{+ \textcolor{darkgreen}{Vector2} MinSize = \textcolor{darkgreen}{Vector2} (\textcolor{blue}
+	{1024}, \textcolor{blue}{600}):} Quelle est la résolution minimale de la fenêtre du jeu ? Si ne serais
+	que l'une des valeurs de ce vecteur est négative ou nulle, on considera que la valeur minimale de cette 
+	dernière est nulle. Ne donnez pas une résolution suppérieur à celle de la fenêtre du jeu.\\\\
+	% MaxSize property.
+	\textbf{+ \textcolor{darkgreen}{Vector2} MaxSize = \textcolor{darkgreen}{Vector2} (\textcolor{blue}
+	{0}, \textcolor{blue}{0}):} Quelle est la résolution maximale de la fenêtre du jeu ? Si ne serais que 
+	l'une des valeurs de ce vecteur est inférieur à la résolution actuelle de la fenêtre du jeu, on 
+	considera que la taille maximale est égale à celle actuelle au sein de la fenêtre du jeu. Ne donnez pas 
+	une résolution suppérieur à ce que peut supporté l'écran de votre machine.\\\\
+	% WindowPosition property.
+	\textbf{+ \textcolor{darkgreen}{Vector2} WindowPosition = \textcolor{darkgreen}{Vector2}
+	(\textcolor{blue}{-1}, \textcolor{blue}{-1}):} Quelle est la position de la fenêtre du jeu ? Si ne 
+	serais que l'une des valeurs de ce vecteur est négative, cette dernière sera automatiquement centrée 
+	sur l'écran à la valeur ne respectant pas les conditions d'une résolution à la première exécution du 
+	jeu.\\\\
+	% TargetControl property.
+	\textbf{+ \textcolor{red}{int} TargetControl = \textcolor{blue}{0}:} Contient l'index de la disposition 
+	de la manette choisie par le joueur. Prenez l'exemple de \textbf{\textcolor{gray}{Resident Evil}} au 
+	niveau de la gestion de la disposition des touches de la manette. Cette propriétée peut vous servir 
+	surtout si vous souhaitez implémenter cette fonctionnalitée.\\\\
+	% Brightness property.
+	\textbf{+ \textcolor{red}{int} Brightness = \textcolor{blue}{13}:} Contrôle la luminosité de l'écran 
+	dans le jeu. Ces valeurs sont dans \\l'intervalle de [\textcolor{blue}{0}; \textcolor{blue}{100}].\\\\
+	% Contrast property.
+	\textbf{+ \textcolor{red}{int} Contrast = \textcolor{blue}{13}:} Contrôle l'effet subjectif d'une 
+	apposition quantitative de couleurs. Ces valeurs sont dans l'intervalle de [\textcolor{blue}{0};
+	\textcolor{blue}{100}].\\\\
+	% Saturation property.
+	\textbf{+ \textcolor{red}{int} Saturation = \textcolor{blue}{13}:} Contrôle la pureté de la couleur de 
+	l'écran dans le jeu. Ces valeurs sont dans l'intervalle de [\textcolor{blue}{0}; \textcolor{blue}{100}].
+	\\\\
+	% JoyVibration property.
+	\textbf{+ \textcolor{red}{bool} JoyVibration = \textcolor{red}{false}:} Voulez-vous activer la vibration 
+	de la manette ?\\\\
+	% PixelizeScreen property.
+	\textbf{+ \textcolor{red}{bool} PixelizeScreen = \textcolor{red}{false}:} Une fois activée, celle-ci 
+	Surveille les changements de taille de \\fenêtre et les poignées pour mettre à l'échelle de l'écran du 
+	jeu avec un nombre entier exact, des \\multiples d'une résolution de base en mémoire. Utile pour les jeu 
+	de pixélisation 2D.\\
+	% KeepScreen property.
+	\textbf{+ \textcolor{red}{bool} KeepScreen = \textcolor{red}{true}:} Désirez-vous garder 
+	l'écran actif lorsque le jeu est en cours d'exécution.\\\\
+	% VSync property.
+	\textbf{+ \textcolor{red}{bool} VSync = \textcolor{red}{true}:} Voulez-vous activer la synchrônisation
+	verticale au cours de l'exécution du jeu ?\\\\
+	% VSyncCompositor property.
+	\textbf{+ \textcolor{red}{bool} VSyncCompositor = \textcolor{red}{false}:} Voulez-vous activer la
+	synchrônisation verticale par le biais d'un compositeur au cours de l'exécution du jeu ? Dans ce cas,
+	le compositeur de fenêtre du système \\d'exploitation sera utilisé lorsque le jeu est uniquement en mode 
+	fenêtré. Notez que cette option n'est activée que sur un système d'exploitation de type Windows et est 
+	également expérimentale et destinée à atténuer le bégaiement ressenti par certains utilisateurs. 
+	Cependant, certains utilisateurs ont subi une réduction de moitié de la fréquence d'images (par exemple, 
+	de 60 FPS à 30 FPS) lors de leur utilisation.\\\\
+	% GameOptimization property.
+	\textbf{+ \textcolor{red}{bool} GameOptimization = \textcolor{red}{true}:} Voulez-vous optimiser 
+	l'utilisation du processeur ? A ce niveau, le rafraîchissement de l'écran n'est fait que si cela est
+	nécessaire afin de réduire la consommation de la batterie. Utile pour les appareils portables.\\\\
+	% Source property.
+	\textbf{+ \textcolor{darkgreen}{String} Source = "game\_configs.cfg":} Souhaitez-vous créer un fichier 
+	de configuration contenant toutes les configurations globales effectuées sur le jeu ? A ce niveau, le 
+	module mettra à jour le fichier externe des configurations du jeu à chaque sauvegarde éffectuée à son 
+	égard uniquement si le \\développeur à précisé un fichier (existant ou inexistant). Notez que 
+	l'extension de votre fichier doit être le (.cfg).\\\\
+	\textbf{+ \textcolor{red}{int} TargetPath = \textcolor{blue}{0}:} Contient les différents chemins que
+	prend en charge ce module. Ces chemins \\représentent les endroits possibles où l'on peut déposé le
+	fichier externe des configurations du jeu. Les valeurs possibles sont:
+	\begin{itemize}
+		\item[-> \textbf{\textcolor{gray}{MegaAssets.Path.GAME\_LOCATION} ou \textcolor{blue}{0}}:] Cible le 
+		dossier racine du jeu.
+		\item[-> \textbf{\textcolor{gray}{MegaAssets.Path.OS\_ROOT} ou \textcolor{blue}{1}}:] Cible le 
+		dossier racine du système d'exploitation installé.
+		\item[-> \textbf{\textcolor{gray}{MegaAssets.Path.USER\_DATA} ou \textcolor{blue}{2}}:] Cible le 
+		dossier racine des données de l'utilisateur.
+		\item[-> \textbf{\textcolor{gray}{MegaAssets.Path.USER\_ROOT} ou \textcolor{blue}{3}}:] Cible le 
+		dossier racine de l'utilisateur.
+		\item[-> \textbf{\textcolor{gray}{MegaAssets.Path.USER\_DESKTOP} ou \textcolor{blue}{4}}:] Cible le 
+		bureau du système d'exploitation.
+		\item[-> \textbf{\textcolor{gray}{MegaAssets.Path.USER\_PICTURES} ou \textcolor{blue}{5}}:] Cible le 
+		dossier \textcolor{gray}{\textit{Images}} du système d'exploitation.
+		\item[-> \textbf{\textcolor{gray}{MegaAssets.Path.USER\_MUSIC} ou \textcolor{blue}{6}}:] Cible le 
+		dossier \textcolor{gray}{\textit{Musiques}} du système d'exploitation.
+		\item[-> \textbf{\textcolor{gray}{MegaAssets.Path.USER\_VIDEOS} ou \textcolor{blue}{7}}:] Cible le 
+		dossier \textcolor{gray}{\textit{Vidéos}} du système d'exploitation.
+		\item[-> \textbf{\textcolor{gray}{MegaAssets.Path.USER\_DOCUMENTS} ou \textcolor{blue}{8}}:] Cible 
+		le dossier \textcolor{gray}{\textit{Documents}} du système \\d'exploitation.
+		\item[-> \textbf{\textcolor{gray}{MegaAssets.Path.USER\_DOWNLOADS} ou \textcolor{blue}{9}}:] Cible 
+		le dossier \textcolor{gray}{\textit{Téléchargements}} du système \\d'exploitation.\\
+	\end{itemize}
+	\textbf{\textcolor{red}{int} SecurityLevel = \textcolor{blue}{0}:} Contient les différents niveaux de 
+	sécurité possibles que l'on peut utilisé au cours de la création du fichier externe des configurations 
+	du jeu. Les valeurs possibles sont:
+	\begin{itemize}	
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.SecurityLevel.SIMPLE} ou \textcolor{blue}{0}}:] Simple 
+		niveau de sécurité.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.SecurityLevel.NORMAL} ou \textcolor{blue}{1}}:] Niveau 
+		de sécurité normal.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.SecurityLevel.ADVANCED} ou \textcolor{blue}{2}}:] 
+		Niveau de sécurité avancé.\\
+	\end{itemize}
+
+	% Settings methods definition.
+	\section{Les méthodes disponibles}
+	% Int get_game_time () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} \textcolor{blue}{get\_game\_time} ():] Renvoie le nombre de secondes
+		déjà écoulés depuis le démarrage du jeu.\\
+	\end{description}
+	% Int get_scene_time () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} \textcolor{blue}{get\_scene\_time} ():] Renvoie le nombre de secondes
+		déjà écoulés depuis le lencement de la scène actuelle du jeu.\\
+	\end{description}
+	% Vector2 get_resolution () method description.
+	\begin{description}
+		\item [+ \textcolor{darkgreen}{Vector2} \textcolor{blue}{get\_resolution} ():] Renvoie la résolution
+		actuellement sélectionnée au niveau du champ \textit{\hyperlink{winsize}{WindowSize}}.\\
+	\end{description}
+	% Void apply_settings () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{apply\_settings} (delay = 0.0):] Applique les 
+		configurations éffectuées au niveau du module à l'ensemble des éléments concernés par les
+		configurations du jeu.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant la l'application
+			des configurations ?\\
+		\end{itemize}
+	\end{description}
+	% Void load_configs_data () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{load\_configs\_data} (delay = 0.0):] Charge à partir 
+		du fichier externe de configurations, les données des configurations du jeu. Notez qu'il ne se 
+		passera rien si le fichier est corromput.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant le chargement des
+			des données de configurations ?\\
+		\end{itemize}
+	\end{description}
+	% Void save_game_configs_file () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{save\_game\_configs\_file} (delay = 0.0):] Cré ou 
+		mets à jour le fichier externe des \\configurations du jeu.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant la mise à jour du
+			fichier de configurations ?\\
+		\end{itemize}
+	\end{description}
+
+	% Settings signals definition.
+	\section{Les événements disponibles}
+	% before_save_configs event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{before\_save\_configs} ():] Signal déclenché avant la mise à jour du 
+		fichier externe des \\configurations du jeu.\\
+	\end{description}
+	% after_save_configs event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{after\_save\_configs} ():] Signal déclenché après la mise à jour du 
+		fichier externe des configurations du jeu.\\
+	\end{description}
+	% scene_time_changed event description.
+	\newpage \begin{description}
+		\item [+ \textcolor{blue}{scene\_time\_changed} (time):] Signal déclenché à chaque fois le temps 
+		écoulé depuis le \\lencement de la scène du jeu évolue.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{int} time}:] Contient le temps actuellement écoulé en seconde.
+			\\
+		\end{itemize}
+	\end{description}
+	% file_corrupted () signal description.
+	\begin{description}
+		\item [+ \textcolor{blue}{file\_corrupted} ():] Signal déclenché lorsque le fichier de
+		configurations est corromput de \\l'extérieur.\\
+	\end{description}
+	% file_saving event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{file\_saving} (progress):] Signal déclenché pendant que le fichier de
+		configurations est en cours de sauvegarde.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{int} progress}:] Contient la progression actuelle de la
+			sauvegarde.\\
+		\end{itemize}
+	\end{description}
+	% file_loading event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{file\_loading} (progress):] Signal déclenché pendant que le fichier de
+		configurations est en cours de chargement.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{int} progress}:] Contient la progression actuelle du
+			chargement.\\
+		\end{itemize}
+	\end{description}
+\end{document}

@@ -1,0 +1,124 @@
+% Document type and package imports.
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{charter}
+\usepackage[top = 2cm, bottom = 2cm, left = 1cm, right = 1cm]{geometry}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{tocloft}
+
+% Preanblue.
+\onehalfspacing
+\definecolor{gray}{rgb}{0.4, 0.4, 0.4}
+\definecolor{silver}{rgb}{0.95, 0.95, 0.95}
+\renewcommand{\thesection}{\Roman{section} --}
+\definecolor{darkgreen}{HTML}{1E8C15}
+\cftsetindents{section}{1em}{2.5em}
+\hypersetup {colorlinks=true, linkcolor=blue, urlcolor=blue, pdftitle={ClonesBreaker module doc}}
+
+% The start of the article.
+\begin{document}
+	% Change document background to silver color.
+	\pagecolor{silver}
+	% ClonesBreaker module description.
+	\huge{\hspace{13cm}\textit{\textbf{\textcolor{darkgreen}{ClonesBreakerFx}}}}\large{} \tableofcontents
+	\newpage
+	% ClonesBreaker module definition.
+	\section{Définition}
+	\textcolor{darkgreen}{\textbf{ClonesBreakerFx}} est un module qui supprime les doublons d'un objet dans
+	une scène grâce à son identifiant.\\
+	\textcolor{red}{\textbf{NB}:} Notez que ce module est compatible à un jeu 2D, 3D et n'est pas
+	sauvegardable.
+
+	% ClonesBreaker properties definition.
+	\section{Les propriétés disponibles}
+	% Sources property.
+	\textbf{+ \textcolor{darkgreen}{Array} Sources:} Tableau de dictionnaires contenant toutes les 
+	différentes configurations sur chaque doublon. Les dictionnaires issus de ce tableau supportent les clés
+	suivantes:\\
+	\begin{itemize}
+		\item[>> \textbf{\textcolor{darkgreen}{String | NodePath} reference}:] Quelle est la porté des 
+		destructions ? Ce champs contient le noeud à partir duquel les clones seront détruits.\\
+		\item[>> \textbf{\textcolor{darkgreen}{String} id}:] Contient l'identifiant à recherché. 
+		L'utilisation de cette clé est obligatoire.\\
+		\item[>> \textbf{\textcolor{red}{bool} partial = \textcolor{red}{false}}:] Définit si les doublons 
+		du noeud en question seront détruit soit par la \\méthode \textcolor{blue}{\textit{queue\_free ()}}, 
+		soit par la propriété \textcolor{gray}{\textit{visible}}.\\
+		\item[>> \textbf{\textcolor{red}{float} timeout = \textcolor{blue}{0.0}}:] Quel est le délai avant 
+		le démarrage du processus de destruction ?\\
+		\item[>> \textbf{\textcolor{red}{float} delay = \textcolor{blue}{0.0}}:] Quel est le délai avant la 
+		destruction de chaque clone dans l'arbre de la scène en question ?\\
+		\item[>> \textbf{\textcolor{red}{int} search = \textcolor{blue}{3}}:] Contient le moyen à utilisé 
+		pour chercher les clones à détruire. Les valeurs \\possibles sont:
+		\begin{itemize}
+			\item[-> \textbf{\textcolor{gray}{MegaAseets.NodeProperty.NAME} ou \textcolor{blue}{0}}:] 
+			Ciblage par nom.
+			\item[-> \textbf{\textcolor{gray}{MegaAseets.NodeProperty.GROUP} ou \textcolor{blue}{1}}:] 
+			Ciblage par groupe.
+			\item[-> \textbf{\textcolor{gray}{MegaAseets.NodeProperty.TYPE} ou \textcolor{blue}{2}}:] 
+			Ciblage par type.
+			\item[-> \textbf{\textcolor{gray}{MegaAseets.NodeProperty.ANY} ou \textcolor{blue}{3}}:] Ciblage 
+			sur n'importe quel type.\\
+		\end{itemize}
+	\end{itemize}
+	\textcolor{red}{\textbf{NB}:} Les répétitions au niveau des identifiants ne sont pas tolérées.
+
+	% ClonesBreaker methods definition.
+	\section{Les méthodes disponibles}
+	% Void destroy_clones () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{destroy\_clones} (delay = 0.0):] Lance le procéssus 
+		de destruction des clones.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant la destruction 
+			des doublons ?\\
+		\end{itemize}
+	\end{description}
+
+	% ClonesBreaker signals definition.
+	\newpage \section{Les événements disponibles}
+	% before_destroy_clone () signal description.
+	\begin{description}
+		\item [+ \textcolor{blue}{before\_destroy\_clone} (data):] Signal déclenché avant la destruction 
+		d'un clone. Cet événement renvoie un dictionnaire contenant les clé suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud ayant déclenché
+			l'événement.
+			\item [>> \textbf{\textcolor{darkgreen}{Node} clone}:] Contient le noeud (clone) à détruire.\\
+		\end{itemize}
+	\end{description}
+	% after_destroy_clone () signal description.
+	\begin{description}
+		\item [+ \textcolor{blue}{after\_destroy\_clone} (data):] Signal déclenché après la destruction d'un 
+		clone. Cet événement renvoie un dictionnaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud ayant déclenché 
+			l'événement.
+			\item [>> \textbf{\textcolor{darkgreen}{Node} clone}:] Contient le noeud (clone) après 
+			désactivation de sa visibilité. Cette valeur est \\renvoyée uniquement si la destruction est 
+			partielle.\\
+		\end{itemize}
+	\end{description}
+	% before_destroy_clones () signal description.
+	\begin{description}
+		\item [+ \textcolor{blue}{before\_destroy\_clones} (node):] Signal déclenché avant la destruction de 
+		tous les clones.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud ayant déclenché 
+			l'événement.\\
+		\end{itemize}
+	\end{description}
+	% after_destroy_clones () signal description.
+	\begin{description}
+		\item [+ \textcolor{blue}{after\_destroy\_clones} (node):] Signal déclenché après la destruction 
+		immédiate de tous les clones. 
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud ayant déclenché 
+			l'événement.\\
+		\end{itemize}
+	\end{description}
+\end{document}

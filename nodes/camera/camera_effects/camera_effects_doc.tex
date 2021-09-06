@@ -1,0 +1,337 @@
+% Document type and package imports.
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{charter}
+\usepackage[top = 2cm, bottom = 2cm, left = 1cm, right = 1cm]{geometry}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{tocloft}
+
+% Preanblue.
+\onehalfspacing
+\definecolor{gray}{rgb}{0.4, 0.4, 0.4}
+\definecolor{silver}{rgb}{0.95, 0.95, 0.95}
+\renewcommand{\thesection}{\Roman{section} --}
+\definecolor{darkgreen}{HTML}{1E8C15}
+\cftsetindents{section}{1em}{2.5em}
+\hypersetup {colorlinks=true, linkcolor=blue, urlcolor=blue, pdftitle={CameraEffects module doc}}
+
+% The start of the article.
+\begin{document}
+	% Change document background to silver color.
+	\pagecolor{silver}
+	% CameraEffects module description.
+	\huge{\hspace{13.3cm}\textit{\textbf{\textcolor{darkgreen}{CameraEffectsFx}}}}\large{} \tableofcontents
+	\newpage
+	% CameraEffects module definition.
+	\section{Définition}
+	\textcolor{darkgreen}{\textbf{CameraEffectsFx}} est un module permettant de faire des effets de camera 
+	dans un jeu.\\
+	\textcolor{red}{\textbf{NB}:} Ce module est compatible à un jeu 2D, 3D et est sauvegardable.
+
+	% CameraEffects properties definition.
+	\section{Les propriétés disponibles}
+	% Target property.
+	\textbf{+ \textcolor{darkgreen}{NodePath} Target:} Contient une référence de l'instance d'un noeud de 
+	type \href{https://docs.godotengine.org/en/stable/classes/class_sprite.html}
+	{\textit{\textcolor{darkgreen}{Sprite}}} ou
+	\href{https://docs.godotengine.org/en/stable/classes/class_texturerect.html}
+	{\textit{\textcolor{darkgreen}{TextureRect}}}.\\\\
+	% Effect property.
+	\textbf{+ \textcolor{red}{int} Effect = \textcolor{blue}{0}:} Contient l'éffet à appliqué. Les valeurs 
+	possibles sont:
+	\begin{itemize}
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.NONE} ou \textcolor{blue}{0}}:] Aucun 
+		éffet à appliqué.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.SIMPLE\_BLUR} ou \textcolor{blue}{1}}:] 
+		Utilisation d'un simple éffet flou.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.VIGNETTE} ou \textcolor{blue}{2}}:] 
+		Utilisation de l'éffet vignette.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.PIXELIZE} ou \textcolor{blue}{3}}:] 
+		Utilisation de l'éffet de pixélisation.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.WHIRL} ou \textcolor{blue}{4}}:] 
+		Utilisation de l'éffet whirl.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.SEPIA} ou \textcolor{blue}{5}}:] 
+		Utilisation de l'éffet sepia.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.NEGATIVE} ou \textcolor{blue}{6}}:] 
+		Utilisation de l'éffet negatve.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.CONTRASTED} ou \textcolor{blue}{7}}:] 
+		Utilisation de l'éffet de contraste.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.NORMALIZED} ou \textcolor{blue}{8}}:] 
+		Utilisation de l'éffet normalized.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.BCS} ou \textcolor{blue}{9}}:] 
+		Utilisation de l'éffet bcs.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.MIRAGE} ou \textcolor{blue}{10}}:] 
+		Utilisation de l'éffet mirage.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.OLD\_FILM} ou \textcolor{blue}{11}}:] 
+		Utilisation de l'éffet d'ancien film.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.STATIC\_CRT} ou \textcolor{blue}{12}}:] 
+		Utilisation de l'éffet crt statique.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.MOSAIC} ou \textcolor{blue}{13}}:] 
+		Utilisation de l'éffet mosaic.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.LCD} ou \textcolor{blue}{14}}:] 
+		Utilisation de l'éffet d'écran lcd.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.GAMEBOY} ou \textcolor{blue}{15}}:] 
+		Utilisation de l'éffet gameboy.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.TONE\_COMIC} ou \textcolor{blue}{16}}:] 
+		Utilisation de l'éffet tone comic.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.INVERT} ou \textcolor{blue}{17}}:] 
+		Utilisation de l'éffet d'invertion.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.TV} ou \textcolor{blue}{18}}:] 
+		Utilisation de l'éffet de la télévision.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.VHS} ou \textcolor{blue}{19}}:] 
+		Utilisation de l'éffet vhs.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.VHS\_GLITCH} ou \textcolor{blue}{20}}:] 
+		Utilisation de l'éffet vhs glich.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.VHS\_PAUSE} ou \textcolor{blue}{21}}:] 
+		Utilisation de l'éffet vhs pause.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.VHS\_SIMPLE\_GLITCH} ou \textcolor{blue}
+		{22}}:] Utilisation de l'éffet vhs simple glich.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.BW} ou \textcolor{blue}{23}}:] 
+		Utilisation de l'éffet bw.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.BETTER\_CC} ou \textcolor{blue}{24}}:] 
+		Utilisation de l'éffet better cc.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.COLOR\_PRECISION} ou \textcolor{blue}
+		{25}}:] Utilisation de l'éffet de la précision de couleur.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.GRAIN} ou \textcolor{blue}{26}}:] 
+		Utilisation de l'éffet grain.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.LENS\_DISTORTION} ou \textcolor{blue}
+		{27}}:] Utilisation de l'éffet lens distortion.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.SHARPNESS} ou \textcolor{blue}{28}}:] 
+		Utilisation de l'éffet sharpness.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.SIMPLE\_GRAIN} ou \textcolor{blue}{29}}:] 
+		Utilisation de l'éffet simple grain.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.RANDOM\_NOISE} ou \textcolor{blue}{30}}:] 
+		Utilisation de l'éffet random noise.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.SCANLINES} ou \textcolor{blue}{31}}:] 
+		Utilisation de l'éffet scanlines.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.GLITCH} ou \textcolor{blue}{32}}:] 
+		Utilisation de l'éffet glitch.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.CRT\_SCREEN} ou \textcolor{blue}{33}}:] 
+		Utilisation de l'éffet crt.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.SIMPLE\_CRT} ou \textcolor{blue}{34}}:] 
+		Utilisation de l'éffet crt simple.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.SIMPLE\_GLITCH} ou \textcolor{blue}
+		{35}}:] Utilisation de l'éffet glitch simple.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.CRT\_LOTTES} ou \textcolor{blue}{36}}:] 
+		Utilisation de l'éffet crt lottes.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.ABERRATION} ou \textcolor{blue}{37}}:] 
+		Utilisation de l'éffet d'abération.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.ADVANCED\_MOSIC} ou \textcolor{blue}
+		{38}}:] Utilisation de l'éffet mosic avancé.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.ANIMATED\_NOISE} ou \textcolor{blue}
+		{39}}:] Utilisation de l'éffet d'animation de bruit.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.AVERAGE} ou \textcolor{blue}{40}}:] 
+		Utilisation de l'éffet average.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.BACKGROUND} ou \textcolor{blue}{41}}:] 
+		Utilisation d'un éffet utilisé comme arrière-plan.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.BINARY\_CONVERSION} ou \textcolor{blue}
+		{42}}:] Utilisation de l'éffet de conversion binaire.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.BINARY\_DEFAULT\_MIX} ou \textcolor{blue}
+		{43}}:] Utilisation de l'éffet de conversion binaire par défaut.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.COLOR\_BLINDNESS} ou \textcolor{blue}
+		{44}}:] Utilisation de l'éffet de liaison de \\couleur.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.DEFAULT} ou \textcolor{blue}{45}}:] 
+		Utilisation d'un éffet fainéant.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.EDGE\_DEFAULT\_MIX} ou \textcolor{blue}
+		{46}}:] Utilisation de l'éffet egde default mix.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.EDGE\_MOTION\_MIX} ou \textcolor{blue}
+		{47}}:] Utilisation de l'éffet edge motion mix.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.EDGE\_PREWITT} ou \textcolor{blue}{48}}:]
+		Utilisation de l'éffet edge prewitt.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.SIMPLE\_EDGE} ou \textcolor{blue}{49}}:] 
+		Utilisation de l'éffet edge.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.EDGE\_SOBEL} ou \textcolor{blue}{50}}:] 
+		Utilisation de l'éffet edge sobel.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.MONOCHROME} ou \textcolor{blue}{51}}:] 
+		Utilisation de l'éffet monochrome.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.MOTION} ou \textcolor{blue}{52}}:] 
+		Utilisation de l'éffet de mouvement.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.SIMPLE\_MOSIC} ou \textcolor{blue}{53}}:]
+		Utilisation de l'éffet mosic.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.CameraEffect.MOTION\_BLUR} ou \textcolor{blue}{54}}:] 
+		Utilisation de l'éffet du mouvement flou.\\
+	\end{itemize}
+	% Privot property.
+	\textbf{+ \textcolor{darkgreen}{NodePath} Privot:} Contient une référence de l'instance d'un noeud de 
+	type \href{https://docs.godotengine.org/en/stable/classes/class_camera2d.html}
+	{\textit{\textcolor{darkgreen}{Camera2D}}} ou
+	\href{https://docs.godotengine.org/en/stable/classes/class_camera.html}
+	{\textit{\textcolor{darkgreen}{Camera}}}. N'utilisez cette propriété que si l'éffet choisi est un 
+	\textit{\textcolor{gray}{Motion Blur}}.\\\\
+	% ListenTransform property.
+	\textbf{+ \textcolor{red}{int} ListenTransform = \textcolor{blue}{2}:} Quelle transformation écoutée 
+	lorsque l'éffet choisi est un \textit{\textcolor{gray}{Motion Blur}} ? Les valeurs possibles sont:
+	\begin{itemize}
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Transformation.NONE} ou \textcolor{blue}{0}}:] Aucune 
+		transformation ne sera écouter, que cela soit dans le plan ou dans l'espace.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Transformation.LOCATION} ou \textcolor{blue}{1}}:] 
+		L'éffet se déclenchera uniquement au \\changement de la position du \textit{\textcolor{gray}
+		{Privot}}.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Transformation.ROTATION} ou \textcolor{blue}{2}}:] 
+		L'éffet se déclenchera uniquement au \\changement de la rotation du \textit{\textcolor{gray}
+		{Privot}}.
+		\newpage \item [-> \textbf{\textcolor{gray}{MegaAssets.Transformation.SCALE} ou \textcolor{blue}
+		{3}}:] L'éffet se déclenchera uniquement au changement de la taille du \textit{\textcolor{gray}
+		{Privot}}.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Transformation.LOCROT} ou \textcolor{blue}{4}}:] 
+		L'éffet se déclenchera au changement de la \\rotation et de la position du \textit{\textcolor{gray}
+		{Privot}}.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Transformation.LOCSCALE} ou \textcolor{blue}{5}}:] 
+		L'éffet se déclenchera au changement de la \\position et de la taille du \textit{\textcolor{gray}
+		{Privot}}.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Transformation.ROTSCALE} ou \textcolor{blue}{6}}:] 
+		L'éffet se déclenchera au changement de la \\rotation et de la taille du \textit{\textcolor{gray}
+		{Privot}}.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.ListenTransform.ALL} ou \textcolor{blue}{7}}:] L'éffet
+		se déclenchera quelque soit la \\transformation qui a été affecté.\\
+	\end{itemize}
+	% ListenAxis property.
+	\textbf{+ \textcolor{red}{int} ListenAxis = \textcolor{blue}{2}:} Quelle axe écouté lorsque l'éffet 
+	choisi est un \textit{\textcolor{gray}{Motion Blur}} ? Les valeurs possibles sont:
+	\begin{itemize}
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.NONE} ou \textcolor{blue}{0}}:] Aucun axe ne sera 
+		écouter, que cela soit dans le plan ou dans l'espace.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.X} ou \textcolor{blue}{1}}:] L'éffet se 
+		déclenchera uniquement au changement de valeur au niveau de l'axe des abcisses du 
+		\textit{\textcolor{gray}{Privot}}.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.XY} ou \textcolor{blue}{7}}:] L'éffet se 
+		déclenchera uniquement au changement de valeur au \\niveau de l'axe des abcisses et des ordonnés du 
+		\textit{\textcolor{gray}{Privot}}.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.XZ} ou \textcolor{blue}{8}}:] L'éffet se 
+		déclenchera uniquement au changement de valeur au \\niveau de l'axe des abcisses et de Z du 
+		\textit{\textcolor{gray}{Privot}}.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.Y} ou \textcolor{blue}{2}}:] L'éffet se 
+		déclenchera uniquement au changement de valeur au niveau de l'axe des ordonnés du 
+		\textit{\textcolor{gray}{Privot}}.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.YZ} ou \textcolor{blue}{9}}:] L'éffet se 
+		déclenchera uniquement au changement de valeur au \\niveau de l'axe des ordonnés et de Z du 
+		\textit{\textcolor{gray}{Privot}}.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.Z} ou \textcolor{blue}{3}}:] L'éffet se 
+		déclenchera uniquement au changement de valeur au niveau de l'axe Z du \textit{\textcolor{gray}
+		{Privot}}.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.XYZ} ou \textcolor{blue}{13}}:] L'éffet se 
+		déclenchera uniquement au changement de valeur au niveau de l'axe des abcisses, des ordonnés et de Z 
+		du \textit{\textcolor{gray}{Privot}}.\\
+	\end{itemize}
+	% FullScreen property.
+	\textbf{+ \textcolor{red}{int} FullScreen = \textcolor{blue}{0}:} Redimension le sprite en question pour 
+	que sa taille occupe tous l'espace \\disponible sur l'écran. Les valeurs possibles sont:
+	\begin{itemize}
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.FullMonitor.NONE} ou \textcolor{blue}{0}}:] Aucun 
+		redimensionement à appliqué.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.FullMonitor.HORIZONTAL} ou \textcolor{blue}{1}}:] 
+		Redimensionement horizontal.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.FullMonitor.VERTICAL} ou \textcolor{blue}{2}}:] 
+		Redimensionement vertical.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.FullMonitor.BOTH} ou \textcolor{blue}{3}}:] 
+		Redimensionement horizontal et vertical.\\
+	\end{itemize}
+	% Responsive property.
+	\textbf{+ \textcolor{red}{int} Responsive = \textcolor{red}{true}:} Voulez-vous adapter les positions et 
+	la taille de l'éffet en fonction des \\dimensions de l'écran ? Les valeurs possibles sont:
+	\begin{itemize}
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.FullMonitor.NONE} ou \textcolor{blue}{0}}:] Aucun 
+		responsive à appliqué.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.FullMonitor.HORIZONTAL} ou \textcolor{blue}{1}}:] 
+		Responsive horizontal.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.FullMonitor.VERTICAL} ou \textcolor{blue}{2}}:] 
+		Responsive vertical.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.FullMonitor.BOTH} ou \textcolor{blue}{3}}:] Responsive 
+		horizontal et vertical.\\
+	\end{itemize}
+	% Layout property.
+	\textbf{+ \textcolor{red}{int} Layout = \textcolor{blue}{0}:} Voulez-vous adapter les positions et 
+	la taille du sprite en fonction des dimensions de l'écran. Les valeurs possibles sont:
+	\begin{itemize}
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Disposal.NONE} ou \textcolor{blue}{0}}:] Aucune 
+		disposition ne sera appliquée.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Disposal.CENTER} ou \textcolor{blue}{1}}:] Centrage 
+		automatique.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Disposal.TOP} ou \textcolor{blue}{2}}:] Positionement
+		en haut de l'écran.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Disposal.RIGHT} ou \textcolor{blue}{3}}:]
+		Positionement à droite de l'écran.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Disposal.BOTTOM} ou \textcolor{blue}{4}}:]
+		Positionement en bas de l'écran.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Disposal.LEFT} ou \textcolor{blue}{5}}:] Positionement
+		à gauche de l'écran.\\
+	\end{itemize}
+	% Transition property.
+	\textbf{+ \textcolor{red}{float} Transition = \textcolor{blue}{0.0}:} Quel est le temps mort entre deux
+	éffets ? Cette propriété est solicité lorsque l'on change d'éffet.\\\\
+	% TransitionType property.
+	\textbf{+ \textcolor{red}{int} TransitionType = \textcolor{blue}{0}:} Quel type de transition adopté ?
+	Les valeurs possibles de ce champ sont celles de Godot. Cette propriété est solicité lorsque l'on change 
+	d'éffet.\\\\
+	% TransitionType property.
+	\textbf{+ \textcolor{red}{int} TransitionEasing = \textcolor{blue}{2}:} Quel assouplissement adopté ? 
+	Les valeurs possibles de ce champ sont celles de Godot. Cette propriété est solicité lorsque l'on change 
+	d'éffet.\\\\
+	% TransitionBound property.
+	\textbf{+ \textcolor{red}{bool} TransitionBound = \textcolor{red}{false}:} Voulez-vous établir une 
+	liaison entre les éffets ? Cette propriété est solicité lorsque l'on change d'éffet.
+
+	% CameraEffects methods definition.
+	\section{Les méthodes disponibles}
+	% Void interpolate_visibility () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{interpolate\_visibility} (value, min, max, invert = 
+		false, delay = 0.0):] Interpolation de \\visibilité au niveau du sprite de l'éffet en question. 
+		Cette méthode agit sur la propriété \textit{\textcolor{gray}{modulate}} du sprite présentant l'éffet 
+		choisi.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{float | int} value}:] Contient l'état de la visibilité.
+			\item [>> \textbf{\textcolor{red}{float | int} min}:] Contient la valeur minimale de la 
+			visibilité.
+			\item [>> \textbf{\textcolor{red}{float | int} max}:] Contient la valeur maximale de la 
+			visibilité.
+			\item [>> \textbf{\textcolor{red}{bool} invert}:] La modification de la valeur de la visibilité
+			doit-elle se fait dans le sens inverse de son état actuelle ?
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant le changement 
+			d'état ?
+		\end{itemize}
+	\end{description}
+
+	% CameraEffects signals definition.
+	\section{Les événements disponibles}
+	% transition_started event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{transition\_started} (node):] Signal déclenché avant le changement d'éffet 
+		avec une transition \\supérieur à 0.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où cet signal a été 
+			émit.\\
+		\end{itemize}
+	\end{description}
+	% transition_finished event description.
+	\newpage \begin{description}
+		\item [+ \textcolor{blue}{transition\_finished} (node):] Signal déclenché après le changement 
+		d'éffet avec une transition supérieur à 0.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où cet signal a été 
+			émit.\\
+		\end{itemize}
+	\end{description}
+	% transition_running event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{transition\_running} (node):] Signal déclenché au cours d'une transition
+		entre deux éffets.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où cet signal a été 
+			émit.\\
+		\end{itemize}
+	\end{description}
+	% effect_changed event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{effect\_changed} (node):] Signal déclenché au changement d'éffet.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où cet signal a été 
+			émit.\\
+		\end{itemize}
+	\end{description}
+\end{document}

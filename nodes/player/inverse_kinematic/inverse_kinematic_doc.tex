@@ -1,0 +1,232 @@
+% Document type and package imports.
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{hyperref}
+\usepackage{tocloft}
+\usepackage{charter}
+\usepackage[top = 2cm, bottom = 2cm, left = 1cm, right = 1cm]{geometry}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{xcolor}
+
+% Preanblue.
+\onehalfspacing
+\definecolor{gray}{rgb}{0.4, 0.4, 0.4}
+\definecolor{silver}{rgb}{0.95, 0.95, 0.95}
+\renewcommand{\thesection}{\Roman{section} --}
+\cftsetindents{section}{1em}{2.5em}
+\definecolor{darkgreen}{HTML}{1E8C15}
+\hypersetup {colorlinks=true, linkcolor=blue, urlcolor=blue, pdftitle={InverseKinematic module doc}}
+
+% The start of the article.
+\begin{document}
+	% Change document background to silver color.
+	\pagecolor{silver}
+	% InverseKinematic module description.
+	\huge{\hspace{12cm}\textit{\textbf{\textcolor{darkgreen}{InverseKinematicFx}}}}\large{} \tableofcontents 
+	\newpage
+	% InverseKinematic module definition.
+	\section{Définition}
+	\textcolor{darkgreen}{\textbf{InverseKinematicFx}} est un module conçut pour le pistage d'un objet à 
+	partir d'un squellette \\d'animation. Ce module oblige la section du squellette sélectionnée pour cibler
+	un objet.\\
+	\textcolor{red}{\textbf{NB}:} Ce module est compatible à un jeu 3D et n'est pas sauvegardable. Il 
+	possède également un pisteur permettant de pister automatiquement ces cibles en fonction de son champ de 
+	vision comme pour le module \textit{\textcolor{darkgreen}{CameraControlFx}}.
+
+	% InverseKinematic properties definition.
+	\section{Les propriétés disponibles}
+	% TargetSkeleton property.
+	\textbf{+ \textcolor{darkgreen}{NodePath} TargetSkeleton:} Contient l'instance d'un noeud de type
+	\href{https://docs.godotengine.org/fr/stable/classes/class_skeleton.html}{\textit{\textcolor{darkgreen}
+	{Skeleton}}}.\\\\
+	% BoneName property.
+	\textbf{+ \textcolor{darkgreen}{String} BoneName:} Quelle section du squellette d'animation voulez-vous 
+	ciblée ?\\\\
+	% LookAtAxis property.
+	\textbf{+ \textcolor{red}{int} LookAtAxis = \textcolor{blue}{2}:} Sur quelle direction les pistages se 
+	feront ? Les valeurs possibles sont:
+	\begin{itemize}
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.X} ou \textcolor{blue}{1}}:] L'axe des absisses.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.Y} ou \textcolor{blue}{2}}:] L'axe des ordonnés.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.Z} ou \textcolor{blue}{3}}:] L'axe des côtes.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.\_X} ou \textcolor{blue}{4}}:] L'opposé de l'axe 
+		des absisses.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.\_Y} ou \textcolor{blue}{5}}:] L'opposé de l'axe 
+		des ordonnés.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.\_Z} ou \textcolor{blue}{6}}:] L'opposé de l'axe 
+		des côtes.\\
+	\end{itemize}
+	% FroozeAxis property.
+	\textbf{+ \textcolor{red}{int} FroozeAxis = \textcolor{blue}{0}:} Quel axe bloqué au cours des pistages 
+	? Les valeurs possibles sont:
+	\begin{itemize}
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.NONE} ou \textcolor{blue}{0}}:] Aucun blockage.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.X} ou \textcolor{blue}{1}}:] Blockage de l'axe 
+		des absisses.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.Y} ou \textcolor{blue}{2}}:] Blockage de l'axe 
+		des ordonnés.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.Z} ou \textcolor{blue}{3}}:] Bockage de l'axe des 
+		côtes.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.\_X} ou \textcolor{blue}{4}}:] Blockage de 
+		l'opposé de l'axe des absisses.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.\_Y} ou \textcolor{blue}{5}}:] Blockage de 
+		l'opposé de l'axe des ordonnés.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.\_Z} ou \textcolor{blue}{6}}:] Blockage de 
+		l'opposé de l'axe des côtes.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.XY} ou \textcolor{blue}{7}}:] Bockage des axes x 
+		et y.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.XZ} ou \textcolor{blue}{8}}:] Bockage des axes x 
+		et z.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.YZ} ou \textcolor{blue}{9}}:] Bockage des axes y 
+		et z.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.\_XY} ou \textcolor{blue}{10}}:] Bockage de 
+		l'opposé des axes x et y.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.\_XZ} ou \textcolor{blue}{11}}:] Bockage de 
+		l'opposé des axes x et z.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.\_YZ} ou \textcolor{blue}{12}}:] Bockage de 
+		l'opposé des axes y et z.		
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.XYZ} ou \textcolor{blue}{13}}:] Bockage des axes 
+		x, y et z.
+		\item [-> \textbf{\textcolor{gray}{MegaAssets.Axis.\_XYZ} ou \textcolor{blue}{14}}:] Bockage de 
+		l'opposé des axes x, y et z.\\
+	\end{itemize}
+	% Offset property.
+	\textbf{+ \textcolor{darkgreen}{Vector3} Offset = \textcolor{darkgreen}{Vector3} (\textcolor{blue}{0.0}, 
+	\textcolor{blue}{0.0}, \textcolor{blue}{0.0}):} Contrôle l'ajustement de la section du squellette 
+	\\d'animation en terme de rotation.\\\\
+	% ListenCamera property.
+	\newpage \textbf{+ \textcolor{darkgreen}{NodePath} ListenCamera:} Contient l'instance d'un noeud de type 
+	\textit{\textcolor{darkgreen}{CameraControlFx}}. Si l'on \\statisfait l'entrée qu'attend cette 
+	propriété, le module se synchrônisera aux données renvoyées par le module \textit{\textcolor{darkgreen}
+	{CameraControlFx}} uniquement lorsque ce dernier activera son système de pistage automatique.\\\\
+	% TargetingAera property.
+	\textbf{+ \textcolor{darkgreen}{NodePath} TargetingAera:} Contient l'instance d'un noeud de type
+	\href{https://docs.godotengine.org/fr/stable/classes/class_area.html}{\textit{\textcolor{darkgreen}
+	{Area}}} représentant le champ \\d'activité du module. Si l'entrée de cette propriété n'est pas 
+	satisfaite, le module cherchera toutes les \\références des objets ou des noeuds donnés par le 
+	développeur à partir des configurations éffectuées dans le champ \textit{\textcolor{gray}{Targets}}.\\\\
+	% Targets property.
+	\textbf{+ \textcolor{darkgreen}{Array} Targets:} Tableau de dictionnaires contenant toutes les 
+	différentes configurations sur chaque objet prise en charge par le développeur. Les dictionnaires issus 
+	de ce tableau supportent les clés \\suivantes:
+	\begin{itemize}
+		\item[>> \textbf{\textcolor{darkgreen}{String} id}:] Quel est l'identifiant du noeud à prendre en 
+		charge ? L'utilisation de cette clé est \\obligatoire.\\
+		\item[>> \textbf{\textcolor{red}{int} search = \textcolor{blue}{3}}:] Quel moyen utilisé pour 
+		chercher le noeud à prendre en charge ? Notez que \\l'identifiant donné est pisté à par un programme 
+		de recherche. Les valeurs possibles sont:
+		\begin{itemize}
+			\item [-> \textbf{\textcolor{gray}{MegaAssets.NodeProperty.NAME} ou \textcolor{blue}{0}}:] 
+				Trouve un noeud en utilisant son nom.
+				\item [-> \textbf{\textcolor{gray}{MegaAssets.NodeProperty.GROUP} ou \textcolor{blue}{1}}:] 
+				Trouve un noeud en utilisant le nom de son groupe.
+				\item [-> \textbf{\textcolor{gray}{MegaAssets.NodeProerty.TYPE} ou \textcolor{blue}{2}}:] 
+				Trouve un noeud en utilisant le nom de sa classe.
+				\item [-> \textbf{\textcolor{gray}{MegaAssets.NodeProerty.ANY} ou \textcolor{blue}{3}}:] 
+				Trouve un noeud en utilisant l'un des trois moyens cités plus haut.\\
+		\end{itemize}
+		\item[>> \textbf{\textcolor{red}{bool} ignored = \textcolor{red}{false}}:] Le pisteur de la caméra 
+		doit-il ignoré l'identifiant précisé ?\\
+		\item[>> \textbf{\textcolor{red}{float} transition = \textcolor{blue}{1.0}}:] Combien de temps prend 
+		le passage d'une cible à une autre ?\\
+		\item[>> \textbf{\textcolor{red}{int} type = \textcolor{blue}{0}}:] Quel type de transition adopté ?
+		Les valeurs possibles de ce champ sont celles de Godot. Cette propriété est solicité au changement 
+		de cible.\\
+		\item[>> \textbf{\textcolor{red}{int} easing = \textcolor{blue}{2}}:] Quel assouplissement adopté ? 
+		Les valeurs possibles de ce champ sont celles de Godot. Cette propriété est solicité au changement 
+		de cible.\\
+		\item[>> \textbf{\textcolor{darkgreen}{Array | Dictionary} entered}:] Signal déclenché lorsque
+		l'objet entre dans le champ de vision du pisteur. Cette clé exécute les différentes actions données
+		à son déclenchement. Pour soumettre les actions à exécutées référez vous à la méthode utilisée au
+		niveau de la clé \textit{\textcolor{gray}{actions}} de la propriété \textit{\textcolor{gray}
+		{EventsBindings}} dans les bases du framework.\\
+		\item[>> \textbf{\textcolor{darkgreen}{Array | Dictionary} exited}:] Signal déclenché lorsqu'un
+		objet sort du champ de vision du pisteur. Cette clé exécute les différentes actions données à son
+		déclenchement. Pour soumettre les \\actions à exécutées référez vous à la méthode utilisée au niveau
+		de la clé \textit{\textcolor{gray}{actions}} de la propriété \textit{\textcolor{gray}
+		{EventsBindings}} dans les bases du framework.
+	\end{itemize}
+
+	% InverseKinematic methods definition.
+	\section{Les méthodes disponibles}
+	% Void change_target () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{change\_target} (index = -1, delay = 0.0):] Force la 
+		section du squellette d'animation à changé de cible parmit celles détectées. Par défaut, une cible 
+		est générée si l'index de la nouvelle cible n'a pas été donné.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{int} index}:] Contient l'index de la nouvelle cible à pistée.
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant le changement ?\\
+		\end{itemize}
+	\end{description}
+	% Dictionary get_targets_data () method description.
+	\begin{description}
+		\item [+ \textcolor{darkgreen}{Dictionary} \textcolor{blue}{get\_targets\_data} (json = false):] 
+		Renvoie toutes les données concernant les cibles de l'inverseur kinénatique.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{bool} json}:] Voulez-vous renvoyer les données au format json 
+			?\\
+		\end{itemize}
+	\end{description}
+	% Node get_current_target () method description.
+	\begin{description}
+		\item [+ \textcolor{darkgreen}{Node} \textcolor{blue}{get\_current\_target} ():] Renvoie la 
+		référence de l'objet ou du noeud actuellement ciblé par le sytème de pistage automatique.\\
+	\end{description}
+	% Node get_preview_target () method description.
+	\begin{description}
+		\item [+ \textcolor{darkgreen}{Node} \textcolor{blue}{get\_preview\_target} ():] Renvoie la 
+		référence de l'objet ou du noeud ayant été précédement ciblé par le sytème de pistage automatique.\\
+	\end{description}
+	% Node get_next_target () method description.
+	\begin{description}
+		\item [+ \textcolor{darkgreen}{Node} \textcolor{blue}{get\_next\_target} ():] Renvoie la référence 
+		du future objet ou noeud qui sera ciblé par le sytème de pistage automatique.\\
+	\end{description}
+
+	% CameraControl signals definition.
+	\section{Les événements disponibles}
+	% target_changed event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{target\_changed} (data):] Signal déclenché lorsque le pisteur a changé de 
+		cible. Cet événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\item [>> \textbf{\textcolor{darkgreen}{Node} target}:] Contient la référence de la nouvelle 
+			cible du pisteur.\\
+		\end{itemize}
+	\end{description}
+	% target_entered event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{target\_entered} (data):] Signal déclenché lorsqu'un objet entre dans le 
+		champ de vision du \\pisteur. Cet événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\item [>> \textbf{\textcolor{darkgreen}{Node} target}:] Contient la référence de l'objet 
+			détecté.\\
+		\end{itemize}
+	\end{description}
+	% target_exited event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{target\_exited} (data):] Signal déclenché lorsqu'un objet sort du champ de 
+		vision du pisteur. Cet événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\item [>> \textbf{\textcolor{darkgreen}{Node} target}:] Contient la référence de l'objet 
+			détecté.\\
+		\end{itemize}
+	\end{description}
+	% target_generated event description.
+	\newpage \begin{description}
+		\item [+ \textcolor{blue}{target\_generated} (data):] Signal déclenché lorsqu'une cible a été 
+		générée par le pisteur. Cet \\événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\item [>> \textbf{\textcolor{darkgreen}{Node} target}:] Contient la référence de la future cible
+			du pisteur.\\
+		\end{itemize}
+	\end{description}
+\end{document}

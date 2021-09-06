@@ -1,0 +1,280 @@
+% Document type and package imports.
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{charter}
+\usepackage[top = 2cm, bottom = 2cm, left = 1cm, right = 1cm]{geometry}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{tocloft}
+
+% Preanblue.
+\onehalfspacing
+\definecolor{gray}{rgb}{0.4, 0.4, 0.4}
+\definecolor{silver}{rgb}{0.95, 0.95, 0.95}
+\renewcommand{\thesection}{\Roman{section} --}
+\definecolor{darkgreen}{HTML}{1E8C15}
+\cftsetindents{section}{1em}{2.5em}
+\hypersetup {colorlinks=true, linkcolor=blue, urlcolor=blue, pdftitle={AnimationController module doc}}
+
+% The start of the article.
+\begin{document}
+	% Change document background to silver color.
+	\pagecolor{silver}
+	% AnimationController module description.
+	\huge{\hspace{10.7cm}\textit{\textbf{\textcolor{darkgreen}{AnimationControllerFx}}}}\large{} 
+	\tableofcontents \newpage
+	% AnimationController module definition.
+	\section{Définition}
+	\textcolor{darkgreen}{\textbf{AnimationControllerFx}} est un module permettant de contrôler de façon 
+	dynamique les différentes animations que possède un objet. Son rôle principale est de permettre à
+	l'utilisateur de pourvoir interagir dynamiquement entre le module et l'objet en question.\\
+	\textcolor{red}{\textbf{NB}:} Ce module est compatible à un jeu 2D, 3D et n'est pas sauvegardable. Notez
+	que ce module ne supporte pas le noeud
+	\href{https://docs.godotengine.org/en/stable/classes/class_animationtreeplayer.html}
+	{\textit{\textcolor{darkgreen}{AnimationTreePlayer}}}.
+
+	% AnimationController properties definition.
+	\section{Les propriétés disponibles}
+	% Animator property.
+	\textbf{+ \textcolor{darkgreen}{NodePath} Animator:} Contient la référence d'un animateur. Les types
+	supportés sont: \href{https://docs.godotengine.org/en/stable/classes/class_animationtree.html}
+	{\textit{\textcolor{darkgreen}{\\AnimationTree}}} et
+	\href{https://docs.godotengine.org/en/stable/classes/class_animationplayer.html}
+	{\textit{\textcolor{darkgreen}{AnimationPlayer}}}.\\\\
+	% Target property.
+	\textbf{+ \textcolor{darkgreen}{NodePath} Target:} Contient la référence du noeud sur lequel le module
+	fera ses traitements. Le type que supporte cette propriété est le
+	\href{https://docs.godotengine.org/en/stable/classes/class_kinematicbody.html}
+	{\textit{\textcolor{darkgreen}{KinematicBody}}}.\\\\
+	% RootMotion property.
+	\textbf{+ \textcolor{red}{bool} RootMotion = \textcolor{red}{false}:} Voulez-vous déplacer le noeud 
+	ciblé à partir des transformations \\récupérées sur le squelette d'animation ?\\\\
+	% Gravity property.
+	\textbf{+ \textcolor{red}{float} Gravity = \textcolor{blue}{9.8}:} Quel est l'effet de pésenteur qui 
+	sera appliquer au noeud pris pour cible ?
+
+	% AnimationController methods definition.
+	\section{Les méthodes disponibles}
+	% Float get_total_state_length () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{float} \textcolor{blue}{get\_total\_state\_length} ():] Renvoie le temps 
+		total des animations prises en charge par le développeur.\\
+	\end{description}
+	% Float get_max_state_length () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{float} \textcolor{blue}{get\_max\_state\_length} ():] Renvoie le temps de 
+		l'animation de plus grand parmit les \\animations chargées.\\
+	\end{description}
+	% Float get_min_state_length () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{float} \textcolor{blue}{get\_min\_state\_length} ():] Renvoie le temps de 
+		l'animation de plus petit parmit les \\animations chargées.\\
+	\end{description}
+	% PoolStringArray get_not_running_states_names () method description.
+	\begin{description}
+		\item [+ \textcolor{darkgreen}{PoolStringArray} \textcolor{blue}{get\_not\_running\_states\_names} 
+		():] Renvoie les noms de toutes les \\animations qui ne sont pas en cours de lecture.\\
+	\end{description}
+	% Int get_progress_pourcentage () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} \textcolor{blue}{get\_progress\_pourcentage} ():] Renvoie en 
+		pourcentage, la progression en temps réel de \\l'animation en cours de lecture. L'ensemble des 
+		valeurs qui seront renvoyées appartiendra à \\l'intervalle [\textcolor{blue}{0}; \textcolor{blue}
+		{100}]\\
+	\end{description}
+	% Float get_normalized_progress () method description.
+	\newpage \begin{description}
+		\item [+ \textcolor{red}{float} \textcolor{blue}{get\_normalized\_progress} 
+		():] Renvoie une valeur normalizée de la progression en temps réel de l'animation en cours de 
+		lecture. L'ensemble des valeurs qui seront renvoyées appartiendra à l'intervalle [\textcolor{blue}
+		{0.0}; \textcolor{blue}{1.0}].\\
+	\end{description}
+	% Void play_state () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{play\_state} (name, queued, priority, count, speed, 
+		blend, seek, delay = 0.0):] Joue une \\animation donnée en fonction des configurations prévues à son 
+		égard. Notez que cette méthode n'agit que si l'animateur est de type
+		\href{https://docs.godotengine.org/fr/stable/classes/class_animationplayer.html}
+		{\textit{\textcolor{darkgreen}{AnimationPlayer}}}.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String} name}:] Contient le nom de l'animation à joué.
+			\item [>> \textbf{\textcolor{red}{bool} queued}:] Voulez-vous mettre l'animation à jouée dans 
+			une file d'attente ? Par défaut, cet paramètre est inactif.
+			\item [>> \textbf{\textcolor{red}{int} count}:] Combien de fois l'animation sera jouer ? Par 
+			défaut, l'animation sera jouée une seule fois seulement. Notez qu'une valeur négative engendrera
+			une lecture infinie.
+			\item [>> \textbf{\textcolor{red}{bool} priority}:] Met en priorité l'animation à jouée. La
+			lecture d'une animation en priorité peut affecté ou non une animation déjà en cours de lecture.
+			Par défaut, aucune priorité n'est \\attribuée à l'animation en question.
+			\item [>> \textbf{\textcolor{red}{float} speed}:] Contient la vitesse de lecture de l'animation 
+			? Par défaut, la valeur de ce paramètre est sur \textcolor{gray}{\textit{1.0}}.
+			\item [>> \textbf{\textcolor{red}{float} blend}:] Voulez-vous mettre une transition entre 
+			l'animation actuellement en cours de \\lecture et la nouvelle animation à lire ? Notez que cet 
+			paramètre peut faire office de transition simple lorsque la lecture de l'animation est faite en 
+			utilisant le paramètre \textcolor{gray}{\textit{seek}}. Par défaut, la valeur de ce paramètre 
+			est sur \textcolor{gray}{\textit{-1.0}}.
+			\item [>> \textbf{\textcolor{red}{float} seek}:] Souhatez-vous, vous déplacer dans l'animation à
+			travers la position du lecteur ? Par défaut, la valeur de ce paramètre est sur \textcolor{gray}
+			{\textit{-1.0}}.
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant le lancement de 
+			l'animation ?\\
+		\end{itemize}
+	\end{description}
+	% Void queue_deletion () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{queue\_deletion} (id, update = true, delay = 0.0):] 
+		Supprime un ou plusieurs file(s) \\d'attente(s) de la mémoire. Notez que cette méthode n'agit que si 
+		l'animateur est de type
+		\href{https://docs.godotengine.org/en/stable/classes/class_animationplayer.html}
+		{\textit{\textcolor{darkgreen}{\\AnimationPlayer}}}.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String | PoolStringArray} id}:] Contient le(s) nom(s) 
+			de(s) animation(s) en file d'éttente.
+			\item [>> \textbf{\textcolor{red}{bool} update}:] Voulez-vous que les modifications affectent 
+			l'animation en cours de lecture ? 
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant le lancement de 
+			l'animation ?\\
+		\end{itemize}
+	\end{description}
+	% Void clear_queue () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{clear\_queue} (update = true, delay = 0.0):] 
+		Supprime toutes les files d'attentes de la \\mémoire. Notez que cette méthode n'agit que si 
+		l'animateur est de type
+		\href{https://docs.godotengine.org/en/stable/classes/class_animationplayer.html}
+		{\textit{\textcolor{darkgreen}{AnimationPlayer}}}.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{bool} update}:] Voulez-vous que les modifications affectent 
+			l'animation en cours de lecture ? 
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant le lancement de 
+			l'animation ?\\
+		\end{itemize}
+	\end{description}
+	% Void run_state () method description.
+	\newpage \begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{run\_state} (source, value, reversed, fade, time, 
+		type, easing, delay = 0.0):] Modifie la \\valeur d'une propriété à partir de la source donnée. Cette 
+		méthode n'agit que si l'animateur est de type
+		\href{https://docs.godotengine.org/en/stable/classes/class_animationplayer.html}
+		{\textit{\textcolor{darkgreen}{AnimationPlayer}}}.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String} source}:] Quel est le chemin pointant vers la
+			propriété à changée. Notez que vous n'avez plus bésoin de mettre le préfix \textcolor{gray}
+			{\textit{"parameters/"}} avant de préciser l'élément que vous voulez ciblé. Exemple: 
+			\textcolor{gray}{\textit{"TimeScale/scale"}} au lieu de \textcolor{gray}{\textit{"parameters/
+			TimeScale/scale"}}.
+			\item [>> \textbf{\textcolor{darkgreen}{Variant} value}:] Quelle est la nouvelle valeur de la
+			propriété pris pour cible ?
+			\item [>> \textbf{\textcolor{red}{bool} reversed}:] Voulez-vous modifier les valeurs dans 
+			l'ordre inverse où elles sont venue ? Par défaut, la modification des valeurs s'éffectue de 
+			façon normale.
+			\item [>> \textbf{\textcolor{red}{bool} fade}:] Aimeriez-vous effectuer une transition lorsque 
+			la valeur de la propriété ciblé \\changera ? Par défaut, aucune transition n'est appliquée.
+			\item [>> \textbf{\textcolor{red}{float} time}:] La transition de valeur s'effectuera en combien 
+			de temps ? Par défaut, la valeur de ce paramètre est sur \textcolor{gray}{\textit{0.0}}.
+			\item [>> \textbf{\textcolor{red}{int} type}:] Quel type de transition souhaitez-vous utiliser ? 
+			Les constantes issues de ce paramètre sont celles définient aux sein de Godot. Par défaut, la 
+			valeur de ce paramètre est sur \textcolor{gray}{\textit{0}}.
+			\item [>> \textbf{\textcolor{red}{int} easing}:] Quel assouplissement désirez-vous utiliser pour 
+			faire la transition. Les constantes issues de ce paramètre sont celles définient aux sein de 
+			Godot. Par défaut, la valeur de ce paramètre est sur \textcolor{gray}{\textit{2}}.
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant le changement de 
+			valeur ?\\
+		\end{itemize}
+	\end{description}
+	% Void combo () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{combo} (states, ref, start, level, source = '', 
+		blend = -1.0, delay = 0.0):] Gère les différents appuies répétés conçut pour déclencher des actions 
+		ou états.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{String | PoolStringArray} states}:] Quels sont/est le(s) 
+			état(s) qui sera/seront exécuté(s) au fure et à mesure que le joueur progressera dans les 
+			appuies répétés ?
+			\item [>> \textbf{\textcolor{darkgreen}{String | PoolStringArray} ref}:] De quelle(s) 
+			animation(s), les appuies répétés devront \\commencés ?
+			\item [>> \textbf{\textcolor{darkgreen}{String} start}:] Sur quelle animation revenir lorsque 
+			tous les états auront été exécutés ou lorsque l'animation en cours d'exécution ne correspond à 
+			l'état de référence ?
+			\item [>> \textbf{\textcolor{red}{int} level}:] Quel est le niveau d'appuie de la touche prise
+			dans une série d'appuies répétés ?
+			\item [>> \textbf{\textcolor{darkgreen}{String} source}:] Quel est le chemin pointant vers la
+			propriété à changée. Notez que vous n'avez plus bésoin de mettre le préfix \textcolor{gray}
+			{\textit{"parameters/"}} avant de préciser l'élément que vous voulez ciblé. Exemple: 
+			\textcolor{gray}{\textit{"TimeScale/scale"}} au lieu de \textcolor{gray}{\textit{"parameters/
+			TimeScale/scale"}}. Le noeud doit être \\uniquement de type
+			\href{https://docs.godotengine.org/fr/stable/classes/class_animationnodetransition.html}
+			{\textit{\textcolor{darkgreen}{AnimationNodeTransition}}}. C'est obligatoire et important de le 
+			faire ainsi. La valeur de ce paramètre est inutile lorsque l'animateur est de type
+			\href{https://docs.godotengine.org/fr/stable/classes/class_animationplayer.html}
+			{\textit{\textcolor{darkgreen}{AnimationPlayer}}}.
+			\item [>> \textbf{\textcolor{red}{float} blend}:] Voulez-vous mettre une transition entre 
+			l'animation actuellement en cours de \\lecture et la nouvelle animation à lire ? Cette option
+			est à utilisée uniquement lorsque \\l'animateur est de type
+			\href{https://docs.godotengine.org/fr/stable/classes/class_animationplayer.html}
+			{\textit{\textcolor{darkgreen}{AnimationPlayer}}}.
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant l'exécution des 
+			états prévu ?\\
+		\end{itemize}
+	\end{description}
+	% Dictionary get_queue_data () method description.
+	\begin{description}
+		\item [+ \textcolor{darkgreen}{Dictionary} \textcolor{blue}{get\_queue\_data} (json = true):]
+		Renvoie les données de toutes les animations misent dans une file d'attente.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{bool} json}:] Voulez-vous renvoyer le résultat sous le format 
+			json ?
+		\end{itemize}
+	\end{description}
+
+	% AnimationController signals definition.
+	\newpage \section{Les événements disponibles}
+	% queue_changed event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{queue\_changed} (node):] Signal déclenché lorsque des modifications sont
+		éffectuées dans la file d'attente.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où cet signal a été 
+			émit.\\
+		\end{itemize}
+	\end{description}
+	% state_started event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{state\_started} (data):] Signal déclenché au démarrage de la lecture d'un 
+		état. Cet événement \\renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où cet signal a été 
+			émit.
+			\item [>> \textbf{\textcolor{darkgreen}{String} name}:] Contient le nom de l'animation en 
+			question.\\
+		\end{itemize}
+	\end{description}
+	% state_finished event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{state\_finished} (data):] Signal déclenché à la fin de la lecture d'un 
+		état. Cet événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où cet signal a été 
+			émit.
+			\item [>> \textbf{\textcolor{darkgreen}{String} name}:] Contient le nom de l'animation en 
+			question.\\
+		\end{itemize}
+	\end{description}
+	% state_changed event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{state\_changed} (data):] Signal déclenché lorsqu'un état a été changé par 
+		un autre. Cet événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où cet signal a été 
+			émit.
+			\item [>> \textbf{\textcolor{darkgreen}{String} old}:] Contient le nom de l'ancienne l'animation 
+			.
+			\item [>> \textbf{\textcolor{darkgreen}{String} new}:] Contient le nom de la nouvelle animation 
+			en question.\\
+		\end{itemize}
+	\end{description}
+\end{document}

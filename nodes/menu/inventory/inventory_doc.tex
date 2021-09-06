@@ -1,0 +1,498 @@
+% Document type and package imports.
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{charter}
+\usepackage[top = 2cm, bottom = 2cm, left = 1cm, right = 1cm]{geometry}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{tocloft}
+
+% Preanblue.
+\onehalfspacing
+\definecolor{gray}{rgb}{0.4, 0.4, 0.4}
+\definecolor{silver}{rgb}{0.95, 0.95, 0.95}
+\renewcommand{\thesection}{\Roman{section} --}
+\definecolor{darkgreen}{HTML}{1E8C15}
+\cftsetindents{section}{1em}{2.5em}
+\hypersetup {colorlinks=true, linkcolor=blue, urlcolor=blue, pdftitle={Inventory module doc}}
+
+% The start of the article.
+\begin{document}
+	% Change document background to silver color.
+	\pagecolor{silver}
+	% Inventory module description.
+	\huge{\hspace{14.5cm}\textit{\textbf{\textcolor{darkgreen}{InventoryFx}}}}\large{} \tableofcontents
+	\newpage
+	% Inventory module definition.
+	\section{Définition}
+	\textcolor{darkgreen}{\textbf{InventoryFx}} est un module conçut pour la gestion des inventaires dans un 
+	jeu vidéo. Le module intègre un support brute ainsi qu'un support graphique permettant de gérer en temps 
+	réel l'évolution de l'inventaire.\\
+	\textcolor{red}{\textbf{NB}:} Ce module est compatible à un jeu 2D, 3D et est sauvegardable.
+
+	% Inventory properties definition.
+	\section{Les propriétés disponibles}
+	% Mode property.
+	\textbf{+ \textcolor{red}{int} Mode = \textcolor{blue}{0}:} Quel mode de l'inventaire voulez-vous 
+	utiliser ? Les valeurs possibles sont:
+	\begin{itemize}
+		\item[-> \textbf{\textcolor{gray}{InventoryFx.Model.HYBRID} ou \textcolor{blue}{0}}:] Mode sans
+		interface graphique (hybride ou brute).
+		\item[-> \textbf{\textcolor{gray}{InventoryFx.Model.UI} ou \textcolor{blue}{1}}:] Mode avec
+		interface graphique.\\
+	\end{itemize}
+	% ListenModule property.
+	\textbf{+ \textcolor{darkgreen}{NodePath} ListenModule:} Contient l'instance d'un module du même trampe
+	de ce module. \\Exemple: \textit{\textcolor{darkgreen}{AnimatorFx, MenuFx, AudioTrackFx}} etc... En
+	d'autres termes, contient la référence d'un \\module possèdant également un curseur. Le but de cette
+	fonctionnalité est de syncnrôniser la valeur du curseur du module référé à celle de ce module.\\\\
+	% PocketCount property.
+	\textbf{+ \textcolor{red}{int} PocketCount = \textcolor{blue}{0}:} Contient le nombre total de place à 
+	allouée par l'inventaire en mémoire. Cette propriété ne prend son utilitée que si l'inventaire passe 
+	en mode hybride. La valeur de cette \\propriété est dans l'intervalle [\textcolor{blue}{0}; 
+	\textcolor{blue}{++}].\\\\
+	% EmptySymbol property.
+	\textbf{+ \textcolor{darkgreen}{Texture} EmptySymbol:} Quelle texture devrons nous utilisée si une poche 
+	de l'inventaire se retrouve vidée ? Cette propriété ne prend son utilitée que si l'inventaire passe en 
+	mode interface utilisateur.\\\\
+	% AllowDragAndDrop property.
+	\textbf{+ \textcolor{red}{bool} AllowDragAndDrop = \textcolor{red}{false}:} Voulez-vous permettre les 
+	opérations du glisser-déposser sur l'inventaire ? Cette propriété ne prend son utilitée que si 
+	l'inventaire passe en mode interface utilisateur.\\\\
+	% DragDropStyle property.
+	\textbf{+ \textcolor{darkgreen}{NodePath} DragDropStyle:} Contient l'instance d'un noeud de type
+	\href{https://docs.godotengine.org/en/stable/classes/class_sprite.html}
+	{\textit{\textcolor{darkgreen}{Sprite}}} ou
+	\href{https://docs.godotengine.org/en/stable/classes/class_texturerect.html}
+	{\textit{\textcolor{darkgreen}{TextureRect}}}. Ce champ utilise les configurations éffectuées sur le 
+	noeud récupéré pour mettre à jour le style qu'utilisera le \\module pour éffectuer l'opération. Cette 
+	propriété ne prend son utilitée que si l'inventaire passe en mode interface utilisateur.\\\\
+	% Varieties property.
+	\textbf{+ \textcolor{darkgreen}{Array} \hypertarget{varieties}{Varieties}}: Tableau de dictionnaires 
+	contenant les différentes configurations de chaque variété d'objet prise en charge par le développeur. 
+	Les clés que supportent les dictionnaires sont:\\
+	\begin{itemize}
+		\item[>> \textbf{\textcolor{darkgreen}{String} name}:] Contient le nom de la variété en question.
+		L'utilisation de cette clé est obligatoire.\\
+		\item[>> \textbf{\textcolor{darkgreen}{String} symbol}:] Contient le chemin pointant vers l'image 
+		représentant la variété. L'utilisation de cette clé est obligatoire. Notez que cette clé ne 
+		s'utilise que lorsque l'inventaire est en mode \\interface graphique.\\
+		\newpage \item[>> \textbf{\textcolor{darkgreen}{Vector2} size = \textcolor{darkgreen}{Vector2}
+		(\textcolor{blue}{50}, \textcolor{blue}{50})}:] Contrôle la résolution du symbol de la variété. 
+		Notez que cette clé ne s'utilise que lorsque l'inventaire est en mode interface graphique.\\
+		\item[>> \textbf{\textcolor{red}{int} quality = \textcolor{blue}{2}}:] Contrôle la qualité du symbol 
+		de la variété. Notez que cette clé ne s'utilise que lorsque l'inventaire est en mode interface 
+		graphique. Les valeurs possibles sont celles définient au sein de classe
+		\href{https://docs.godotengine.org/en/stable/classes/class_image.html}
+		{\textit{\textcolor{darkgreen}{Image}}} de Godot.\\
+		\item[>> \textbf{\textcolor{red}{bool} uncastable = \textcolor{red}{false}}:] Devons nous rendre 
+		injetable cette variété ?\\
+		\item[>> \textbf{\textcolor{red}{bool} maskstock = \textcolor{red}{false}}:] Devons cacher le stock 
+		à affiché dans l'inventaire graphique ? Notez que cette clé ne s'utilise que lorsque l'inventaire 
+		est en mode interface graphique.\\
+		\item[>> \textbf{\textcolor{darkgreen}{PoolStringArray} \hypertarget{combination}{combination}}:] 
+		Quelles sont les noms des variétés qu'il faut combiner pour \\obtenir cette variété ? La taille de 
+		cette tableau ne doit pas dépasser deux éléments. Notez que les variétés que vous donnerai doit déjà 
+		être définit dans l'inventaire.\\
+	 	\item[>> \textbf{\textcolor{darkgreen}{Array} levels}:] Contient les différentes valeurs que 
+	 	doit vérifiée la valeur contenu dans la clé \textit{\textcolor{gray}{stock}}. Les dictionnaires 
+	 	issus de ce tableau suppotent les clés suivantes:
+	 	\begin{itemize}
+	 		\item[>> \textbf{\textcolor{red}{int} value}:] Contient une des valeurs de la clé 
+	 		\textit{\textcolor{gray}{stock}}.
+	 		\item[>> \textbf{\textcolor{darkgreen}{Array} actions}]: Que se passera t-il lorsque la valeur 
+	 		du stock de cette variété atteint celle \\indiquée ? Cette clé contient tous les configurations 
+	 		relatives à un ou plusieurs flux \\d'exécution(s). L'utilisation de cette clé est déjà décrite 
+	 		au niveau des bases du framework. Précisement le sujet portant sur l'utilisation de la propriété 
+			\textit{\textcolor{gray}{EventsBindings}} (la section des \\actions d'un événement).\\
+	 	\end{itemize}
+		\item[>> \textbf{\textcolor{red}{int} stock = \textcolor{blue}{0}}:] Quel est le stock maximale de 
+		cette variété ?\\
+	\end{itemize}
+	% Pockets property.
+	\textbf{+ \textcolor{darkgreen}{Array} Pockets}: Tableau de dictionnaires contenant les différentes 
+	configurations de chaque poche disponible sur l'inventaire. Cette propriété ne prend son utilitée que si 
+	l'inventaire passe en mode \\interface utilisateur. Les clés que supportent les dictionnaires sont:\\
+	\begin{itemize}
+		\item[>> \textbf{\textcolor{darkgreen}{String | NodePath} pocket}:] Contient l'instance d'un noeud 
+		de type \href{https://docs.godotengine.org/en/stable/classes/class_sprite.html}
+		{\textit{\textcolor{darkgreen}{Sprite}}} ou
+		\href{https://docs.godotengine.org/en/stable/classes/class_texturerect.html}
+		{\textit{\textcolor{darkgreen}{TextureRect}}}. Cette clé permettra au développeur de 
+		pouvoir spécifier les poches graphiques de son inventaire. Dans ce cas, l'inventaire est une 
+		interface utilisateur préconstruite par le développeur. L'utilisation de cette clé est obligatoire.
+		\\
+		\item[>> \textbf{\textcolor{darkgreen}{String | NodePath} label}:] Contient l'instance d'un noeud 
+		de type \href{https://docs.godotengine.org/en/stable/classes/class_label.html}
+		{\textit{\textcolor{darkgreen}{Label}}}. Cette clé permettra au \\développeur de pouvoir spécifier 
+		les textes graphiques de son inventaire. Dans ce cas, l'inventaire est une interface utilisateur 
+		préconstruite par le développeur. L'utilisation de cette clé est \\obligatoire si le libelé spécifié
+		n'est pas un descendant directe de l'instance de la poche renseignée.\\
+		\item[>> \textbf{\textcolor{red}{bool} disabled = \textcolor{red}{false}}:] Devons nous considérer 
+		cette poche comme étant une espace disponible au sein de l'inventaire ? Notez que les poches 
+		désactivées ne seront jamais prises en par le module.\\
+	\end{itemize}
+	\textcolor{red}{\textbf{NB}:} Les répétitions au niveau des noms des variétés ne seront pas tolérées.
+	Gardez à l'esprit que ce \\module se sert d'un curseur pour sélectionner les poches définient par le
+	développeur. Ce curseur n'est rien d'autre que l'index de position de chaque configuration d'élément.
+	Par défaut, sa valeur est \textbf{\textcolor{blue}{0}} \\lorsqu'il y a un ou plusieurs élément(s)
+	configuré(s) sur le module et \textbf{\textcolor{blue}{-1}} si aucun(s) élément n'est \\disponible sur
+	le module.
+
+	% Inventory methods definition.
+	\section{Les méthodes disponibles}
+	% Bool is_empty () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{bool} \textcolor{blue}{is\_empty} ():] L'inventaire est-il vide ?\\
+	\end{description}
+	% Bool is_filled () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{bool} \textcolor{blue}{is\_filled} ():] L'inventaire est-il remplit ?\\
+	\end{description}
+	% Void add_objects () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{add\_objects} (data, reversed = false, delay = 
+		0.0):] Ajoute des objets dans l'inventaire.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Array} data}:] Tableau de dictionaire contenant les 
+			différentes variétés ainsi que leur stock. Les dictionnaires supportent les clés suivantes:
+			\begin{itemize}
+				\item[>> \textbf{\textcolor{darkgreen}{String} | \textcolor{red}{int} id}:] Contient le 
+				nom ou l'index de position de la variété à ciblée.
+				\item[>> \textbf{\textcolor{red}{int} stock = \textcolor{blue}{1}}:] Quelle est la valeur à 
+				ajoutée au stock de cette variété ?
+			\end{itemize}
+			\item [>> \textbf{\textcolor{red}{bool} reversed}:] Doit-on renversé l'ordre d'ajout des objets
+			dans l'inventaire ?
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant le(s) ajout(s) ?
+			\\
+		\end{itemize}
+	\end{description}
+	% Void remove_objects () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{remove\_objects} (data, reversed = false, delay = 
+		0.0):] Supprime des objets de l'inventaire.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Array} data}:] Tableau de dictionaire contenant les 
+			différentes variétés ainsi que leur stock. Les dictionnaires supportent les clés suivantes:
+			\begin{itemize}
+				\item[>> \textbf{\textcolor{darkgreen}{String} | \textcolor{red}{int} id}:] Contient le 
+				nom ou l'index de position de la variété à ciblée.
+				\item[>> \textbf{\textcolor{red}{int} stock = \textcolor{blue}{1}}:] Quelle est la valeur à 
+				enlevée au stock de cette variété ?
+			\end{itemize}
+			\item [>> \textbf{\textcolor{red}{bool} reversed}:] Doit-on renversé l'ordre de suppression des 
+			objets dans l'inventaire ?
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant le(s) 
+			suppression(s) ?\\
+		\end{itemize}
+	\end{description}
+	% Void clear () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{clear} (id = null, delay = 0.0):] Détruit 
+		complètement une variété de l'inventaire. Si aucune variété n'a été précisé, L'inventaire complet 
+		sera nétoyé.
+		\begin{itemize}
+			\item[>> \textbf{\textcolor{darkgreen}{String | PoolStringArray | PoolIntArray} | 
+			\textcolor{red}{int} id}:] Quelle(s) variété(s) voulez-vous détruire ?
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant le(s) 
+			destruction(s) ?\\
+		\end{itemize}
+	\end{description}
+	% Int get_current_stock () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} \textcolor{blue}{get\_current\_stock} (id = null, pocket\_index = 
+		-1, on\_config = false):] Renvoie le stock \\actuel d'une variété. Notez que si aucune paramètre 
+		n'est précisée, le stock total de l'inventaire sera renvoyé. Si la variété a été précisée, le stock 
+		total de cette dernière sera renvoyé. Dans le cas contraire, le stock contenu dans la poche précisée 
+		sera renvoyé.
+		\begin{itemize}
+			\item[>> \textbf{\textcolor{darkgreen}{String} | \textcolor{red}{int} id}:] Contient le nom ou 
+			l'index de position de la variété en question.
+			\item[>> \textbf{\textcolor{darkgreen}{String} | \textcolor{red}{int} pocket\_index}:] Contient 
+			l'index de position d'une poche quelconque.
+			\item[>> \textbf{\textcolor{red}{bool} on\_config}:] Doit-on utilisé les configurations 
+			éffectuées au niveau du module pour donner le résultat ? Par défaut, le module utilise les 
+			valeurs issues de la progression de l'inventaire pour donner le résultat final.\\
+		\end{itemize}
+	\end{description}
+	% Void refresh () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{refresh} (delay = 0.0):] Réactualise l'inventaire.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant le 
+			rafraîchissement ?\\
+		\end{itemize}
+	\end{description}
+	% Void combine () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} \textcolor{blue}{combine} (first, second, delay = 0.0):] Effectue la 
+		combinaison de deux vériétés différentes pour donner une autre variété. Cette méthode utilise la clé
+		\textit{\hyperlink{combination}{combination}} du champ \textit{\hyperlink{varieties}{Varieties}} 
+		pour mener à bien son travail.
+		\begin{itemize}
+			\item[>> \textbf{\textcolor{darkgreen}{String} | \textcolor{red}{int} first}:] Contient le 
+			nom ou l'index de position de la première variété à combinée.
+			\item[>> \textbf{\textcolor{darkgreen}{String} | \textcolor{red}{int} second}:] Contient le 
+			nom ou l'index de position de la deuxième variété à combinée.
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant la combinaison ?
+			\\
+		\end{itemize}
+	\end{description}
+	% Dictionary get_data () method description.
+	\begin{description}
+		\item [+ \textcolor{darkgreen}{Dictionary} \textcolor{blue}{get\_data} (json = true):] Renvoie les 
+		données sur la gestion des \\variétés de l'inventaire.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{bool} json}:] Voulez-vous renvoyer le résultat sous le format 
+			json ?\\
+		\end{itemize}
+	\end{description}
+	% Int | PoolIntArray get_varieties_index () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} | \textcolor{darkgreen}{PoolIntArray} \textcolor{blue}
+		{get\_varieties\_index} (id):] Renvoie le(s) index de position d'une ou de \\plusieurs variété(s) en 
+		fonction de(s) identifiant d'une ou de plusieurs poche(s).
+		\begin{itemize}
+			\item[>> \textbf{\textcolor{red}{int} | \textcolor{darkgreen}{PoolStringArray | PoolIntArray | 
+			String} id}:] Contient le(s) index de position d'une ou de plusieurs poche(s) quelconque(s). 
+			Notez que si vous mettez le(s) nom(s) d'une ou de plusieurs variété(s) définit dans le module, 
+			son/leur index de position sera renvoyé.\\
+		\end{itemize}
+	\end{description}
+	% Void cancel_operation () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{cancel\_operation} (delay = 0.0):] Annule une 
+		opération en cours d'exécution. Notez que l'annulation écrase également les progressions éffectuées
+		par l'opération en question avant son arrêt. Cette méthode ne travail que si l'inventaire passe en 
+		mode interface utilisateur.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant l'annulation ?\\
+		\end{itemize}
+	\end{description}
+	% Void confirm_operation () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{confirm\_operation} (delay = 0.0):] Valide une 
+		opération en cours d'exécution. Notez que la validation savegarde également les progressions 
+		éffectuées par l'opération en question avant son arrêt. Cette méthode ne travail que si l'inventaire 
+		passe en mode interface utilisateur.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant la validation ?\\
+		\end{itemize}
+	\end{description}
+	% Void rotate_pocket () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} \textcolor{blue}{rotate\_pocket} (index, angle = 90.0, delay = 0.0):]
+		Tourne une poche graphique de \\l'inventaire. Cette méthode ne travail que si l'inventaire passe en 
+		mode interface utilisateur.
+		\begin{itemize}
+			\item[>> \textbf{\textcolor{red}{int} index}:] Contient l'index de position de la poche à 
+			ciblée.
+			\item[>> \textbf{\textcolor{red}{float} angle}:] Quel est l'angle de rotation de la poche ?
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant la rotation ?\\
+		\end{itemize}
+	\end{description}
+	% Int | PoolIntArray get_pockets_index () method description.
+	\newpage \begin{description}
+		\item [+ \textcolor{red}{int} | \textcolor{darkgreen}{PoolIntArray} \textcolor{blue}
+		{get\_pockets\_index} (variety\_id):] Renvoie le(s) index de position d'une ou plusieurs poche(s) en 
+		fonction de l'identifiant d'une variété.
+		\begin{itemize}
+			\item[>> \textbf{\textcolor{red}{int} | \textcolor{darkgreen}{String | PoolStringArray | 
+			PoolIntArray} variety\_id}:] Contient le(s) nom(s) ou le(s) \\index de position d'une ou de 
+			plusieurs variété(s) quelconque(s).\\
+		\end{itemize}
+	\end{description}
+	% Int get_cursor_position () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} \textcolor{blue}{get\_cursor\_position} ():] Renvoie la position du
+		sélecteur de l'inventaire. Les valeurs des \\positions du curseur sera égale à celles des poches 
+		disponibles au sein de l'inventaire. Cette \\méthode ne travail que si l'inventaire passe en mode 
+		interface utilisateur.\\
+	\end{description}
+	% Void set_cursor_position () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{set\_cursor\_position} (new\_value, delay = 0.0):] 
+		Change la position du sélecteur de \\l'inventaire. Les valeurs doivent être dans l'intervalle 
+		[\textcolor{blue}{0}; (NombreTotalDePocheDisponible - \textcolor{blue}{1})]. Cette méthode ne 
+		travail que si l'inventaire passe en mode interface utilisateur.
+		\begin{itemize}
+			\item[>> \textbf{\textcolor{red}{int} | \textcolor{darkgreen}{String} new\_value}:] Contient la 
+			nouvelle valeur du sélecteur.
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant le changement de 
+			valeur ?\\
+		\end{itemize}
+	\end{description}
+	% Int | PoolIntArray get_empty_pockets_index () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} | \textcolor{darkgreen}{PoolIntArray} \textcolor{blue}
+		{get\_empty\_pockets\_index} (variety\_id):] Renvoie le(s) index de position d'une ou plusieurs 
+		poche(s) vide(s).\\
+	\end{description}
+	% Int | PoolIntArray get_busy_pockets_index () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} | \textcolor{darkgreen}{PoolIntArray} \textcolor{blue}
+		{get\_busy\_pockets\_index} (variety\_id):] Renvoie le(s) index de position d'une ou plusieurs 
+		poche(s) occupée(s).\\
+	\end{description}
+	% Int | PoolIntArray get_uncastable_varieties_index () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} | \textcolor{darkgreen}{PoolIntArray} \textcolor{blue}
+		{get\_uncastable\_varieties\_index} (on\_config = false):] Renvoie le(s) index de position de la ou 
+		des variété(s) injetable(s).
+		\begin{itemize}
+			\item[>> \textbf{\textcolor{red}{bool} on\_config}:] Doit-on utilisé les configurations 
+			éffectuées au niveau du module pour donner le résultat ? Par défaut, le module utilise les 
+			valeurs issues de la progression de l'inventaire pour donner le résultat final.\\
+		\end{itemize}
+	\end{description}
+	% Int | PoolIntArray get_combinable_varieties_index () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} | \textcolor{darkgreen}{PoolIntArray} \textcolor{blue}
+		{get\_combinable\_varieties\_index} (on\_config = false):] Renvoie le(s) index de position de la ou 
+		des variété(s) combinable(s).
+		\begin{itemize}
+			\item[>> \textbf{\textcolor{red}{bool} on\_config}:] Doit-on utilisé les configurations 
+			éffectuées au niveau du module pour donner le résultat ? Par défaut, le module utilise les 
+			valeurs issues de la progression de l'inventaire pour donner le résultat final.\\
+		\end{itemize}
+	\end{description}
+	% Int get_big_stock () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} \textcolor{blue}{get\_big\_stock} (on\_config = false):] Renvoie la 
+		valeur du stock le plus grand dans \\l'inventaire.
+		\begin{itemize}
+			\item[>> \textbf{\textcolor{red}{bool} on\_config}:] Doit-on utilisé les configurations 
+			éffectuées au niveau du module pour donner le résultat ? Par défaut, le module utilise les 
+			valeurs issues de la progression de l'inventaire pour donner le résultat final.\\
+		\end{itemize}
+	\end{description}
+	% Int get_tiny_stock () method description.
+	\newpage \begin{description}
+		\item [+ \textcolor{red}{int} \textcolor{blue}{get\_tiny\_stock} (on\_config = false):] Renvoie la 
+		valeur du stock le plus petit dans \\l'inventaire.
+		\begin{itemize}
+			\item[>> \textbf{\textcolor{red}{bool} on\_config}:] Doit-on utilisé les configurations 
+			éffectuées au niveau du module pour donner le résultat ? Par défaut, le module utilise les 
+			valeurs issues de la progression de l'inventaire pour donner le résultat final.\\
+		\end{itemize}
+	\end{description}
+	% Void run_operation () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{run\_operation} (operation, delay = 0.0):] Exécute 
+		une opération de l'inventaire. Cette \\méthode ne travail que si l'inventaire passe en mode 
+		interface utilisateur.
+		\begin{itemize}
+			\item[>> \textbf{\textcolor{red}{int} operation}:] Contient l'opération à exécutée. Les valeurs
+			possibles sont:
+			\begin{itemize}
+				\item [-> \textbf{\textcolor{gray}{InventoryFx.Operation.IDLE} ou \textcolor{blue}{0}}:] 
+				Mode normal de l'inventaire.
+				\item [-> \textbf{\textcolor{gray}{InventoryFx.Operation.STATIC\_MOVING} ou \textcolor{blue}
+				{1}}:] Mode déplacement statique d'une variété de l'inventaire.
+				\item [-> \textbf{\textcolor{gray}{InventoryFx.Operation.DYNAMIC\_MOVING} ou 
+				\textcolor{blue}{2}}:] Mode déplacement dynamique d'une variété de l'inventaire.
+				\item [-> \textbf{\textcolor{gray}{InventoryFx.COMBINATION} ou \textcolor{blue}{3}}:] 
+				Mode combinaison de variétés.
+			\end{itemize}
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant l'exécution ?\\
+		\end{itemize}
+	\end{description}
+	% Void bdi_run_operation () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{bdi\_run\_operation} (operation, delay = 0.0):] 
+		Exécute une opération de l'inventaire en \\mode bidirectionelle. Cette méthode ne travail que si 
+		l'inventaire passe en mode interface \\utilisateur.
+		\begin{itemize}
+			\item[>> \textbf{\textcolor{red}{int} operation}:] Contient l'opération à exécutée. Les valeurs
+			possibles sont:
+			\begin{itemize}
+				\item [-> \textbf{\textcolor{gray}{InventoryFx.Operation.IDLE} ou \textcolor{blue}{0}}:] 
+				Mode normal de l'inventaire.
+				\item [-> \textbf{\textcolor{gray}{InventoryFx.Operation.STATIC\_MOVING} ou \textcolor{blue}
+				{1}}:] Mode déplacement statique d'une variété de l'inventaire.
+				\item [-> \textbf{\textcolor{gray}{InventoryFx.Operation.DYNAMIC\_MOVING} ou 
+				\textcolor{blue}{2}}:] Mode déplacement dynamique d'une variété de l'inventaire.
+				\item [-> \textbf{\textcolor{gray}{InventoryFx.COMBINATION} ou \textcolor{blue}{3}}:] 
+				Mode combinaison de variétés.
+			\end{itemize}
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant l'exécution ?\\
+		\end{itemize}
+	\end{description}
+
+	% Inventory signals definition.
+	\section{Les événements disponibles}
+	% inventory_empty event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{inventory\_empty} (node):] Signal déclenché lorsque l'inventaire est vide.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\\
+		\end{itemize}
+	\end{description}
+	% inventory_filled event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{inventory\_filled} (node):] Signal déclenché lorsque l'inventaire est 
+		remplit.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\\
+		\end{itemize}
+	\end{description}
+	% inventory_updated event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{inventory\_updated} (node):] Signal déclenché lorsque l'inventaire est 
+		mise à jour.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\\
+		\end{itemize}
+	\end{description}
+	% operation_started event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{operation\_started} (data):] Signal déclenché au démarrage d'une opération 
+		de l'inventaire. Ce événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\item [>> \textbf{\textcolor{red}{int} | \textbf{\textcolor{darkgreen}{PoolIntArray} 
+			accepted}}:] Contient le(s) index de position de la ou des poche(s) vérifiant les conditions que 
+			pose l'opération en question.
+			\item [>> \textbf{\textcolor{red}{int} | \textbf{\textcolor{darkgreen}{PoolIntArray} denied}}:] 
+			Contient le(s) index de position de la ou des poche(s) ne vérifiant pas les conditions que pose 
+			l'opération en question.\\
+		\end{itemize}
+	\end{description}
+	% operation_running event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{operation\_running} (data):] Signal déclenché tanqu'une opération sera en 
+		cours d'exécution. Ce événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\item [>> \textbf{\textcolor{red}{int} operation}:] Contient l'opération en cours d'exécution.\\
+		\end{itemize}
+	\end{description}
+	% operation_stoped event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{operation\_stoped} (data):] Signal déclenché lorsqu'on arrête l'exécution 
+		d'une opération de \\l'inventaire. Ce événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\item [>> \textbf{\textcolor{red}{int} operation}:] Contient l'opération qui a été arrêtée.\\
+		\end{itemize}
+	\end{description}
+	% operation_failed event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{operation\_failed} (data):] Signal déclenché lorsque l'exécution de la 
+		tâche principale de \\l'opération en question a échoué. Ce événement renvoie un dictionaire 
+		contenant les clés \\suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où ce signal a été émit.
+			\item [>> \textbf{\textcolor{red}{int} operation}:] Contient l'opération ayant provoquée 
+			l'erreur.\\
+		\end{itemize}
+	\end{description}
+\end{document}

@@ -1,0 +1,11 @@
+\babel@toc {french}{}
+\contentsline {section}{\numberline {I --}Fonctionnalités générales du framework}{2}{section.1}%
+\contentsline {section}{\numberline {II --}Les types de module}{2}{section.2}%
+\contentsline {section}{\numberline {III --}Les modules sauvegardables}{2}{section.3}%
+\contentsline {section}{\numberline {IV --}Les propriétés de base d'un module}{3}{section.4}%
+\contentsline {section}{\numberline {V --}Les méthodes de base d'un module}{5}{section.5}%
+\contentsline {section}{\numberline {VI --}Les événements de base d'un module}{10}{section.6}%
+\contentsline {section}{\numberline {VII --}Structure du code d'un module}{12}{section.7}%
+\contentsline {section}{\numberline {VIII --}Création d'un module}{13}{section.8}%
+\contentsline {section}{\numberline {IX --}Template: Création d'un module destructible}{16}{section.9}%
+\contentsline {section}{\numberline {X --}Template: Création d'un module indestructible}{17}{section.10}%

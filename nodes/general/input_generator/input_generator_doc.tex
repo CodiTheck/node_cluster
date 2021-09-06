@@ -1,0 +1,386 @@
+% Document type and package imports.
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{charter}
+\usepackage[top = 2cm, bottom = 2cm, left = 1cm, right = 1cm]{geometry}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{tocloft}
+
+% Preanblue.
+\onehalfspacing
+\definecolor{gray}{rgb}{0.4, 0.4, 0.4}
+\definecolor{silver}{rgb}{0.95, 0.95, 0.95}
+\renewcommand{\thesection}{\Roman{section} --}
+\definecolor{darkgreen}{HTML}{1E8C15}
+\cftsetindents{section}{1em}{2.5em}
+\hypersetup {colorlinks=true, linkcolor=blue, urlcolor=blue, pdftitle={InputGenerator module doc}}
+
+% The start of the article.
+\begin{document}
+	% Change document background to silver color.
+	\pagecolor{silver}
+	% InputGenerator module description.
+	\huge{\hspace{12.5cm}\textit{\textbf{\textcolor{darkgreen}{InputGeneratorFx}}}}\large{} \tableofcontents 
+	\newpage
+	% InputGenerator module definition.
+	\section{Définition}
+	\textcolor{darkgreen}{\textbf{InputGeneratorFx}} est un module conçut pour les lectures de commandes 
+	programmées. Son \\importance prend vie lorsqu'on souhaite établir une certaine interaction entre le 
+	joueur et un \textcolor{gray}{\textit{IA}}. Ces interactions seront souvent matérialisées par des 
+	animations entre le joueur et le système du jeu. Ce module génère de façon aléatoire une touche en 
+	fonction du type de contrôleur détecté dont l'utilisateur devra appuyer avant un délai donné. Lorsque la 
+	touche générée est appuyée, une action se déclenche caractérisant la réussite. Dans le cas contraire, 
+	une autre action se déclenche caractérisant l'échec. Ainsi, l'utilisateur peut décidé de ce qui se 
+	passera en cas de réussite et d'échec. Notez que se module prend également en charge les appuies répétés 
+	sur une même touche (\textcolor{gray}{\textit{Combo}}).\\
+	\textcolor{red}{\textbf{NB}:} Ce module est compatible à un jeu 2D, 3D et n'est pas sauvegardable. Avant 
+	de continuer, le module ne supporte pas encore les écrans tactiles.
+
+	% InputGenerator properties definition.
+	\section{Les propriétés disponibles}
+	% PlayerIndex property.
+	\textbf{+ \textcolor{red}{int} PlayerIndex = \textcolor{blue}{0}:} Quel joueur voulez-vous écouter ? 
+	Notez que cette option n'est destiné qu'aux manettes.\\\\
+	% Inputs property.
+	\textbf{+ \textcolor{darkgreen}{Array} Inputs:} Tableau de dictionnaires contenant toutes les 
+	différentes configurations sur chaque touche prise en charge par le développeur. Les dictionnaires issus 
+	de ce tableau supportent les clés suivantes:
+	\begin{itemize}
+		\item[>> \textbf{\textcolor{red}{int} controller = \textcolor{blue}{0}}:] Quel contrôleur voulez-
+		vous écouter ? Les valeurs possibles sont:
+		\begin{itemize}
+			\item[-> \textbf{\textcolor{gray}{InputGeneratorFx.KEYBOARD} ou \textcolor{blue}{0}}:] Ecoute le 
+			clavier de l'ordinateur.
+			\item[-> \textbf{\textcolor{gray}{InputGeneratorFx.MOUSE} ou \textcolor{blue}{1}}:] Ecoute la 
+			souris de l'ordinateur.
+			\item[-> \textbf{\textcolor{gray}{InputGeneratorFx.JOYSTICK} ou \textcolor{blue}{2}}:] Ecoute la 
+			manette connectée à l'ordinateur.
+			\item[-> \textbf{\textcolor{gray}{InputGeneratorFx.INPUTMAP} ou \textcolor{blue}{3}}:] Ecoute la 
+			carte des entrées définit au sein de Godot.\\
+		\end{itemize}
+		\item[>> \textbf{\textcolor{darkgreen}{String} key}:] Quel est le nom de la touche du contrôleur à
+		mettre en écoute ? A ce niveau, il y a certaines restrictions que vous devez respecter. Si le 
+		contrôleur est le clavier, vous êtes plié de mettre le nom correspondant à la touche recherchée tout 
+		en respectant ce que renvoie \textcolor{gray}{\\Godot} lorsqu'on appuie sur une telle touche. Si le 
+		contrôleur est la souris, en cas de bouton, il doit suivre la nomenclature \textcolor{gray}
+		{\textbf{Mouse+IndexDeLaToucheVoulue}}. \\Exemple: \textcolor{gray}{\textit{Mouse2, Mouse1, 
+		...MouseN}}. \\En cas d'axe, le ciblage des défilements doit se faire avec les mots clés suivants: 
+		\textcolor{gray}{\textit{-ScrollX, +ScrollX, -ScrollY, +ScrollY}} et celui des mouvements avec 
+		\textcolor{gray}{-MouseX, +MouseX, -MouseY, +MouseY}. Si le contrôleur est la manette, en cas de 
+		bouton, il doit suivre la nomenclature \textcolor{gray}{\textbf{\\Joy+IndexDeLaToucheVoulue}}.\\
+		Exemple: \textcolor{gray}{\textit{Joy0, Joy1, ...JoyN}}. \\En cas d'axe, suivre la nomenclature 
+		\textcolor{gray}{\textbf{Signe+Axis+IndexDeLaxeVoulu}}. \\Exemple: \textcolor{gray}{\textit{-Axis2, 
+		+Axis0, ...-/+AxisN}}. \\Si vous écoutez la carte d'une ou de plusieurs entrée(s) prédéfinit dans 
+		les configurations de votre projet, vous devez renseigner l'identificateur de la carte à ciblée.\\
+		\item[>> \textbf{\textcolor{red}{bool} translate = \textcolor{red}{false}}:] Voulez-vous traduire la 
+		touche actuelle en terme plus claire pour les \\futures utilisateurs de votre application. 
+		L'activation de cette option essaye de faire une traduction objective de la touche détectée tout en 
+		s'adaptant au contrôleur détecté. Notez que cela se fera chaque fois qu'une touche sera générée et 
+		cette option n'est pas activée lorsque le contrôleur \\utilise la carte des entrées définit au sein 
+		de Godot.\\
+	\end{itemize}
+	% Challenges property.
+	\textbf{+ \textcolor{darkgreen}{Array} Challenges:} Tableau de dictionnaires contenant toutes les 
+	différentes configurations sur chaque défi prise en charge par le développeur. Les dictionnaires issus 
+	de ce tableau supportent les clés suivantes:
+	\begin{itemize}
+		\item[>> \textbf{\textcolor{red}{float} delay = \textcolor{blue}{0.0}}:] Quel est le temps mort 
+		avant l'exécution du défis en question ? Cette option ne s'active que lorsque sa valeur est 
+		supérieur à \textcolor{blue}{\textbf{0.0}}.\\
+		\item[>> \textbf{\textcolor{red}{float} time = \textcolor{blue}{0.0}}:] Combien de temps, le défis 
+		durera t-il ? Cette option ne s'active que lorsque sa valeur est supérieur à \textcolor{blue}
+		{\textbf{0.0}}. Dans le cas contraire, le défi attend sa validation.\\
+		\item[>> \textbf{\textcolor{red}{int} repeat = \textcolor{blue}{1}}:] Combien de fois, le défis va 
+		t-il se répété ? Cette option ne s'active que lorsque sa valeur est supérieur à \textcolor{blue}
+		{\textbf{0}}. Dans le cas contraire, le défi n'est pas exécuté.\\
+		\item[>> \textbf{\textcolor{red}{int} slow = \textcolor{blue}{0}}:] Contrôle le comportement des 
+		éffets de ralentissements dans un défi. Les valeurs possibles sont:
+		\begin{itemize}
+			\item[-> \textbf{\textcolor{gray}{InputGeneratorFx.SlowMotion.NONE} ou \textcolor{blue}{0}}:] 
+			Aucun effet de ralentissement ne se déclenchera.
+			\item[-> \textbf{\textcolor{gray}{InputGeneratorFx.SlowMotion.PIG\_PONG} ou \textcolor{blue}
+			{1}}:] L'effet de ralentissement se déclenchera de manière alterné.
+			\item[-> \textbf{\textcolor{gray}{InputGeneratorFx.SlowMotion.RANDOM} ou \textcolor{blue}{2}}:] 
+			L'effet de ralentissement se déclenchera de façon aléatoire.
+			\item[-> \textbf{\textcolor{gray}{InputGeneratorFx.SlowMotion.ALL} ou \textcolor{blue}{3}}:] 
+			L'effet de ralentissement se déclenchera lorsque le défi sera lancer.\\
+		\end{itemize}
+		\item[>> \textbf{\textcolor{red}{float} | \textcolor{darkgreen}{Vector2} rate = \textcolor{blue}
+		{0.3}}:] Quel sera le taux ou le degré de l'éffet de ralentissement à son \\déclenchement ? Si un 
+		réel est utilisé, l'éffet se déclenchera avec le taux donné par le \\développeur. Si un vecteur deux 
+		dimention est utilisé, l'éffet se déclenchera avec un taux \\appartenant à l'intervalle précisé soit 
+		[\textcolor{blue}{0.0}; \textcolor{blue}{1.0}]. Dans le cas contraire, aucun taux ne sera
+		\\appliqué.\\
+		\item[>> \textbf{\textcolor{red}{int} count = \textcolor{blue}{1}}:] Combien de fois la touche sera 
+		détectée avant le déclenchement de(s) action(s) prévu à son égard ?\\
+		\item[>> \textbf{\textcolor{red}{int} step = \textcolor{blue}{1}}:] Quel est le pas à ajouté à 
+		chaque fois que la touche en question est détectée ? Cette option ne s'active que lorsque sa valeur 
+		et celle de \textit{\textcolor{gray}{count}} sont supérieur à 0.\\
+		\item[>> \textbf{\textcolor{red}{bool} resetlevel = \textcolor{red}{true}}:] Voulez-vous 
+		rénitialiser le niveau d'appuie de la touche à chaque fois qu'il serait égale à sa valeur maximale ?
+		En d'autres termes, doit-on remettre à zéro le niveau d'appuie de la touche lorsqu'elle déclenche
+		l'action qui lui est due ?\\
+		\item[>> \textbf{\textcolor{red}{int} decrease = \textcolor{blue}{0}}:] Quel est le pas à enlevé 
+		lorsque la touche détectée est relâchée ? Cette option permet de mettre en place un système de combo 
+		contre système. Elle devient utile lorsque l'on souhaite que le joueur appuie sur une certaine 
+		touche donnée de façon répété pour accomplir une action. Cette fonctionnalité fera office de 
+		décrémenteur pour ramener les éfforts de l'utilisateur à zéro, si ce dernier décide d'abandonner. 
+		Cette option ne s'active que lorsque sa valeur et celle de la clé \textcolor{gray}
+		{\textit{frequence}} sont supérieur à zéro.\\
+		\item[>> \textbf{\textcolor{red}{float} frequence = \textcolor{blue}{0.03}}:] Quel est le temps mort 
+		avant chaque décrémentation. Cette option ne s'active que lorsque sa valeur et celle de
+		\textcolor{gray}{\textit{decrease}} sont supérieur à zéro.\\
+		\item[>> \textbf{\textcolor{darkgreen}{Array | Dictionary} success}]: Que se passera t-il lorsque le 
+		défi imposé a été réussit par son joueur ? L'utilisation de cette clé est déjà décrite au niveau des 
+		bases du framework. Précisement le sujet portant sur l'utilisation de la propriété
+		\textit{\textcolor{gray}{EventsBindings}} (la section des actions d'un événement).\\
+		\item[>> \textbf{\textcolor{darkgreen}{Array | Dictionary} failed}]: Que se passera t-il lorsque le 
+		défi imposé a été échoué ? Notez que cette dernière possède les mêmes propriétés que la clé  
+		\textit{\textcolor{gray}{success}} et s'utilise de la même manière que lui.\\
+	\end{itemize}
+	\textcolor{red}{\textbf{NB}:} Les répétitions au niveau des touches ne sont pas tolérées.
+
+	% InputGenerator methods definition.
+	\section{Les méthodes disponibles}
+	% Void start_challenges () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{start\_challenges} (delay = 0.0):] Démarre 
+		l'exécution des défi prises en charge par le \\module.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant le démarrage des
+			défi ?\\
+		\end{itemize}
+	\end{description}
+	% Void stop_challenges () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{stop\_challenges} (delay = 0.0):] Annule l'exécution 
+		des défi prises en charge par le \\module. Cette fonction n'agit que lorsque les défi imposés sont 
+		déjà en cours d'exécution.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant l'annulation des
+			défi ?\\
+		\end{itemize}
+	\end{description}
+	% Void pause_challenges () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{void} \textcolor{blue}{pause\_challenges} (delay = 0.0):] Suspend 
+		l'exécution des défi prises en charge par le \\module. Cette fonction n'agit que lorsque les défi 
+		imposés sont déjà en cours d'exécution.
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{red}{float} delay}:] Quel est le temps mort avant la suspension des
+			défi ?\\
+		\end{itemize}
+	\end{description}
+	% Bool is_combo () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{bool} \textcolor{blue}{is\_combo} ():] Détermine si la touche actuellement 
+		détectée est en traint d'être appuyée de façon répétée ou pas.\\
+	\end{description}
+	% Int get_detected_key () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} \textcolor{blue}{get\_detected\_key} ():] Renvoie l'index de position
+		de la touche qui a été détectée suite à un appuie ou un relâchement.\\
+	\end{description}
+	% String get_detected_controller () method description.
+	\begin{description}
+		\item [+ \textcolor{darkgreen}{String} \textcolor{blue}{get\_detected\_controller} ():] Renvoie le 
+		nom du contrôleur actuellement détecté. La \\valeur \textcolor{gray}{Unknown Controller} est
+		renvoyée lorsqu'un contrôleur n'a pas pu être identifié.\\
+	\end{description}
+	% Int get_generated_key () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} \textcolor{blue}{get\_generated\_key} ():] Renvoie l'index de position
+		de la touche qui a été générée avant \\l'exécution d'un défi.\\
+	\end{description}
+	% Int get_preview_key () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} \textcolor{blue}{get\_preview\_key} ():] Renvoie l'index de position
+		de la touche qui a été utilisée précédement.\\
+	\end{description}
+	% Bool is_running () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{bool} \textcolor{blue}{is\_running} ():] Les défi sont-ils en cours 
+		d'exécution ?\\
+	\end{description}
+	% Int get_challenge_index () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{bool} \textcolor{blue}{get\_challenge\_index} ():] Renvoie l'index de 
+		position du défi actuellement en cours \\d'exécution.\\
+	\end{description}
+	% float get_normalized_value () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{float} \textcolor{blue}{get\_normalized\_value} ():] Renvoie une valeur
+		d'axe comprise entre \textcolor{blue}{0.0} et \textcolor{blue}{1.0} de la touche actuellement 
+		détectée.\\
+	\end{description}
+	% Int get_keycode () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} \textcolor{blue}{get\_keycode} ():] Renvoie le code de la touche 
+		actuellement détectée.\\
+	\end{description}
+	% Int get_key_level () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} \textcolor{blue}{get\_key\_level} ():] Renvoie la valeur du niveau 
+		d'appuie de la touche actuellement détectée.\\
+	\end{description}
+	% Int get_key_pourcent () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} \textcolor{blue}{get\_key\_pourcent} ():] Renvoie en pourcentage la 
+		valeur du niveau d'appuie de la touche \\actuellement détectée.\\
+	\end{description}
+	% Bool is_a_button () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{bool} \textcolor{blue}{is\_a\_button} ():] Détermine si la touche 
+		actuellement détectée est un bouton ou pas.\\
+	\end{description}
+	% Bool is_an_axis () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{bool} \textcolor{blue}{is\_an\_axis} ():] Détermine si la touche 
+		actuellement détectée est un bouton d'axe ou pas.\\
+	\end{description}
+	% Int get_current_repeat () method description.
+	\begin{description}
+		\item [+ \textcolor{red}{int} \textcolor{blue}{get\_current\_repeat} ():] Renvoie le nombre actuel 
+		de fois que le défi actuel à été exécuté.
+	\end{description}
+
+	% InputGenerator signals definition.
+	\section{Les événements disponibles}
+	% challenge_started event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{challenge\_started} (data):] Signal déclenché juste au démarrage d'un 
+		défi. Cet événement \\renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où cet signal a été 
+			émit.
+			\item [>> \textbf{\textcolor{red}{int} count}:] Contient le nombre de fois que le défi en 
+			question a été répété.
+			\item [>> \textbf{\textcolor{red}{int} challenge}:] Contient l'index de position du défi 
+			actuellement en cours d'exécution.\\
+		\end{itemize}
+	\end{description}
+	% challenge_finished event description.
+	\newpage \begin{description}
+		\item [+ \textcolor{blue}{challenge\_finished} (data):] Signal déclenché à la fin d'un défi. Cet 
+		événement renvoie un \\dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où cet signal a été 
+			émit.
+			\item [>> \textbf{\textcolor{red}{int} count}:] Contient le nombre de fois que le défi en 
+			question a été répété.
+			\item [>> \textbf{\textcolor{red}{int} challenge}:] Contient l'index de position du défi 
+			actuellement en cours d'exécution.\\
+		\end{itemize}
+	\end{description}
+	% challenge_changed event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{challenge\_changed} (data):] Signal déclenché lorsque le défi actuel a 
+		changé. Cet événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où cet signal a été 
+			émit.
+			\item [>> \textbf{\textcolor{red}{int} count}:] Contient le nombre de fois que le défi en 
+			question a été répété.
+			\item [>> \textbf{\textcolor{red}{int} challenge}:] Contient l'index de position du défi 
+			actuellement en cours d'exécution.\\
+		\end{itemize}
+	\end{description}
+	% key_level_changed event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{key\_level\_changed} (data):] Signal déclenché lorsqu'on change le niveau 
+		d'appuie d'une touche. Cet événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où cet signal a été 
+			émit.
+			\item [>> \textbf{\textcolor{red}{int} value}:] Contient la nouvelle valeur du niveau d'appuie.
+			\item [>> \textbf{\textcolor{red}{int} index}:] Contient l'index de position de la touche qui a 
+			été détectée.\\
+		\end{itemize}
+	\end{description}
+	% keydown event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{keydown} (data):] Signal déclenché lorsqu'on appuie sur une touche. Cet 
+		événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où cet signal a été 
+			émit.
+			\item [>> \textbf{\textcolor{red}{int} index}:] Contient l'index de position de la touche qui a 
+			été appuyée.\\
+		\end{itemize}
+	\end{description}
+	% keyup event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{keyup} (data):] Signal déclenché lorsqu'on relâche une touche. Cet 
+		événement renvoie un \\dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où cet signal a été 
+			émit.
+			\item [>> \textbf{\textcolor{red}{int} index}:] Contient l'index de position de la touche qui a 
+			été relâchée.\\
+		\end{itemize}
+	\end{description}
+	% decreaser_started event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{decreaser\_started} (data):] Signal déclenché lorsque le décrémenteur 
+		automatique se démarre. Cet événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où cet signal a été 
+			émit.
+			\item [>> \textbf{\textcolor{red}{int} challenge}:] Contient l'index de position du défi 
+			actuellement en cours d'exécution.\\
+		\end{itemize}
+	\end{description}
+	% decreaser_stoped event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{decreaser\_stoped} (data):] Signal déclenché lorsque le décrémenteur 
+		automatique s'arrète. Cet événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où cet signal a été 
+			émit.
+			\item [>> \textbf{\textcolor{red}{int} challenge}:] Contient l'index de position du défi 
+			actuellement en cours d'exécution.\\
+		\end{itemize}
+	\end{description}
+	% key event description.
+	\newpage \begin{description}
+		\item [+ \textcolor{blue}{key} (data):] Signal déclenché lorsqu'on appuie ou relâche une touche. Cet 
+		événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où cet signal a été 
+			émit.
+			\item [>> \textbf{\textcolor{red}{int} index}:] Contient l'index de position de la touche qui a 
+			été appuyée ou relâchée.\\
+		\end{itemize}
+	\end{description}
+	% success event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{success} (data):] Signal déclenché lorsque le joueur valide les conditions 
+		exigées par un défi. Cet événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où cet signal a été 
+			émit.
+			\item [>> \textbf{\textcolor{red}{int} count}:] Contient le nombre de fois que le défi en 
+			question a été répété.
+			\item [>> \textbf{\textcolor{red}{int} challenge}:] Contient l'index de position du défi 
+			actuellement en cours d'exécution.\\
+		\end{itemize}
+	\end{description}
+	% failed event description.
+	\begin{description}
+		\item [+ \textcolor{blue}{failed} (data):] Signal déclenché lorsque le joueur n'a pas pu validé les 
+		conditions exigées par un défi. Cet événement renvoie un dictionaire contenant les clés suivantes:
+		\begin{itemize}
+			\item [>> \textbf{\textcolor{darkgreen}{Node} node}:] Contient le noeud où cet signal a été 
+			émit.
+			\item [>> \textbf{\textcolor{red}{int} count}:] Contient le nombre de fois que le défi en 
+			question a été répété.
+			\item [>> \textbf{\textcolor{red}{int} challenge}:] Contient l'index de position du défi 
+			actuellement en cours d'exécution.\\
+		\end{itemize}
+	\end{description}
+\end{document}

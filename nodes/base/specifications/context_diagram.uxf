@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>200</x>
+      <y>290</y>
+      <w>100</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>Développeur
+fg=black</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>160</x>
+      <y>180</y>
+      <w>510</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>Diagramme de contexte
+bg=gray
+layer=0
+fg=white
+fontsize=16</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>420</x>
+      <y>230</y>
+      <w>190</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>Système
+layer=1
+bg=black
+fg=white
+fontsize=15</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>250</x>
+      <y>320</y>
+      <w>190</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>170.0;20.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>

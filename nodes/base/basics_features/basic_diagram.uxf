@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <zoom_level>6</zoom_level>
+  <element>
+    <type>com.baselet.element.old.element.Class</type>
+    <coordinates>
+      <x>534</x>
+      <y>60</y>
+      <w>276</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>Module sauvegardable
+--
++DataManager: int = 0
++Checkpoint: String = ''
++Section: String = ''
++GlobalKey: String
++SaveData: bool = false
++LoadData: bool = false
+ 
+--
++is_saved (): Bool
++update_data (delay: float = 0.0): Void
++save_data (delay: float = 0.0): Void
++load_data (delay: float = 0.0): Void
++remove_data (delay: float = 0.0): Void
+ 
+--
++_on_before_update_data (node: Node): Void
++_on_after_update_data (node: Node): Void
++_on_before_save_data (node: Node): Void
++_on_after_save_data (node: Node): Void
++_on_before_load_data (node: Node): Void
++_on_after_load_data (node: Node): Void
++_on_before_destroy_data (node: Node): Void
++_on_after_destroy_data (node: Node): Void
+ </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Class</type>
+    <coordinates>
+      <x>12</x>
+      <y>12</y>
+      <w>432</w>
+      <h>396</h>
+    </coordinates>
+    <panel_attributes>Module
+--
++Enabled: bool = true
++AutoCompile: bool = true
++ActivityZone: int = 2
++Multiplayer: bool = false
++Simulate: bool = false
++ResetValues: bool = false
+ 
+--
++simulate (delay: float = 0.0): Void
++set_prop (pname: String, value: Variant, wait: bool = false, delay: float = 0.0): Void
++get_prop (pname: String, dropdown: bool = false): Variant
++reset_values (delay: float = 0.0): Void
++restart (delay: float = 0.0): Void
++is_unlock (): Bool
++module_values_changed (name: String, value: Variant, delay: float = 0.0): Void
++set_container (name: String, id: Variant, value: Variant, operation: int = 1, delay: float = 0.0): Void
++set_containers (configs: Array | Dictionary, delay: float = 0.0): Void
+_+set_var (pname: String, value: Variant, object: Object, delay: float = 0.0): Void_
+_+get_var (pname: String, object: Object, dropdown: bool = false): Variant_
+_+get_compatibility (): String_
+_+get_version (): String_
+_+get_author_name (): String_
+_+get_supported_platforms (): String_
+_+get_used_license (): String_
+_+get_source (): String_
+_+is_saveable (): Bool_
+_+get_category_name (): String_
+_+get_origin_name (): String_
+_+get_supported_dimensions (): String_
+_+is_dont_destroy_mode (): Bool_
+ 
+--
++_on_values_changed (data: Dictionary): Void
++_on_enabled (node: Node): Void
++_on_disabled (node: Node): Void
++_on_start (node: Node): Void
++_on_children_changed (node: Node): Void
++_on_parent_changed (node: Node): Void
+ </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Class</type>
+    <coordinates>
+      <x>198</x>
+      <y>534</y>
+      <w>366</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>Module destructible
+--
++EventsScope: int = 1
++EventsBindings: Array = Array ([])
+ 
+--
++thrown_event (event: String, parameters: Variant, delay: float = 0.0): Void
+ </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Class</type>
+    <coordinates>
+      <x>492</x>
+      <y>480</y>
+      <w>318</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Module indestructible
+--
++check_unique (mcn: String, delay: float = 0.0): Void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Relation</type>
+    <coordinates>
+      <x>360</x>
+      <y>282</y>
+      <w>324</w>
+      <h>264</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+Module destructible sauvegardable</panel_attributes>
+    <additional_attributes>18;252;312;18</additional_attributes>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Relation</type>
+    <coordinates>
+      <x>564</x>
+      <y>282</y>
+      <w>190</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+Module indestructible sauvegardable</panel_attributes>
+    <additional_attributes>84;198;108;18</additional_attributes>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Relation</type>
+    <coordinates>
+      <x>198</x>
+      <y>390</y>
+      <w>462</w>
+      <h>102</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+Module indestructible non sauvegardable</panel_attributes>
+    <additional_attributes>18;18;450;90</additional_attributes>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Relation</type>
+    <coordinates>
+      <x>192</x>
+      <y>390</y>
+      <w>200</w>
+      <h>156</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+Module destructible non sauvegardable</panel_attributes>
+    <additional_attributes>24;18;186;144</additional_attributes>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Class</type>
+    <coordinates>
+      <x>12</x>
+      <y>486</y>
+      <w>156</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>MegaAssets</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Relation</type>
+    <coordinates>
+      <x>66</x>
+      <y>390</y>
+      <w>162</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>18;96;150;18</additional_attributes>
+  </element>
+</diagram>

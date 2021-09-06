@@ -1,0 +1,69 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{charter}
+\usepackage[top = 2cm, bottom = 2cm, left = 1cm, right = 1cm]{geometry}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{tocloft}
+
+% Preanblue.
+\onehalfspacing
+\definecolor{gray}{rgb}{0.4, 0.4, 0.4}
+\definecolor{silver}{rgb}{0.95, 0.95, 0.95}
+\renewcommand{\thesection}{\Roman{section} --}
+\definecolor{darkgreen}{HTML}{1E8C15}
+\cftsetindents{section}{1em}{2.5em}
+\hypersetup {colorlinks=true, linkcolor=blue, urlcolor=blue, pdftitle={OcclusionCulling module doc}}
+
+% The start of the article.
+\begin{document}
+	% Change document background to silver color.
+	\pagecolor{silver}
+	% OcclusionCulling module description.
+	\huge{\hspace{12cm}\textit{\textbf{\textcolor{darkgreen}{OcclusionCullingFx}}}}\large{} \tableofcontents
+	\newpage
+	% OcclusionCulling module definition.
+	\section{Définition}
+	\textcolor{darkgreen}{\textbf{OcclusionCullingFx}} est un module conçut pour l'optimisation de la 
+	mémoire graphique de \\l'ordinateur. Son rôle, est de rendre visible un objet uniquement lorsqu'il se 
+	trouve sur le champ de vision de la caméra. Cette technique soulage la carte graphique dans certaines 
+	tâches. Mais la mémoire de l'ordinateur reste surchargée.\\
+	\textcolor{red}{\textbf{NB}:} Ce module est de nature indestructible, est uniquement compatible à un jeu 
+	3D et n'est pas \\sauvegardable.
+
+	% OcclusionCulling properties definition.
+	\section{Les propriétés disponibles}
+	% ScanCount property.
+	\textbf{+ \textcolor{red}{int} ScanCount = \textcolor{blue}{20}:} Contient le nombre de scan à éffectué 
+	par second. La valeur de cette \\propriété est dans l'intervalle [\textcolor{blue}{0}; \textcolor{blue}
+	{++}].\\\\
+	% Accuracy property.
+	\textbf{+ \textcolor{red}{float} Accuracy = \textcolor{blue}{800.0}:} Contient le degré de précision sur 
+	l'affichage et le chachement des \\objets prises en charge par le module. La valeur de cette propriété 
+	doit être dans l'intervalle [\textcolor{blue}{1.0}; \textcolor{blue}{1000.0}].\\\\
+	% Targets property.
+	\textbf{+ \textcolor{darkgreen}{Array} Targets:} Tableau de dictionnaires contenant toutes les 
+	différentes configurations sur chaque objet prise en charge par le développeur. Les dictionnaires issus 
+	de ce tableau supportent les clés \\suivantes:\\
+	\begin{itemize}
+		\item[>> \textbf{\textcolor{darkgreen}{String} id}:] Quel est l'identifiant du noeud à prendre en 
+		charge ? L'utilisation de cette clé est \\obligatoire.\\
+		\item[>> \textbf{\textcolor{red}{int} search = \textcolor{blue}{2}}:] Quel moyen utilisé pour 
+		chercher le noeud à prendre en charge ? Notez que \\l'identifiant donné est pisté à par un programme 
+		de recherche dans l'arbre de la scène en question. Les valeurs possibles sont:
+		\begin{itemize}
+			\item [-> \textbf{\textcolor{gray}{MegaAssets.NodeProperty.NAME} ou \textcolor{blue}{0}}:] 
+			Trouve un noeud en utilisant son nom.
+			\item [-> \textbf{\textcolor{gray}{MegaAssets.NodeProperty.GROUP} ou \textcolor{blue}{1}}:] 
+			Trouve un noeud en utilisant le nom de son groupe.
+			\item [-> \textbf{\textcolor{gray}{MegaAssets.NodeProerty.TYPE} ou \textcolor{blue}{2}}:] Trouve 
+			un noeud en utilisant le nom de sa classe.
+			\item [-> \textbf{\textcolor{gray}{MegaAssets.NodeProerty.ANY} ou \textcolor{blue}{3}}:] Trouve 
+			un noeud en utilisant l'un des trois moyens cités plus haut.
+		\end{itemize}
+	\end{itemize}
+\end{document}

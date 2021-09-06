@@ -1,0 +1,985 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.12.6)  29 AUG 2021 19:08
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**basics_features_doc.tex
+(./basics_features_doc.tex
+LaTeX2e <2020-02-02> patch level 2
+L3 programming layer <2020-02-14>
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2019/12/20 v1.4l Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size11.clo
+File: size11.clo 2019/12/20 v1.4l Standard LaTeX file (size option)
+)
+\c@part=\count167
+\c@section=\count168
+\c@subsection=\count169
+\c@subsubsection=\count170
+\c@paragraph=\count171
+\c@subparagraph=\count172
+\c@figure=\count173
+\c@table=\count174
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen134
+)
+(/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2018/08/11 v1.3c Input encoding file
+\inpenc@prehook=\toks14
+\inpenc@posthook=\toks15
+)
+(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2020/02/11 v2.0o Standard LaTeX package
+)
+(/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
+Package: babel 2020/02/14 3.40 The Babel package
+
+(/usr/share/texlive/texmf-dist/tex/generic/babel/switch.def
+File: switch.def 2020/02/14 3.40 Babel switching mechanism
+)
+(/usr/share/texlive/texmf-dist/tex/generic/babel-french/french.ldf
+Language: french 2020/01/30 v3.5g French support from the babel system
+
+(/usr/share/texlive/texmf-dist/tex/generic/babel/babel.def
+File: babel.def 2020/02/14 3.40 Babel common definitions
+\babel@savecnt=\count175
+\U@D=\dimen135
+
+(/usr/share/texlive/texmf-dist/tex/generic/babel/txtbabel.def)
+\bbl@readstream=\read2
+\bbl@dirlevel=\count176
+)
+Package babel Info: \l@acadian = using hyphenrules for french
+(babel)             (\language5) on input line 91.
+Package babel Info: \l@canadien = using hyphenrules for french
+(babel)             (\language5) on input line 92.
+\FB@nonchar=\count177
+Package babel Info: Making : an active character on input line 419.
+Package babel Info: Making ; an active character on input line 420.
+Package babel Info: Making ! an active character on input line 421.
+Package babel Info: Making ? an active character on input line 422.
+\FBguill@level=\count178
+\FBold@everypar=\toks16
+\FB@Mht=\dimen136
+\mc@charclass=\count179
+\mc@charfam=\count180
+\mc@charslot=\count181
+\std@mcc=\count182
+\dec@mcc=\count183
+\c@FBcaption@count=\count184
+\listindentFB=\dimen137
+\descindentFB=\dimen138
+\labelindentFB=\dimen139
+\labelwidthFB=\dimen140
+\leftmarginFB=\dimen141
+\parindentFFN=\dimen142
+\FBfnindent=\dimen143
+))
+(/usr/share/texlive/texmf-dist/tex/latex/carlisle/scalefnt.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks17
+)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/charter.sty
+Package: charter 2005/04/12 PSNFSS-v9.2a (P.Dyballa) 
+)
+(/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+
+(/usr/share/texlive/texmf-dist/tex/generic/iftex/ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+
+(/usr/share/texlive/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2019/11/07 v1.0c TeX engine tests
+))
+\Gm@cnth=\count185
+\Gm@cntv=\count186
+\c@Gm@tempcnt=\count187
+\Gm@bindingoffset=\dimen144
+\Gm@wd@mp=\dimen145
+\Gm@odd@mp=\dimen146
+\Gm@even@mp=\dimen147
+\Gm@layoutwidth=\dimen148
+\Gm@layoutheight=\dimen149
+\Gm@layouthoffset=\dimen150
+\Gm@layoutvoffset=\dimen151
+\Gm@dimlist=\toks18
+)
+(/usr/share/texlive/texmf-dist/tex/latex/setspace/setspace.sty
+Package: setspace 2011/12/19 v6.7a set line spacing
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2019/11/23 v1.2a Standard LaTeX Color (DPC)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: pdftex.def on input line 147.
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+))
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2019/11/30 v1.2a Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2019/11/30 v1.4a Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 105.
+)
+\Gin@req@height=\dimen152
+\Gin@req@width=\dimen153
+)
+(/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+LaTeX Info: Redefining \color on input line 709.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
+Package xcolor Info: Model `RGB' extended on input line 1364.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count188
+\lst@gtempboxa=\box45
+\lst@token=\toks19
+\lst@length=\count189
+\lst@currlwidth=\dimen154
+\lst@column=\count190
+\lst@pos=\count191
+\lst@lostspace=\dimen155
+\lst@width=\dimen156
+\lst@newlines=\count192
+\lst@lineno=\count193
+\lst@maxwidth=\dimen157
+
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2019/09/10 1.8c (Carsten Heinz)
+\c@lstnumber=\count194
+\lst@skipnumbers=\count195
+\lst@framebox=\box46
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2019/09/10 1.8c listings configuration
+))
+Package: listings 2019/09/10 1.8c (Carsten Heinz)
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2020/01/14 v7.00d Hypertext links for LaTeX
+
+(/usr/share/texlive/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2019/12/15 v1.24 LaTeX kernel commands for general use (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2019/11/24 v0.31 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/usr/share/texlive/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(/usr/share/texlive/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty
+Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/hycolor/hycolor.sty
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty
+Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/auxhook/auxhook.sty
+Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+Package: kvoptions 2019/11/29 v3.13 Key value format for package options (HO)
+)
+\@linkdim=\dimen158
+\Hy@linkcounter=\count196
+\Hy@pagecounter=\count197
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2020/01/14 v7.00d Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+)
+(/usr/share/texlive/texmf-dist/tex/generic/intcalc/intcalc.sty
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/etexcmds/etexcmds.sty
+Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
+)
+\Hy@SavedSpaceFactor=\count198
+\pdfmajorversion=\count199
+Package hyperref Info: Hyper figures OFF on input line 4547.
+Package hyperref Info: Link nesting OFF on input line 4552.
+Package hyperref Info: Hyper index ON on input line 4555.
+Package hyperref Info: Plain pages OFF on input line 4562.
+Package hyperref Info: Backreferencing OFF on input line 4567.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4800.
+\c@Hy@tempcnt=\count266
+
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip16
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 5159.
+\XeTeXLinkMargin=\dimen159
+
+(/usr/share/texlive/texmf-dist/tex/generic/bitset/bitset.sty
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
+)
+))
+\Fld@menulength=\count267
+\Field@Width=\dimen160
+\Fld@charsize=\dimen161
+Package hyperref Info: Hyper figures OFF on input line 6430.
+Package hyperref Info: Link nesting OFF on input line 6435.
+Package hyperref Info: Hyper index ON on input line 6438.
+Package hyperref Info: backreferencing OFF on input line 6445.
+Package hyperref Info: Link coloring OFF on input line 6450.
+Package hyperref Info: Link coloring with OCG OFF on input line 6455.
+Package hyperref Info: PDF/A mode OFF on input line 6460.
+LaTeX Info: Redefining \ref on input line 6500.
+LaTeX Info: Redefining \pageref on input line 6504.
+
+(/usr/share/texlive/texmf-dist/tex/generic/atbegshi/atbegshi.sty
+Package: atbegshi 2019/12/05 v1.19 At begin shipout hook (HO)
+)
+\Hy@abspage=\count268
+\c@Item=\count269
+\c@Hfootnote=\count270
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2020/01/14 v7.00d Hyperref driver for pdfTeX
+
+(/usr/share/texlive/texmf-dist/tex/latex/atveryend/atveryend.sty
+Package: atveryend 2019-12-11 v1.11 Hooks at the very end of document (HO)
+Package atveryend Info: \enddocument detected (standard20110627).
+)
+\Fld@listcount=\count271
+\c@bookmark@seq@number=\count272
+
+(/usr/share/texlive/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+Package: rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+86.
+)
+\Hy@SectionHShift=\skip49
+)
+(/usr/share/texlive/texmf-dist/tex/latex/tocloft/tocloft.sty
+Package: tocloft 2017/08/31 v2.3i parameterised ToC, etc., typesetting
+Package tocloft Info: The document has section divisions on input line 51.
+\cftparskip=\skip50
+\cftbeforetoctitleskip=\skip51
+\cftaftertoctitleskip=\skip52
+\cftbeforepartskip=\skip53
+\cftpartnumwidth=\skip54
+\cftpartindent=\skip55
+\cftbeforesecskip=\skip56
+\cftsecindent=\skip57
+\cftsecnumwidth=\skip58
+\cftbeforesubsecskip=\skip59
+\cftsubsecindent=\skip60
+\cftsubsecnumwidth=\skip61
+\cftbeforesubsubsecskip=\skip62
+\cftsubsubsecindent=\skip63
+\cftsubsubsecnumwidth=\skip64
+\cftbeforeparaskip=\skip65
+\cftparaindent=\skip66
+\cftparanumwidth=\skip67
+\cftbeforesubparaskip=\skip68
+\cftsubparaindent=\skip69
+\cftsubparanumwidth=\skip70
+\cftbeforeloftitleskip=\skip71
+\cftafterloftitleskip=\skip72
+\cftbeforefigskip=\skip73
+\cftfigindent=\skip74
+\cftfignumwidth=\skip75
+\c@lofdepth=\count273
+\c@lotdepth=\count274
+\cftbeforelottitleskip=\skip76
+\cftafterlottitleskip=\skip77
+\cftbeforetabskip=\skip78
+\cfttabindent=\skip79
+\cfttabnumwidth=\skip80
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2019/09/10 1.8c listings language file
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 30.
+
+(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
+File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
+\l__kernel_color_stack_int=\count275
+\l__pdf_internal_box=\box47
+)
+(./basics_features_doc.aux)
+\openout1 = `basics_features_doc.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Trying to load font information for T1+bch on input line 33
+.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1bch.fd
+File: t1bch.fd 2004/10/18 font definitions for T1/bch.
+)
+LaTeX Info: Redefining \degres on input line 33.
+LaTeX Info: Redefining \dots on input line 33.
+LaTeX Info: Redefining \up on input line 33.
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(28.45274pt, 540.60239pt, 28.45274pt)
+* v-part:(T,H,B)=(56.9055pt, 731.23584pt, 56.9055pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=540.60239pt
+* \textheight=731.23584pt
+* \oddsidemargin=-43.81725pt
+* \evensidemargin=-43.81725pt
+* \topmargin=-52.36449pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=11.0pt
+* \footskip=30.0pt
+* \marginparwidth=50.0pt
+* \marginparsep=10.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count276
+\scratchdimen=\dimen162
+\scratchbox=\box48
+\nofMPsegments=\count277
+\nofMParguments=\count278
+\everyMPshowfont=\toks20
+\MPscratchCnt=\count279
+\MPscratchDim=\dimen163
+\MPnumerator=\count280
+\makeMPintoPDFobject=\count281
+\everyMPtoPDFconversion=\toks21
+) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+\c@lstlisting=\count282
+\AtBeginShipoutBox=\box49
+Package hyperref Info: Link coloring ON on input line 33.
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
+
+(/usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+)
+\c@section@level=\count283
+)
+LaTeX Info: Redefining \ref on input line 33.
+LaTeX Info: Redefining \pageref on input line 33.
+LaTeX Info: Redefining \nameref on input line 33.
+
+(./basics_features_doc.out) (./basics_features_doc.out)
+\@outlinefile=\write3
+\openout3 = `basics_features_doc.out'.
+
+\GPT@outputbox=\box50
+
+Overfull \hbox (0.72787pt too wide) in paragraph at lines 37--37
+[] \T1/bch/b/it/20.74 Les bases 
+ []
+
+(./basics_features_doc.toc
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 2.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 2.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 2.
+
+Overfull \hbox (2.99141pt too wide) detected at line 8
+\T1/bch/b/n/12 VII -- 
+ []
+
+
+Overfull \hbox (7.23941pt too wide) detected at line 9
+\T1/bch/b/n/12 VIII -- 
+ []
+
+)
+\tf@toc=\write4
+\openout4 = `basics_features_doc.toc'.
+
+ (./basics_features_doc.lof)
+\tf@lof=\write5
+\openout5 = `basics_features_doc.lof'.
+
+ [1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
+Underfull \hbox (badness 10000) in paragraph at lines 82--96
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 82--96
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 103--105
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 107--133
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 107--133
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 107--133
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 107--133
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 107--133
+
+ []
+
+[3]
+Underfull \hbox (badness 10000) in paragraph at lines 133--142
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 147--149
+
+ []
+
+
+Overfull \hbox (3.13406pt too wide) in paragraph at lines 157--158
+[]\T1/bch/m/n/12 Les évé-ne-ments se-ront ac-ces-sible uni-que-ment
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 164--176
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 164--176
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 177--180
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 180--182
+
+ []
+
+[4]
+LaTeX Font Info:    Trying to load font information for TS1+bch on input line 1
+87.
+ (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1bch.fd
+File: ts1bch.fd 2004/10/18 font definitions for TS1/bch.
+)
+Underfull \hbox (badness 10000) in paragraph at lines 187--190
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 190--192
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 192--196
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 197--202
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 204--222
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 204--222
+
+ []
+
+[5]
+Underfull \hbox (badness 10000) in paragraph at lines 237--240
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 259--261
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 273--276
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 288--291
+
+ []
+
+[6]
+Underfull \hbox (badness 10000) in paragraph at lines 299--301
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 310--311
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 318--320
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 325--327
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 331--332
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 336--337
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 341--342
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 346--348
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 352--353
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 357--359
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 362--365
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 369--370
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 374--375
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 378--381
+
+ []
+
+[7]
+Underfull \hbox (badness 10000) in paragraph at lines 387--389
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 398--400
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 408--410
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 419--421
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 425--428
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 431--434
+
+ []
+
+
+Overfull \hbox (2.99615pt too wide) in paragraph at lines 438--440
+[]\T1/bch/m/n/12 Effectue les trois opé-ra-tions
+ []
+
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 463--465
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 477--478
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 478--480
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 480--482
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 482--484
+
+ []
+
+[9]
+Underfull \hbox (badness 10000) in paragraph at lines 509--523
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 509--523
+
+ []
+
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 5
+23.
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
+)
+Underfull \hbox (badness 10000) in paragraph at lines 538--540
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 547--549
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 556--558
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 564--566
+
+ []
+
+[10]
+Underfull \hbox (badness 10000) in paragraph at lines 573--575
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 582--584
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 592--594
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 602--604
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 611--613
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 620--622
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 629--631
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 638--640
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 647--649
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 656--658
+
+ []
+
+[11]
+<basic_diagram.png, id=114, 1375.1375pt x 1023.825pt>
+File: basic_diagram.png Graphic file (type png)
+<use basic_diagram.png>
+Package pdftex.def Info: basic_diagram.png  used on input line 663.
+(pdftex.def)             Requested size: 550.0pt x 409.4915pt.
+
+Overfull \hbox (9.39761pt too wide) in paragraph at lines 663--663
+ [] 
+ []
+
+
+Overfull \hbox (4.316pt too wide) in paragraph at lines 683--686
+[]\T1/bch/m/n/12 Partie com-por-tant toutes les don-nées néc-ces-saires à la bo
+nne
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 683--686
+
+ []
+
+[12 <./basic_diagram.png (PNG copy)>]
+Underfull \hbox (badness 10000) in paragraph at lines 686--688
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 688--690
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 690--695
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 695--699
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 711--713
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 713--715
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 715--717
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 717--719
+
+ []
+
+[13]
+<module_creation_structure.png, id=124, 511.9125pt x 411.5375pt>
+File: module_creation_structure.png Graphic file (type png)
+<use module_creation_structure.png>
+Package pdftex.def Info: module_creation_structure.png  used on input line 726.
+
+(pdftex.def)             Requested size: 350.00182pt x 299.99915pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 722--734
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 745--747
+
+ []
+
+[14 <./module_creation_structure.png (PNG copy)>]
+Underfull \hbox (badness 10000) in paragraph at lines 761--763
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 775--777
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 781--786
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 789--794
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 797--800
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 803--807
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 810--813
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 816--819
+
+ []
+
+[15] [16]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 897.
+ [17]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 897.
+ (./basics_features_doc.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 897.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 897.
+Package rerunfilecheck Info: File `basics_features_doc.out' has not changed.
+(rerunfilecheck)             Checksum: 07260648318DB34AD15AD527B1A7D670;705.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 897.
+ ) 
+Here is how much of TeX's memory you used:
+ 9934 strings out of 483113
+ 145073 string characters out of 5964008
+ 667237 words of memory out of 5000000
+ 24693 multiletter control sequences out of 15000+600000
+ 568490 words of font info for 56 fonts, out of 8000000 for 9000
+ 36 hyphenation exceptions out of 8191
+ 34i,7n,40p,278b,1226s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
+e/texmf-dist/fonts/type1/bitstrea/charter/bchb8a.pfb></usr/share/texlive/texmf-
+dist/fonts/type1/bitstrea/charter/bchbi8a.pfb></usr/share/texlive/texmf-dist/fo
+nts/type1/bitstrea/charter/bchr8a.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/bitstrea/charter/bchri8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmsy10.pfb>
+Output written on basics_features_doc.pdf (17 pages, 277555 bytes).
+PDF statistics:
+ 255 PDF objects out of 1000 (max. 8388607)
+ 226 compressed objects within 3 object streams
+ 102 named destinations out of 1000 (max. 500000)
+ 91 words of extra memory for PDF output out of 10000 (max. 10000000)
+

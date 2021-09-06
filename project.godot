@@ -1,0 +1,99 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "MeshInstance",
+"class": "CloudDome",
+"language": "GDScript",
+"path": "res://nodes/general/standard_effects/Cloud.gd"
+}, {
+"base": "Module",
+"class": "Destructible",
+"language": "GDScript",
+"path": "res://nodes/base/basics_features/Destructible.gd"
+}, {
+"base": "Module",
+"class": "Indestructible",
+"language": "GDScript",
+"path": "res://nodes/base/basics_features/Indestructible.gd"
+}, {
+"base": "Recordable",
+"class": "LanguagesFx",
+"language": "GDScript",
+"path": "res://nodes/general/languages/LanguagesFx.gd"
+}, {
+"base": "Node",
+"class": "MegaAssets",
+"language": "GDScript",
+"path": "res://nodes/base/mega_assets/MegaAssets.gd"
+}, {
+"base": "MegaAssets",
+"class": "Module",
+"language": "GDScript",
+"path": "res://nodes/base/basics_features/Module.gd"
+}, {
+"base": "Node",
+"class": "RandomSound",
+"language": "GDScript",
+"path": "res://addons/random-sounds/RandomSound.gd"
+}, {
+"base": "Indestructible",
+"class": "Recordable",
+"language": "GDScript",
+"path": "res://nodes/base/basics_features/Recordable.gd"
+}, {
+"base": "Indestructible",
+"class": "SaveLoadFx",
+"language": "GDScript",
+"path": "res://nodes/general/save_load/SaveLoadFx.gd"
+}, {
+"base": "Destructible",
+"class": "Saveable",
+"language": "GDScript",
+"path": "res://nodes/base/basics_features/Saveable.gd"
+}, {
+"base": "Node",
+"class": "SoundManagerModule",
+"language": "GDScript",
+"path": "res://addons/sound_manager/module/internal_scripts/SoundManager_config.gd"
+}, {
+"base": "MegaAssets",
+"class": "Tester",
+"language": "GDScript",
+"path": "res://nodes/test2.gd"
+} ]
+_global_script_class_icons={
+"CloudDome": "",
+"Destructible": "res://nodes/base/basics_features/destructible.svg",
+"Indestructible": "res://nodes/base/basics_features/indestructible.svg",
+"LanguagesFx": "res://nodes/general/languages/languages.svg",
+"MegaAssets": "res://nodes/base/mega_assets/mega_assets.svg",
+"Module": "res://nodes/base/basics_features/module.svg",
+"RandomSound": "res://addons/random-sounds/icon_random_sound.svg",
+"Recordable": "res://nodes/base/basics_features/saveable.svg",
+"SaveLoadFx": "res://nodes/general/save_load/save_load.svg",
+"Saveable": "res://nodes/base/basics_features/saveable.svg",
+"SoundManagerModule": "",
+"Tester": ""
+}
+
+[application]
+
+config/name="templates"
+run/main_scene="res://scenes/Test.tscn"
+config/icon="res://godot_mega_assets.png"
+
+[rendering]
+
+quality/intended_usage/framebuffer_allocation.mobile=2
+quality/shadows/filter_mode=2
+quality/subsurface_scattering/quality=2
+quality/voxel_cone_tracing/high_quality=true
+quality/reflections/atlas_subdiv=16
